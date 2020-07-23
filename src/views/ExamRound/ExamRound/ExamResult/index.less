@@ -1,0 +1,106 @@
+.exam-round__result {
+  position: relative;
+
+  .table-drag-select {
+    border-collapse: collapse;
+    border: 1px solid rgba(205, 213, 223, 1);
+
+    th,
+    td {
+      border: 1px solid rgba(205, 213, 223, 1);
+    }
+
+    tr {
+      &:first-child {
+        td {
+          cursor: auto;
+        }
+      }
+
+      td:first-child {
+        cursor: auto;
+      }
+    }
+
+    .grade-score-edit {
+      display: flex;
+    }
+  }
+
+  .cell-enabled {
+    background-color: #ffffff;
+  }
+
+  .first-row {
+    td {
+      line-height: 45px;
+      background: rgba(228, 242, 253, 1);
+
+      .ant-avatar {
+        margin-right: 10px;
+      }
+
+      span:last-child {
+        font-size: 16px;
+        font-weight: 400;
+        color: rgba(0, 0, 0, 1);
+      }
+    }
+  }
+
+  .table-drag-select {
+    td.cell-enabled {
+      background-color: #ffffff;
+    }
+
+    td.cell-selected {
+      background-color: #e4f2fd;
+    }
+
+    td.cell-being-selected {
+      background-color: #e4f2fd;
+    }
+
+    .select-container {
+      width: 100px;
+      height: 32px;
+      display: flex;
+      margin: 0 auto;
+    }
+  }
+
+  .ant-select-focused .ant-select-selection,
+  .ant-select-selection,
+  .ant-select-selection:focus,
+  .ant-select-selection:active,
+  .ant-select-open .ant-select-selection {
+    box-shadow: none;
+    border: none;
+  }
+
+  &-total {
+    z-index: 1000;
+    position: absolute;
+    table-layout: fixed;
+    width: 100%;
+    top: 99px;
+
+    td {
+      text-align: center;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      line-height: 3rem;
+      padding-left: 0rem;
+      padding-right: 0rem;
+      cursor: auto;
+    }
+  }
+}
+
+.ant-dropdown-link {
+  color: unset;
+
+  &:hover {
+    color: unset;
+  }
+}

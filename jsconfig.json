@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "jsx": "react",
+    "target": "es6",
+    "baseUrl": ".",
+    "paths": {
+      "src/*": ["./src/*"],
+      "views/*": ["./src/views/*"],
+      "actions/*": ["./src/actions/*"],
+      "reducers/*": ["./src/reducers/*"],
+      "components/*": ["./src/components/*"],
+      "utils/*": ["./src/utils/*"],
+      "common/*": ["./src/common/*"],
+      "pages/*": ["./src/pages/*"],
+      "constants/*": ["./src/constants/*"],
+      "config/*": ["./src/config/*"]
+    }
+  },
+  "include": ["src/**/*"]
+}

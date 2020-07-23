@@ -1,0 +1,52 @@
+import React, { useEffect, useState } from 'react'
+import { findRoundStatus } from '../helper'
+import { PassScore, RoundStatus } from 'src/utils/const'
+
+const CountDown = ({ examDuration, headerInfo, finishExam }) => {
+  const [deadline, setDeadline] = useState(examDuration)
+  const [minutes, setMinutes] = useState(examDuration / PassScore)
+  const [seconds, setSeconds] = useState(0)
+  const { examState } = headerInfo
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      if (examState === RoundStatus.ongoing.id) {
+        setDeadline((prev) => (prev === 0 ? 0 : prev - 1))
+      }
+    }, 1000)
+    return () => clearInterval(id)
+  }, [examState])
+
+  useEffect(() => {
+    setMinutes(Math.floor(deadline / PassScore))
+    setSeconds(deadline % PassScore)
+    if (deadline === 0) {
+      finishExam()
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [deadline])
+
+  const formatTime = (time) => {
+    return String(time).length === 1 ? '0' + time : time
+  }
+
+  return (
+    <div className="exam-round__countdown">
+      <span className="exam-round__countdown-title">倒计时</span>
+      <span className="exam-round__countdown-minute">
+        <span>{formatTime(minutes)}</span>
+        <span>分</span>
+      </span>
+      <span className="exam-round__countdown-separator">:</span>
+      <span className="exam-round__countdown-second">
+        <span>{formatTime(seconds)}</span>
+        <span>秒</span>
+      </span>
+      <span className="exam-round__countdown-status">
+        {findRoundStatus(headerInfo.examState).title}
+      </span>
+    </div>
+  )
+}
+
+export default CountDown

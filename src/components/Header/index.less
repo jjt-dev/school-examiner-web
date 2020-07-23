@@ -1,0 +1,49 @@
+.header {
+  height: var(--header-height);
+  background: rgba(76, 113, 230, 1);
+  display: flex;
+  align-items: center;
+
+  &-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: var(--sidemenu-width);
+  }
+
+  &-right {
+    margin: 0 10px;
+    color: #ffffff;
+    width: calc(100% - var(--sidemenu-width));
+    display: flex;
+    justify-content: space-between;
+
+    &__welcome {
+      font-size: 20px;
+      margin-left: -15px;
+    }
+
+    &__user {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 10px;
+
+      .ant-divider {
+        top: unset;
+        height: 18px;
+        margin: 0 10px;
+      }
+
+      &-password,
+      &-signout {
+        & > span {
+          margin-right: 5px;
+        }
+
+        cursor: pointer;
+      }
+    }
+  }
+}

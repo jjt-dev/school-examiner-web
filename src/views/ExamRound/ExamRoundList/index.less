@@ -1,0 +1,88 @@
+.exam-round-list {
+  padding-top: 30px !important;
+
+  &__title {
+    width: 850px;
+    text-align: center;
+    border-bottom: 2px solid #4c71e6;
+    line-height: 0.1em;
+    margin: 0 auto;
+    font-size: 32px;
+    font-weight: bold;
+    color: rgba(76, 113, 230, 1);
+
+    & > span {
+      background: #fff;
+      padding: 0 10px;
+    }
+  }
+
+  &__content {
+    width: 900px;
+    margin: 0 auto;
+    margin-top: 50px;
+    display: inline-grid;
+    grid-template-columns: repeat(5, 20%);
+    background: rgba(238, 238, 238, 1);
+    opacity: 0.8;
+
+    &-grid {
+      position: relative;
+      height: 140px;
+      border: 1px solid rgba(228, 228, 228, 1);
+      margin: 20px;
+      cursor: pointer;
+      box-shadow: 0px 0px 6px 3px rgba(28, 27, 28, 0.06);
+      border-radius: 3px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      align-items: center;
+
+      .anticon {
+        font-size: 20px;
+        margin-top: 25px;
+      }
+
+      .anticon-plus {
+        position: absolute;
+        margin-top: 0;
+        font-size: 15px;
+        top: 5px;
+        right: 5px;
+      }
+    }
+
+    .round-number {
+      font-size: 20px;
+      margin-top: 10px;
+    }
+
+    .round-title {
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .round-status {
+      &--uninitiated {
+        background: rgba(255, 255, 255, 1);
+      }
+      &--ongoing {
+        background: rgba(0, 153, 68, 1);
+        color: rgba(249, 249, 249, 1);
+      }
+      &--pause {
+        background: #ffc107;
+        color: rgba(249, 249, 249, 1);
+      }
+      &--finish {
+        background: rgba(76, 113, 230, 1);
+        color: rgba(249, 249, 249, 1);
+      }
+    }
+  }
+
+  &__empty {
+    margin-top: 100px;
+  }
+}
