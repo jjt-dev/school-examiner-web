@@ -88,3 +88,19 @@ export const mapExamCertifValue = ({
     cardId: studentInfo.studentCardId,
   }
 }
+
+/**
+ * 在打印成绩单的时候，基本信息模块，如果某一个信息紧挨着的上面的信息缺失，则把该信息位置挪上去
+ *
+ * @param {*} basicInfos
+ */
+export const reorderBasicInfos = (basicInfos) => {
+  const sameColumnDistance = 2
+  basicInfos.forEach((info) => {
+    const preColumnPos = info.position - sameColumnDistance
+    if (info.position <= sameColumnDistance) return
+    if (basicInfos.every((item) => item.position === preColumnPos)) return
+    info.position = preColumnPos
+  })
+  return basicInfos
+}
