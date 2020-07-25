@@ -35,7 +35,7 @@ const ResultWithSelect2 = ({
             )
           })}
         </tr>
-        <tr>
+        <tr className="second-row">
           <td disabled>状态</td>
           {resultColumns.map((index) => {
             const student = studentList[index]
