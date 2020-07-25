@@ -2,12 +2,12 @@ import { PassScore, RoundStatus } from 'src/utils/const'
 import { getTotalScore, addNumPrefix } from 'src/utils/common'
 
 /**
- * 参数指标，状态，综合统计是前三行。再加上考项的个数是总的行数rows
+ * 参数指标，状态是前两行。再加上考项的个数是总的行数rows
  *
  * @param {*} examItems
  */
 export const buildCellStates = ({ examItems, studentList }) => {
-  const totalRows = 3 + examItems.length
+  const totalRows = 2 + examItems.length
   const totalColumns = studentList.length + 1
   const rows = Array(totalRows).fill(0)
   return rows.map(() => Array(totalColumns).fill(false))

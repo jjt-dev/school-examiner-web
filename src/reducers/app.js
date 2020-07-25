@@ -75,5 +75,10 @@ export default app
  * @param {*} roundList
  */
 const reorderRound = (roundList) => {
-  return roundList.sort((a, b) => a.roundNumOrder - b.roundNumOrder)
+  return roundList
+    .sort((a, b) => a.roundNumOrder - b.roundNumOrder)
+    .map((item, index) => {
+      item.roundNumOrder = index + 1
+      return item
+    })
 }

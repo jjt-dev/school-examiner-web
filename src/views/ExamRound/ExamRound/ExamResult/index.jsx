@@ -42,9 +42,9 @@ const ExamResult = (props) => {
 
   const handleBatchScore = (score) => {
     const result = []
-    // cells从第四行开始是考项，每一行从第二列开始对应考生
+    // cells从第三行开始是考项，每一行从第二列开始对应考生
     cells
-      .filter((cell, index1) => index1 > 2)
+      .filter((cell, index1) => index1 > 1)
       .forEach((cell, index2) => {
         cell.forEach((item, index3) => {
           // 被选择的单元值是true
