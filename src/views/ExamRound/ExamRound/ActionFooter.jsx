@@ -51,7 +51,7 @@ const ActionFooter = ({
   }
 
   return (
-    <div className="exam-round__footer">
+    <div className="exam-round__header-actions">
       {!examFinish ? (
         <>
           <Button

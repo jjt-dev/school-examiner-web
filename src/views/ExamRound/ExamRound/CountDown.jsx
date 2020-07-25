@@ -31,18 +31,18 @@ const CountDown = ({ examDuration, headerInfo, finishExam }) => {
   }
 
   return (
-    <div className="exam-round__countdown">
-      <span className="exam-round__countdown-title">倒计时</span>
-      <span className="exam-round__countdown-minute">
+    <div className="exam-round__header-middle-countdown">
+      <span className="exam-round__header-middle-countdown-title">倒计时</span>
+      <span className="exam-round__header-middle-countdown-minute">
         <span>{formatTime(minutes)}</span>
         <span>分</span>
       </span>
-      <span className="exam-round__countdown-separator">:</span>
-      <span className="exam-round__countdown-second">
+      <span className="exam-round__header-middle-countdown-separator">:</span>
+      <span className="exam-round__header-middle-countdown-second">
         <span>{formatTime(seconds)}</span>
         <span>秒</span>
       </span>
-      <span className="exam-round__countdown-status">
+      <span className="exam-round__header-middle-countdown-status">
         {findRoundStatus(headerInfo.examState).title}
       </span>
     </div>

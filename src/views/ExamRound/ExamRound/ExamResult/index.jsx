@@ -7,6 +7,7 @@ import ResultWithSelect from './ResultWithSelect'
 import ResultWithSelect2 from './ResultWithSelect2'
 import { buildCellStates } from '../../helper'
 import { useEffect } from 'react'
+import Totals from './Totals'
 
 /**
  * react-table-drag-select不能通过redux的store更新，这里定义了两个一样的组件ResultWithSelect和ResultWithSelect2
@@ -64,24 +65,31 @@ const ExamResult = (props) => {
   }
 
   return (
-    <Dropdown
-      disabled={examFinish}
-      overlay={getContextMenu(examRound.grades, handleBatchScore, isGradeMode)}
-      trigger={['contextMenu']}
-      onVisibleChange={(value) => {
-        setToggleResult(!toggleResult)
-        setContextMenuVisible(value)
-      }}
-      visible={contextMenuVisible}
-    >
-      <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
-        {toggleResult ? (
-          <ResultWithSelect {...props} cells={cells} setCells={setCells} />
-        ) : (
-          <ResultWithSelect2 {...props} cells={cells} setCells={setCells} />
+    <>
+      <Dropdown
+        disabled={examFinish}
+        overlay={getContextMenu(
+          examRound.grades,
+          handleBatchScore,
+          isGradeMode
         )}
-      </a>
-    </Dropdown>
+        trigger={['contextMenu']}
+        onVisibleChange={(value) => {
+          setToggleResult(!toggleResult)
+          setContextMenuVisible(value)
+        }}
+        visible={contextMenuVisible}
+      >
+        <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
+          {toggleResult ? (
+            <ResultWithSelect {...props} cells={cells} setCells={setCells} />
+          ) : (
+            <ResultWithSelect2 {...props} cells={cells} setCells={setCells} />
+          )}
+        </a>
+      </Dropdown>
+      <Totals {...examRound} isGradeMode={isGradeMode} />
+    </>
   )
 }
 

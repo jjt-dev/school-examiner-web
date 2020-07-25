@@ -24,6 +24,10 @@
 
     .grade-score-edit {
       display: flex;
+
+      .ant-input-number {
+        width: 100%;
+      }
     }
   }
 
@@ -79,13 +83,13 @@
   }
 
   &-total {
-    z-index: 1000;
-    position: absolute;
     table-layout: fixed;
     width: 100%;
     top: 99px;
 
     td {
+      font-size: 16px;
+      font-weight: bold;
       text-align: center;
       text-overflow: ellipsis;
       overflow: hidden;
@@ -93,6 +97,8 @@
       padding-left: 0rem;
       padding-right: 0rem;
       cursor: auto;
+      border: 1px solid rgba(205, 213, 223, 1);
+      border-top: none;
     }
   }
 }

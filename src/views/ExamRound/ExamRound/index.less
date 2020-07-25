@@ -1,83 +1,95 @@
 .exam-round {
-  &__action {
-    position: absolute;
-    top: 30px;
+  position: relative;
+  margin-top: 140px !important;
+  height: calc(100% - var(--header-height) - 150px) !important;
 
-    &-round-select {
-      margin-right: 10px;
-    }
+  &__header {
+    position: relative;
 
-    &-mode {
-      margin-left: 60px;
-      margin-right: 10px;
-    }
-  }
+    &-action {
+      position: absolute;
+      top: 20px;
 
-  &__countdown {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      &-round-select {
+        margin-right: 10px;
+      }
 
-    &-title {
-      margin-right: 10px;
-    }
-
-    &-status {
-      margin-left: 10px;
-    }
-
-    &-separator {
-      margin: 0 14px;
-      font-size: 32px;
-      font-weight: bold;
-      color: rgba(76, 113, 230, 1);
-    }
-
-    &-minute,
-    &-second {
-      width: 56px;
-      height: 72px;
-      background: rgba(76, 113, 230, 1);
-      box-shadow: 0px 0px 6px 3px rgba(28, 27, 28, 0.06);
-      border-radius: 3px;
-      color: #ffffff;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-
-      span:first-child {
-        font-size: 32px;
+      &-mode {
+        margin-left: 60px;
+        margin-right: 10px;
       }
     }
-  }
 
-  &__level {
-    display: flex;
-    justify-content: center;
-    font-size: 30px;
-    font-weight: 500;
-    color: rgba(76, 113, 230, 1);
-    margin-top: 15px;
+    &-middle {
+      &-countdown {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 5px;
 
-    span {
-      margin-right: 15px;
+        &-title {
+          margin-right: 10px;
+        }
+
+        &-status {
+          margin-left: 10px;
+        }
+
+        &-separator {
+          margin: 0 14px;
+          font-size: 32px;
+          font-weight: bold;
+          color: rgba(76, 113, 230, 1);
+        }
+
+        &-minute,
+        &-second {
+          width: 56px;
+          height: 60px;
+          background: rgba(76, 113, 230, 1);
+          box-shadow: 0px 0px 6px 3px rgba(28, 27, 28, 0.06);
+          border-radius: 3px;
+          color: #ffffff;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+
+          span:first-child {
+            font-size: 26px;
+          }
+        }
+      }
+
+      &-level {
+        display: flex;
+        justify-content: center;
+        font-size: 25px;
+        font-weight: 500;
+        color: rgba(76, 113, 230, 1);
+
+        span {
+          margin-right: 15px;
+        }
+      }
     }
-  }
 
-  &__footer {
-    margin-top: 20px;
+    &-actions {
+      position: absolute;
+      right: 0;
+      top: 20px;
 
-    button {
-      margin-left: 10px;
-    }
+      button {
+        margin-left: 10px;
+      }
 
-    .exam-start-btn {
-      margin-left: 0;
-    }
+      .exam-start-btn {
+        margin-left: 0;
+      }
 
-    .exam-pause-btn {
-      background-color: #f19149;
-      color: #ffffff;
+      .exam-pause-btn {
+        background-color: #f19149;
+        color: #ffffff;
+      }
     }
   }
 }
@@ -100,4 +112,15 @@
       color: rgba(0, 0, 0, 1);
     }
   }
+}
+
+.fix-header {
+  position: fixed;
+  z-index: 1000;
+  left: 20px;
+  right: 20px;
+  top: 90px;
+  padding: 0px 40px;
+  background: #fff;
+  box-shadow: 0 4px 6px -6px #222;
 }

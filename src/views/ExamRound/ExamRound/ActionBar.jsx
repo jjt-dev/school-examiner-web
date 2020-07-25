@@ -11,8 +11,8 @@ const ActionBar = ({
   setIsGradeMode,
 }) => {
   return (
-    <div className="exam-round__action">
-      <span className="exam-round__action-round-select">场次</span>
+    <div className="exam-round__header-action">
+      <span className="exam-round__header-action-round-select">场次</span>
       <Select
         style={{ width: '100px' }}
         defaultValue={getRoundTitle(roundNum)}
@@ -29,7 +29,7 @@ const ActionBar = ({
           </Select.Option>
         ))}
       </Select>
-      <span className="exam-round__action-mode">分数模式</span>
+      <span className="exam-round__header-action-mode">分数模式</span>
       <Checkbox
         checked={isGradeMode}
         onChange={() => setIsGradeMode(!isGradeMode)}

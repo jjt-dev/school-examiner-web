@@ -5,7 +5,6 @@ import { getDomain, gradeToScore, getTooltipByLen } from 'src/utils/common'
 import { StudentExamStatus } from 'src/utils/const'
 import { scoreToGrade, getResultColumns } from '../../helper'
 import './index.less'
-import Totals from './Totals'
 import GradeEdit from './GradeEdit'
 
 const ResultWithSelect2 = ({
@@ -22,7 +21,6 @@ const ResultWithSelect2 = ({
 
   return (
     <div className="exam-round__result">
-      <Totals {...examRound} isGradeMode={isGradeMode} />
       <TableDragSelect value={cells} onChange={(cells) => setCells(cells)}>
         <tr className="first-row">
           <td disabled>参数指标</td>
@@ -64,13 +62,6 @@ const ResultWithSelect2 = ({
                 </Select>
               </td>
             )
-          })}
-        </tr>
-        {/* 这里的tr会被Totals覆盖 */}
-        <tr>
-          <td />
-          {resultColumns.map((index) => {
-            return <td key={index} />
           })}
         </tr>
         {examItems.map((item) => (

@@ -14,11 +14,10 @@ export const buildCellStates = ({ examItems, studentList }) => {
 }
 
 export const scoreToGrade = (score, grades) => {
-  return (
-    grades.find(
-      (grade) => grade.startScore <= score && score < grade.endScore
-    ) || {}
+  const grade = grades.find(
+    (grade) => grade.startScore <= score && score <= grade.endScore
   )
+  return grade ?? {}
 }
 
 export const getResultColumns = (studentList) =>

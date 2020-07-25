@@ -94,51 +94,65 @@ const ExamRound = ({ match, history }) => {
     <>
       <Prompt when={examOngoing} message={() => leaveMessage} />
       {examRound && (
-        <div className="page exam-round">
-          <ActionBar
-            roundNum={roundNum}
-            selectRound={selectRound}
-            examRoundList={examRoundList ?? []}
-            examMakeupRoundList={examMakeupRoundList ?? []}
-            isGradeMode={isGradeMode}
-            setIsGradeMode={handleSetGradeMode}
-          />
-          {!examFinish && <CountDown {...examRound} finishExam={finishExam} />}
-          {examFinish && <div className="exam-round__level">考试结果</div>}
-          <div className="exam-round__level">
-            <span>级别:</span>
-            {examRound.headerInfo.levelName}
-            {examRound.headerInfo.levelAlias}
+        <>
+          <div className="fix-header">
+            <div className="exam-round__header">
+              <ActionBar
+                roundNum={roundNum}
+                selectRound={selectRound}
+                examRoundList={examRoundList ?? []}
+                examMakeupRoundList={examMakeupRoundList ?? []}
+                isGradeMode={isGradeMode}
+                setIsGradeMode={handleSetGradeMode}
+              />
+              <div className="exam-round__header-middle">
+                {!examFinish && (
+                  <CountDown {...examRound} finishExam={finishExam} />
+                )}
+                {examFinish && (
+                  <div className="exam-round__header-middle-level">
+                    考试结果
+                  </div>
+                )}
+                <div className="exam-round__header-middle-level">
+                  <span>级别:</span>
+                  {examRound.headerInfo.levelName}
+                  {examRound.headerInfo.levelAlias}
+                </div>
+              </div>
+              <ActionFooter
+                roundNum={roundNum}
+                nextRoundNumOrder={roundNumOrder + 1}
+                examRound={examRound}
+                examFinish={examFinish}
+                clearExamResult={clearExamResult}
+                handleSelectPrint={handleSelectPrint}
+                setClearMultSelect={setClearMultSelect}
+              />
+            </div>
           </div>
-          <ExamResult
-            examRound={examRound}
-            updateStudent={updateStudent}
-            updateResult={updateResult}
-            updateResultBatch={updateResultBatch}
-            isGradeMode={isGradeMode}
-            toggleResult={toggleResult}
-            setToggleResult={setToggleResult}
-            examFinish={examFinish}
-            clearMultSelect={clearMultSelect}
-            setClearMultSelect={setClearMultSelect}
-          />
-          <ActionFooter
-            roundNum={roundNum}
-            nextRoundNumOrder={roundNumOrder + 1}
-            examRound={examRound}
-            examFinish={examFinish}
-            clearExamResult={clearExamResult}
-            handleSelectPrint={handleSelectPrint}
-            setClearMultSelect={setClearMultSelect}
-          />
-          {showCertifStudentsModal && (
-            <CertifStudentModal
-              setShowCertifStudentsModal={setShowCertifStudentsModal}
-              certificateCat={certificateCat}
+          <div className="page exam-round">
+            <ExamResult
               examRound={examRound}
+              updateStudent={updateStudent}
+              updateResult={updateResult}
+              updateResultBatch={updateResultBatch}
+              isGradeMode={isGradeMode}
+              toggleResult={toggleResult}
+              setToggleResult={setToggleResult}
+              examFinish={examFinish}
+              clearMultSelect={clearMultSelect}
+              setClearMultSelect={setClearMultSelect}
             />
-          )}
-        </div>
+            {showCertifStudentsModal && (
+              <CertifStudentModal
+                setShowCertifStudentsModal={setShowCertifStudentsModal}
+                certificateCat={certificateCat}
+                examRound={examRound}
+              />
+            )}
+          </div>
+        </>
       )}
     </>
   )
