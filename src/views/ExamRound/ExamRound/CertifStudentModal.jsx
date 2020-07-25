@@ -52,7 +52,7 @@ const CertifStudentModal = ({
             className="print-students-item"
             onClick={() =>
               history.push(
-                `/certificate/${headerInfo.roundNum}/${student.studentId}?type=${certificateCat.key}`
+                `/certificate/${headerInfo.roundNum}/${student.studentId}?type=${certificateCat.key}&PassScore=${PassScore}`
               )
             }
           >

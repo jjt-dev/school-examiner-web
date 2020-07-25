@@ -3,6 +3,7 @@ import { Select, Checkbox } from 'antd'
 import { getRoundTitle } from '../helper'
 
 const ActionBar = ({
+  roundNum,
   roundNumOrder,
   examRoundList,
   examMakeupRoundList,
@@ -12,12 +13,15 @@ const ActionBar = ({
   examRound,
   examFinish,
 }) => {
+  const defaultValue = `${roundNum < 0 ? '补考-' : ''}${getRoundTitle(
+    roundNumOrder
+  )}`
   return (
     <div className={`exam-round__header-action exam-finish-${examFinish}`}>
       <span className="exam-round__header-action-round-select">场次</span>
       <Select
         style={{ width: '100px' }}
-        defaultValue={getRoundTitle(roundNumOrder)}
+        defaultValue={defaultValue}
         onChange={(value) => selectRound(value)}
       >
         {examRoundList.map((round) => (

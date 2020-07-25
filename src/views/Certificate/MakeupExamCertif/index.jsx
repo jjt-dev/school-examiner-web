@@ -15,7 +15,7 @@ class MakeupExamCertif extends React.Component {
     const { roundNum, examResult, PassScore } = this.props
     const { studentInfo, examResults } = examResult
     const studentResult = examResults[0]
-    const { items, levelName, examinerName } = studentResult
+    const { items, levelName, examinerName, isEnable } = studentResult
 
     const date = new Date()
     const month = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)
@@ -44,11 +44,13 @@ class MakeupExamCertif extends React.Component {
                 items={items}
                 indexs={[0, 1, 2, 3, 4]}
                 PassScore={PassScore}
+                isEnable={isEnable}
               />
               <ItemsRow
                 items={items}
                 indexs={[5, 6, 7, 8, 9]}
                 PassScore={PassScore}
+                isEnable={isEnable}
               />
             </tbody>
           </table>
@@ -60,7 +62,7 @@ class MakeupExamCertif extends React.Component {
 
 export default MakeupExamCertif
 
-const ItemsRow = ({ items, indexs, PassScore }) => {
+const ItemsRow = ({ items, indexs, PassScore, isEnable }) => {
   return (
     <tr>
       {indexs.map((index) => {
@@ -69,7 +71,7 @@ const ItemsRow = ({ items, indexs, PassScore }) => {
         return (
           <td key={index}>
             <span>{item.itemName}</span>
-            <CheckItem defaultChecked={item.score < PassScore} />
+            <CheckItem defaultChecked={!isEnable || item.score < PassScore} />
           </td>
         )
       })}

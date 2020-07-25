@@ -22,12 +22,11 @@ const ExamRound = ({ match, history }) => {
   const [showCertifStudentsModal, setShowCertifStudentsModal] = useState(false)
   const [clearMultSelect, setClearMultSelect] = useState(false)
   const [certificateCat, setCertificateCat] = useState({})
+  const [roundNumOrder, setRoundNumOrder] = useState()
   const { roundNum } = match.params
   const { examRoundList, examMakeupRoundList } = useSelector(
     (state) => state.app
   )
-  const { roundNumOrder } =
-    examRoundList.find((item) => item.roundNum === Number(roundNum)) || {}
   const { examRound } = useSelector((state) => state.examRound)
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
   const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
@@ -57,6 +56,13 @@ const ExamRound = ({ match, history }) => {
   useEffect(() => {
     getExamRound()
   }, [getExamRound])
+
+  useEffect(() => {
+    const currentRoundList = roundNum < 0 ? examMakeupRoundList : examRoundList
+    const round =
+      currentRoundList.find((item) => item.roundNum === Number(roundNum)) || {}
+    setRoundNumOrder(round.roundNumOrder)
+  }, [examMakeupRoundList, examRoundList, roundNum])
 
   const selectRound = (roundNum) => history.push(`/exam-round/${roundNum}`)
 
@@ -105,8 +111,9 @@ const ExamRound = ({ match, history }) => {
         <>
           <div className="fix-header">
             <div className="exam-round__header">
-              {!!roundNumOrder && (
+              {roundNumOrder && (
                 <ActionBar
+                  roundNum={roundNum}
                   roundNumOrder={roundNumOrder}
                   selectRound={selectRound}
                   examRoundList={examRoundList ?? []}
