@@ -6,7 +6,6 @@ import { RoundStatus, CertificateCategory, PassScore } from 'src/utils/const'
 
 const ActionFooter = ({
   roundNum,
-  nextRoundNumOrder,
   examRound,
   examFinish,
   clearExamResult,
@@ -44,7 +43,7 @@ const ActionFooter = ({
    */
   const openNextGroupWindow = () => {
     window.open(
-      `${process.env.REACT_APP_URL_ROOT}/next-group/${nextRoundNumOrder}`,
+      `${process.env.REACT_APP_URL_ROOT}/next-group`,
       'Data',
       'height=1200,width=900'
     )

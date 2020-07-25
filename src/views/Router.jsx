@@ -19,7 +19,7 @@ export const routes = [
     back: { path: '/exam-rounds', breadcrumbs: ['考试分组列表', '考试详情'] },
   },
   {
-    path: '/next-group/:roundNumOrder',
+    path: '/next-group',
     comp: NextGroup,
   },
   {

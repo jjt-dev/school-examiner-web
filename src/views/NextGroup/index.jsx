@@ -4,8 +4,7 @@ import { Avatar, Button } from 'antd'
 import { getDomain, addNumPrefix } from 'src/utils/common'
 import api from 'src/utils/api'
 
-const NextGroup = ({ match }) => {
-  const { roundNumOrder } = match.params
+const NextGroup = () => {
   const [nextGroup, setNextGroup] = useState(null)
 
   useEffect(() => {
@@ -27,7 +26,7 @@ const NextGroup = ({ match }) => {
           />
           <div className="next-group__list">
             <div className="next-group__list-round">
-              场次: {addNumPrefix(roundNumOrder)}
+              场次: {addNumPrefix(nextGroup.headerInfo.roundIndex)}
             </div>
             <div className="next-group__list-title">
               <div className="next-group__list-title--level">

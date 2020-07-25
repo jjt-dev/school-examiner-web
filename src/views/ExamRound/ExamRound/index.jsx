@@ -134,7 +134,6 @@ const ExamRound = ({ match, history }) => {
               </div>
               <ActionFooter
                 roundNum={roundNum}
-                nextRoundNumOrder={roundNumOrder + 1}
                 examRound={examRound}
                 examFinish={examFinish}
                 clearExamResult={clearExamResult}
