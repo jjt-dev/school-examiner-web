@@ -13,17 +13,13 @@ const ActionFooter = ({
   setClearMultSelect,
 }) => {
   const dispatch = useDispatch()
-  const { executionInfo, headerInfo, examResult } = examRound
+  const { executionInfo, headerInfo, examResult = [] } = examRound
   const examPaused = headerInfo.examState === RoundStatus.pause.id
   const examIsOnGoing = headerInfo.examState === RoundStatus.ongoing.id
 
-  // 有需要打印成绩单的学生
-  const hasReport = (examResult || []).some(
-    (item) => item.isStatisticalValue && item.score >= PassScore
-  )
-  // 有需要打印补考单的学生
-  const hasExam = (examResult || []).some(
-    (item) => item.isStatisticalValue && item.score < PassScore
+  const examPassed = examResult.some(
+    (item) =>
+      item.isEnable && item.isStatisticalValue && item.score >= PassScore
   )
 
   const startExam = () => {
@@ -74,14 +70,14 @@ const ActionFooter = ({
         </>
       ) : (
         <div>
-          {hasReport && (
+          {examPassed && (
             <Button
               onClick={() => handleSelectPrint(CertificateCategory.report)}
             >
               打印证书
             </Button>
           )}
-          {hasExam && (
+          {!examPassed && (
             <Button onClick={() => handleSelectPrint(CertificateCategory.exam)}>
               打印补考单
             </Button>

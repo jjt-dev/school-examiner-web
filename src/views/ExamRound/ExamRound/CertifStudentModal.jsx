@@ -10,16 +10,16 @@ const CertifStudentModal = ({
   examRound,
 }) => {
   const history = useHistory()
-  const { studentList, examResult, headerInfo } = examRound
+  const { studentList, examResult = [], headerInfo } = examRound
 
   const availableStudents = studentList.filter((student) => {
-    const result = (examResult || []).find(
+    const result = examResult.find(
       (item) => item.studentId === student.studentId && item.isStatisticalValue
     )
     if (certificateCat.key === CertificateCategory.report.key) {
       return result.score >= PassScore
     } else {
-      return result.score < PassScore
+      return !result.isEnable || result.score < PassScore
     }
   })
 
