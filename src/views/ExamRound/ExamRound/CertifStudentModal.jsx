@@ -1,6 +1,6 @@
 import React from 'react'
 import { Modal, Avatar, Button } from 'antd'
-import { CertificateCategory, PassScore } from 'src/utils/const'
+import { CertificateCategory } from 'src/utils/const'
 import { getDomain } from 'src/utils/common'
 import { useHistory } from 'react-router'
 
@@ -8,6 +8,7 @@ const CertifStudentModal = ({
   setShowCertifStudentsModal,
   certificateCat,
   examRound,
+  PassScore,
 }) => {
   const history = useHistory()
   const { studentList, examResult = [], headerInfo } = examRound
@@ -16,11 +17,9 @@ const CertifStudentModal = ({
     const result = examResult.find(
       (item) => item.studentId === student.studentId && item.isStatisticalValue
     )
-    if (certificateCat.key === CertificateCategory.report.key) {
-      return result.score >= PassScore
-    } else {
-      return !result.isEnable || result.score < PassScore
-    }
+    return certificateCat.key === CertificateCategory.report.key
+      ? result.isPass
+      : !result.isPass
   })
 
   return (
@@ -35,7 +34,7 @@ const CertifStudentModal = ({
           type="primary"
           onClick={() =>
             history.push(
-              `/certificate/${headerInfo.roundNum}?type=${certificateCat.key}`
+              `/certificate/${headerInfo.roundNum}?type=${certificateCat.key}&PassScore=${PassScore}`
             )
           }
         >

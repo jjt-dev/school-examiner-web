@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react'
 import { findRoundStatus } from '../helper'
-import { PassScore, RoundStatus } from 'src/utils/const'
+import { RoundStatus } from 'src/utils/const'
+
+const OneMinSeconds = 60
 
 const CountDown = ({ examDuration, headerInfo, finishExam }) => {
   const [deadline, setDeadline] = useState(examDuration)
-  const [minutes, setMinutes] = useState(examDuration / PassScore)
+  const [minutes, setMinutes] = useState(examDuration / OneMinSeconds)
   const [seconds, setSeconds] = useState(0)
   const { examState } = headerInfo
 
@@ -18,8 +20,8 @@ const CountDown = ({ examDuration, headerInfo, finishExam }) => {
   }, [examState])
 
   useEffect(() => {
-    setMinutes(Math.floor(deadline / PassScore))
-    setSeconds(deadline % PassScore)
+    setMinutes(Math.floor(deadline / OneMinSeconds))
+    setSeconds(deadline % OneMinSeconds)
     if (deadline === 0) {
       finishExam()
     }

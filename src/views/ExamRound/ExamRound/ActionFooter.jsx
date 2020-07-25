@@ -2,7 +2,7 @@ import React from 'react'
 import { Button } from 'antd'
 import * as examRoundAction from 'src/actions/examRound'
 import { useDispatch } from 'react-redux'
-import { RoundStatus, CertificateCategory, PassScore } from 'src/utils/const'
+import { RoundStatus, CertificateCategory } from 'src/utils/const'
 
 const ActionFooter = ({
   roundNum,
@@ -11,6 +11,7 @@ const ActionFooter = ({
   clearExamResult,
   handleSelectPrint,
   setClearMultSelect,
+  PassScore,
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
@@ -18,8 +19,7 @@ const ActionFooter = ({
   const examIsOnGoing = headerInfo.examState === RoundStatus.ongoing.id
 
   const examPassed = examResult.some(
-    (item) =>
-      item.isEnable && item.isStatisticalValue && item.score >= PassScore
+    (item) => item.isStatisticalValue && item.isPass
   )
 
   const startExam = () => {

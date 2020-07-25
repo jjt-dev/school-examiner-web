@@ -11,7 +11,7 @@ import { message } from 'antd'
 import { RoundStatus } from 'src/utils/const'
 import CertifStudentModal from './CertifStudentModal'
 import api from 'src/utils/api'
-import { getFinishExamPayload } from '../helper'
+import { getFinishExamPayload, getPassScore } from '../helper'
 import * as appAction from 'src/actions/app'
 
 const ExamRound = ({ match, history }) => {
@@ -32,6 +32,7 @@ const ExamRound = ({ match, history }) => {
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
   const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
   const examOngoing = examRound?.headerInfo.examState === RoundStatus.ongoing.id
+  const PassScore = examRound ? getPassScore(examRound.grades) : 60
 
   useEffect(() => {
     dispatch(appAction.getExamRoundList())
@@ -77,7 +78,7 @@ const ExamRound = ({ match, history }) => {
   }
 
   const finishExam = async () => {
-    const payload = getFinishExamPayload(examRound)
+    const payload = getFinishExamPayload(examRound, PassScore)
     const result = await api.post(`/exam/finishExam`, {
       executeId: examRound.executionInfo.executionId,
       result: payload,
@@ -104,7 +105,7 @@ const ExamRound = ({ match, history }) => {
         <>
           <div className="fix-header">
             <div className="exam-round__header">
-              {roundNumOrder && (
+              {!!roundNumOrder && (
                 <ActionBar
                   roundNumOrder={roundNumOrder}
                   selectRound={selectRound}
@@ -140,6 +141,7 @@ const ExamRound = ({ match, history }) => {
                 clearExamResult={clearExamResult}
                 handleSelectPrint={handleSelectPrint}
                 setClearMultSelect={setClearMultSelect}
+                PassScore={PassScore}
               />
             </div>
           </div>
@@ -161,6 +163,7 @@ const ExamRound = ({ match, history }) => {
                 setShowCertifStudentsModal={setShowCertifStudentsModal}
                 certificateCat={certificateCat}
                 examRound={examRound}
+                PassScore={PassScore}
               />
             )}
           </div>

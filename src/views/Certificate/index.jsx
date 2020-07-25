@@ -8,7 +8,7 @@ import useFetch from 'src/hooks/useFetch'
 
 const Certificate = ({ match, location }) => {
   const { roundNum, studentId } = match.params
-  const { type } = parseSearches(location)
+  const { type, PassScore } = parseSearches(location)
   const [examResult] = useFetch(buildPath(roundNum, studentId))
 
   return (
@@ -20,7 +20,11 @@ const Certificate = ({ match, location }) => {
           </div>
           {type === 'report' && <ReportPrint examResult={examResult} />}
           {type === 'exam' && (
-            <MakeupExamCertif examResult={examResult} roundNum={roundNum} />
+            <MakeupExamCertif
+              examResult={examResult}
+              roundNum={roundNum}
+              PassScore={PassScore}
+            />
           )}
         </div>
       )}

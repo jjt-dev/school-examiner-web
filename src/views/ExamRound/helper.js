@@ -1,4 +1,4 @@
-import { PassScore, RoundStatus } from 'src/utils/const'
+import { RoundStatus } from 'src/utils/const'
 import { getTotalScore, addNumPrefix } from 'src/utils/common'
 
 /**
@@ -60,7 +60,7 @@ export const getComments = (results, examItems) => {
   return comments.join(', ')
 }
 
-export const getFinishExamPayload = (examRound) => {
+export const getFinishExamPayload = (examRound, PassScore) => {
   const GoodComment = '动作标准，继续努力'
   const { studentList, examItems } = examRound
   const payload = []
@@ -104,4 +104,14 @@ export const getRoundTitle = (roundNum) => {
     return `${addNumPrefix(Math.abs(roundNum))}-补考`
   }
   return addNumPrefix(roundNum)
+}
+
+export const getPassScore = (grades) => {
+  let minEndScore
+  grades.forEach((grade) => {
+    if (!minEndScore || grade.endScore < minEndScore) {
+      minEndScore = grade.endScore
+    }
+  })
+  return minEndScore + 1
 }

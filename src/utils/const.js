@@ -69,5 +69,3 @@ export const CertificateCategory = {
   report: { key: 'report', title: '考试成绩单' },
   exam: { key: 'exam', title: '补考单' },
 }
-
-export const PassScore = 60

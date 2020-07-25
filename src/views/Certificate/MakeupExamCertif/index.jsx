@@ -4,7 +4,6 @@ import { Button, Icon } from 'antd'
 import ReactToPrint from 'react-to-print'
 import { addNumPrefix } from 'src/utils/common'
 import { useState } from 'react'
-import { PassScore } from 'src/utils/const'
 
 class MakeupExamCertif extends React.Component {
   constructor(props) {
@@ -13,7 +12,7 @@ class MakeupExamCertif extends React.Component {
   }
 
   render() {
-    const { roundNum, examResult } = this.props
+    const { roundNum, examResult, PassScore } = this.props
     const { studentInfo, examResults } = examResult
     const studentResult = examResults[0]
     const { items, levelName, examinerName } = studentResult
@@ -40,8 +39,18 @@ class MakeupExamCertif extends React.Component {
           <div className="examiner-name">{examinerName}</div>
           <div className="school-name">{studentInfo.schoolName}</div>
           <table className="makeup-items">
-            <ItemsRow items={items} indexs={[0, 1, 2, 3, 4]} />
-            <ItemsRow items={items} indexs={[5, 6, 7, 8, 9]} />
+            <tbody>
+              <ItemsRow
+                items={items}
+                indexs={[0, 1, 2, 3, 4]}
+                PassScore={PassScore}
+              />
+              <ItemsRow
+                items={items}
+                indexs={[5, 6, 7, 8, 9]}
+                PassScore={PassScore}
+              />
+            </tbody>
           </table>
         </div>
       </div>
@@ -51,14 +60,14 @@ class MakeupExamCertif extends React.Component {
 
 export default MakeupExamCertif
 
-const ItemsRow = ({ items, indexs }) => {
+const ItemsRow = ({ items, indexs, PassScore }) => {
   return (
     <tr>
       {indexs.map((index) => {
         const item = items[index]
-        if (!item) return <td />
+        if (!item) return <td key={index} />
         return (
-          <td>
+          <td key={index}>
             <span>{item.itemName}</span>
             <CheckItem defaultChecked={item.score < PassScore} />
           </td>
