@@ -10,8 +10,6 @@ const ActionBar = ({
   isGradeMode,
   setIsGradeMode,
 }) => {
-  const totalRoundList = examRoundList.concat(examMakeupRoundList)
-
   return (
     <div className="exam-round__action">
       <span className="exam-round__action-round-select">场次</span>
@@ -20,9 +18,14 @@ const ActionBar = ({
         defaultValue={getRoundTitle(roundNum)}
         onChange={(value) => selectRound(value)}
       >
-        {totalRoundList.map((round) => (
+        {examRoundList.map((round) => (
           <Select.Option key={round.roundNum} value={round.roundNum}>
-            {getRoundTitle(round.roundNum)}
+            {getRoundTitle(round.roundNumOrder)}
+          </Select.Option>
+        ))}
+        {examMakeupRoundList.map((round) => (
+          <Select.Option key={round.roundNum} value={round.roundNum}>
+            补考-{getRoundTitle(round.roundNumOrder)}
           </Select.Option>
         ))}
       </Select>

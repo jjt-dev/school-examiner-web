@@ -54,17 +54,13 @@ const app = handleActions(
     [GET_EXAM_ROUND_LIST]: (state, { payload }) => {
       return {
         ...state,
-        examRoundList: payload.sort(
-          (a, b) => a.roundNumOrder - b.roundNumOrder
-        ),
+        examRoundList: reorderRound(payload),
       }
     },
     [GET_EXAM_MAKEUP_ROUND_LIST]: (state, { payload }) => {
       return {
         ...state,
-        examMakeupRoundList: payload.sort(
-          (a, b) => a.roundNumOrder - b.roundNumOrder
-        ),
+        examMakeupRoundList: reorderRound(payload),
       }
     },
   },
@@ -72,3 +68,12 @@ const app = handleActions(
 )
 
 export default app
+
+/**
+ * round需要根据roundNumOrder来排序,
+ *
+ * @param {*} roundList
+ */
+const reorderRound = (roundList) => {
+  return roundList.sort((a, b) => a.roundNumOrder - b.roundNumOrder)
+}

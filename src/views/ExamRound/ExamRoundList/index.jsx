@@ -98,7 +98,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
 
   return (
     <div className="exam-round-list__content">
-      {roundList.map((item, index) => {
+      {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
         return (
           <div
@@ -111,7 +111,9 @@ const RoundList = ({ roundList, history, getRoundList }) => {
                 <Icon type="plus" onClick={(e) => openMakeupsModal(e, item)} />
               </Tooltip>
             )}
-            <div className="round-number">{getRoundTitle(index + 1)}</div>
+            <div className="round-number">
+              {getRoundTitle(item.roundNumOrder)}
+            </div>
             <div className="round-level">{item.levelName}</div>
             <div className="round-level">考生数: {item.studentCount}</div>
             <Icon type={roundStatus.icon} />

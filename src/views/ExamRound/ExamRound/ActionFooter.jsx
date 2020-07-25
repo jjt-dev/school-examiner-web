@@ -6,6 +6,7 @@ import { RoundStatus, CertificateCategory, PassScore } from 'src/utils/const'
 
 const ActionFooter = ({
   roundNum,
+  nextRoundNumOrder,
   examRound,
   examFinish,
   clearExamResult,
@@ -38,9 +39,12 @@ const ActionFooter = ({
     dispatch(examRoundAction.pauseExam(executionInfo.executionId))
   }
 
+  /**
+   * 这里投影的是下一场的
+   */
   const openNextGroupWindow = () => {
     window.open(
-      `${process.env.REACT_APP_URL_ROOT}/next-group`,
+      `${process.env.REACT_APP_URL_ROOT}/next-group/${nextRoundNumOrder}`,
       'Data',
       'height=1200,width=900'
     )

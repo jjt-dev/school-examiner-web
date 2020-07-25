@@ -25,6 +25,8 @@ const ExamRound = ({ match, history }) => {
   const { examRoundList, examMakeupRoundList } = useSelector(
     (state) => state.app
   )
+  const { roundNumOrder } =
+    examRoundList.find((item) => item.roundNum === Number(roundNum)) || {}
   const { examRound } = useSelector((state) => state.examRound)
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
   const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
@@ -122,6 +124,7 @@ const ExamRound = ({ match, history }) => {
           />
           <ActionFooter
             roundNum={roundNum}
+            nextRoundNumOrder={roundNumOrder + 1}
             examRound={examRound}
             examFinish={examFinish}
             clearExamResult={clearExamResult}

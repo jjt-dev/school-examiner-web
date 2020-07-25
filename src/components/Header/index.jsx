@@ -21,7 +21,7 @@ const Header = ({ user, isLoginPage }) => {
         </Link>
       </div>
       <div className="header-right">
-        <div className="header-right__welcome">道馆-考试系统欢迎您！</div>
+        <div className="header-right__welcome">考官-考试系统欢迎您！</div>
         {!isLoginPage && (
           <div className="header-right__user">
             <div className="header-right__user-password">
