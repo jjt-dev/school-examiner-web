@@ -49,13 +49,13 @@ const ExamRound = ({ match, history }) => {
     setToggleResult((pre) => !pre)
   }, [examRound])
 
-  const initPage = useCallback(() => {
+  const getExamRound = useCallback(() => {
     dispatch(examRoundAction.getExamRound(roundNum))
   }, [dispatch, roundNum])
 
   useEffect(() => {
-    initPage()
-  }, [initPage])
+    getExamRound()
+  }, [getExamRound])
 
   const selectRound = (roundNum) => history.push(`/exam-round/${roundNum}`)
 
@@ -82,7 +82,8 @@ const ExamRound = ({ match, history }) => {
       executeId: examRound.executionInfo.executionId,
       result: payload,
     })
-    dispatch(examRoundAction.finishExam(result))
+    await dispatch(examRoundAction.finishExam(result))
+    getExamRound()
     message.success('考试保存成功')
   }
 
