@@ -112,18 +112,20 @@ const RoundList = ({ roundList, history, getRoundList }) => {
               </Tooltip>
             )}
             <div className="round-number">{getRoundTitle(index + 1)}</div>
+            <div className="round-level">{item.levelName}</div>
+            <div className="round-level">考生数: {item.studentCount}</div>
             <Icon type={roundStatus.icon} />
             <div className="round-title">{roundStatus.title}</div>
-            {showMakeupsModal && (
-              <MakeupsModal
-                makeupStudents={makeupStudents}
-                hideMakeupsModal={hideMakeupsModal}
-                addMakeupStudToRound={addMakeupStudToRound}
-              />
-            )}
           </div>
         )
       })}
+      {showMakeupsModal && (
+        <MakeupsModal
+          makeupStudents={makeupStudents}
+          hideMakeupsModal={hideMakeupsModal}
+          addMakeupStudToRound={addMakeupStudToRound}
+        />
+      )}
     </div>
   )
 }
