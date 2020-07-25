@@ -1,18 +1,13 @@
 import React from 'react'
 
 const ResultItems = ({ resultItems = [] }) => {
+  const viewItems = buildItemView(resultItems)
   return (
     <div className="item-result__items">
-      {Array.from(Array(30).keys()).map((index) => {
-        let content = ''
-        if (resultItems[index]) {
-          content = resultItems[index].itemName
-        } else if (resultItems[index - 5]) {
-          content = resultItems[index - 5].score
-        }
+      {Object.keys(viewItems).map((key) => {
         return (
-          <div key={index} className="item-result__items-item">
-            {content}
+          <div key={key} className="item-result__items-item">
+            {viewItems[key]}
           </div>
         )
       })}
@@ -21,3 +16,26 @@ const ResultItems = ({ resultItems = [] }) => {
 }
 
 export default ResultItems
+
+const buildItemView = (resultItems) => {
+  const result = {}
+  const rowNum = 5
+  const firstRowNameIndex = [0, 1, 2, 3, 4]
+  const secondRowNameIndex = [5, 6, 7, 8, 9]
+  const thirdRowNameIndex = [10, 11, 12, 13, 14]
+  resultItems.forEach((item, index) => {
+    if (firstRowNameIndex.includes(index)) {
+      result[index] = item.itemName
+      result[index + rowNum] = item.score
+    }
+    if (secondRowNameIndex.includes(index)) {
+      result[index + rowNum] = item.itemName
+      result[index + 2 * rowNum] = item.score
+    }
+    if (thirdRowNameIndex.includes(index)) {
+      result[index + 2 * rowNum] = item.itemName
+      result[index + 3 * rowNum] = item.score
+    }
+  })
+  return result
+}
