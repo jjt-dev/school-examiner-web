@@ -5,11 +5,11 @@ import { goToLogin } from 'src/utils/api'
 import logo from 'src/images/home_logo.png'
 import * as FA from 'react-fontawesome'
 import './index.less'
-import { local, EXAMNIER_TOKEN } from 'src/utils/storage'
+import { local, EXAMINER_TOKEN } from 'src/utils/storage'
 
 const Header = ({ user, isLoginPage }) => {
   const signout = () => {
-    local.removeItem(EXAMNIER_TOKEN)
+    local.removeItem(EXAMINER_TOKEN)
     goToLogin()
   }
 
@@ -20,9 +20,9 @@ const Header = ({ user, isLoginPage }) => {
           <img src={logo} alt={logo} />
         </Link>
       </div>
-      {!isLoginPage && (
-        <div className="header-right">
-          <div className="header-right__welcome">考试系统</div>
+      <div className="header-right">
+        <div className="header-right__welcome">道馆-考试系统欢迎您！</div>
+        {!isLoginPage && (
           <div className="header-right__user">
             <div className="header-right__user-password">
               <FA name="user" />
@@ -34,8 +34,8 @@ const Header = ({ user, isLoginPage }) => {
               安全退出
             </div>
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   )
 }

@@ -1,7 +1,7 @@
 import React from 'react'
 import './index.less'
 import api from 'src/utils/api'
-import { local, EXAMNIER_TOKEN, EXAM_CODE, session } from 'src/utils/storage'
+import { local, EXAMINER_TOKEN, EXAM_CODE, session } from 'src/utils/storage'
 import * as appAction from 'src/actions/app'
 import { useDispatch, useSelector } from 'react-redux'
 import { parseSearches } from 'src/utils/common'
@@ -12,6 +12,7 @@ import { message, Empty } from 'antd'
 const Login = ({ history, location }) => {
   const dispatch = useDispatch()
   const { examinerList } = useSelector((state) => state.app)
+  const hasExaminer = examinerList.length > 0
 
   /**
    * 从用户输入的url中拿到examCode
@@ -36,7 +37,7 @@ const Login = ({ history, location }) => {
           EXAM_CODE
         )}`
       )
-      local.setItem(EXAMNIER_TOKEN, result)
+      local.setItem(EXAMINER_TOKEN, result)
       dispatch(appAction.getUserInfo())
       history.push('/')
     } catch (e) {
@@ -44,10 +45,14 @@ const Login = ({ history, location }) => {
     }
   }
 
+  const title = hasExaminer
+    ? '请选择账号登录进入考试'
+    : '考试还未开始，请联系道馆管理员'
+
   return (
     <div className="page examiner-list">
-      <div className="page examiner-list__title">请选择账号登录进入考试</div>
-      {examinerList ? (
+      <div className="page examiner-list__title">{title}</div>
+      {hasExaminer ? (
         <div className="page examiner-list__content">
           {examinerList.map((item) => (
             <div

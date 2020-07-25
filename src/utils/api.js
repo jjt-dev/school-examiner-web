@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { local, EXAMNIER_TOKEN } from 'src/utils/storage'
+import { local, EXAMINER_TOKEN } from 'src/utils/storage'
 import { message } from 'antd'
 
 const methods = ['get', 'head', 'post', 'put', 'delete', 'options', 'patch']
@@ -43,7 +43,7 @@ class Api {
 
   // 发起请求
   doFetch(method, path, data, config, resolve, reject) {
-    config.headers.Authorization = `Bearer ${local.getItem(EXAMNIER_TOKEN)}`
+    config.headers.Authorization = `Bearer ${local.getItem(EXAMINER_TOKEN)}`
     axios[method](path, data, config)
       .then((result) => {
         const { data, status } = result

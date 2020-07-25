@@ -12,7 +12,7 @@ import {
 
 const initState = {
   loading: false,
-  examinerList: null,
+  examinerList: [],
   user: null,
   examInfo: null,
   examRoundList: [],

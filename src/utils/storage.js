@@ -1,4 +1,4 @@
-export const EXAMNIER_TOKEN = 'examiner_token'
+export const EXAMINER_TOKEN = 'examiner_token'
 export const EXAM_CODE = 'examCode'
 
 const local = {
