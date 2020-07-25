@@ -98,7 +98,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
 
   return (
     <div className="exam-round-list__content">
-      {roundList.map((item) => {
+      {roundList.map((item, index) => {
         const roundStatus = findRoundStatus(item.currState)
         return (
           <div
@@ -111,7 +111,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
                 <Icon type="plus" onClick={(e) => openMakeupsModal(e, item)} />
               </Tooltip>
             )}
-            <div className="round-number">{getRoundTitle(item.roundNum)}</div>
+            <div className="round-number">{getRoundTitle(index + 1)}</div>
             <Icon type={roundStatus.icon} />
             <div className="round-title">{roundStatus.title}</div>
             {showMakeupsModal && (
