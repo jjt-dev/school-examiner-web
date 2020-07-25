@@ -54,13 +54,17 @@ const app = handleActions(
     [GET_EXAM_ROUND_LIST]: (state, { payload }) => {
       return {
         ...state,
-        examRoundList: payload,
+        examRoundList: payload.sort(
+          (a, b) => a.roundNumOrder - b.roundNumOrder
+        ),
       }
     },
     [GET_EXAM_MAKEUP_ROUND_LIST]: (state, { payload }) => {
       return {
         ...state,
-        examMakeupRoundList: payload,
+        examMakeupRoundList: payload.sort(
+          (a, b) => a.roundNumOrder - b.roundNumOrder
+        ),
       }
     },
   },
