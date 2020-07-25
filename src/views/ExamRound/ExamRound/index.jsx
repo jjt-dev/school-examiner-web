@@ -12,6 +12,7 @@ import { RoundStatus } from 'src/utils/const'
 import CertifStudentModal from './CertifStudentModal'
 import api from 'src/utils/api'
 import { getFinishExamPayload } from '../helper'
+import * as appAction from 'src/actions/app'
 
 const ExamRound = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -31,6 +32,11 @@ const ExamRound = ({ match, history }) => {
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
   const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
   const examOngoing = examRound?.headerInfo.examState === RoundStatus.ongoing.id
+
+  useEffect(() => {
+    dispatch(appAction.getExamRoundList())
+    dispatch(appAction.getExamMakeupRoundList())
+  }, [dispatch])
 
   useEffect(() => {
     if (examOngoing) {
@@ -97,14 +103,18 @@ const ExamRound = ({ match, history }) => {
         <>
           <div className="fix-header">
             <div className="exam-round__header">
-              <ActionBar
-                roundNum={roundNum}
-                selectRound={selectRound}
-                examRoundList={examRoundList ?? []}
-                examMakeupRoundList={examMakeupRoundList ?? []}
-                isGradeMode={isGradeMode}
-                setIsGradeMode={handleSetGradeMode}
-              />
+              {roundNumOrder && (
+                <ActionBar
+                  roundNumOrder={roundNumOrder}
+                  selectRound={selectRound}
+                  examRoundList={examRoundList ?? []}
+                  examMakeupRoundList={examMakeupRoundList ?? []}
+                  isGradeMode={isGradeMode}
+                  setIsGradeMode={handleSetGradeMode}
+                  examFinish={examFinish}
+                  examRound={examRound}
+                />
+              )}
               <div className="exam-round__header-middle">
                 {!examFinish && (
                   <CountDown {...examRound} finishExam={finishExam} />
@@ -114,11 +124,13 @@ const ExamRound = ({ match, history }) => {
                     考试结果
                   </div>
                 )}
-                <div className="exam-round__header-middle-level">
-                  <span>级别:</span>
-                  {examRound.headerInfo.levelName}
-                  {examRound.headerInfo.levelAlias}
-                </div>
+                {examFinish && (
+                  <div className="exam-round__header-middle-level">
+                    <span>级别:</span>
+                    {examRound.headerInfo.levelName}
+                    {examRound.headerInfo.levelAlias}
+                  </div>
+                )}
               </div>
               <ActionFooter
                 roundNum={roundNum}
