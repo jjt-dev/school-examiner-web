@@ -11,17 +11,34 @@ const Certificate = ({ match, location }) => {
   const { type, PassScore } = parseSearches(location)
   const [examResult] = useFetch(buildPath(roundNum, studentId))
 
+  //这里的examResult如果是单个考生的成绩那就是object, 如果是批量打印那就是array
+  let examResultArr = []
+  if (examResult) {
+    if (!Array.isArray(examResult)) {
+      examResultArr = [examResult]
+    } else {
+      examResultArr = examResult
+    }
+  }
+
+  const examResultPassed = examResultArr.filter(
+    (item) => item.examResults[0].isPass
+  )
+  const examResultFailed = examResultArr.filter(
+    (item) => !item.examResults[0].isPass
+  )
+
   return (
     <>
-      {examResult && (
+      {examResultArr && (
         <div className="page certificate">
           <div className="certificate__title">
             {CertificateCategory[type].title}打印
           </div>
-          {type === 'report' && <ReportPrint examResult={examResult} />}
+          {type === 'report' && <ReportPrint examResult={examResultPassed} />}
           {type === 'exam' && (
             <MakeupExamCertif
-              examResult={examResult}
+              examResult={examResultFailed}
               roundNum={roundNum}
               PassScore={PassScore}
             />

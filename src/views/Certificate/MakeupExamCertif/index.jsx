@@ -13,12 +13,6 @@ class MakeupExamCertif extends React.Component {
 
   render() {
     const { roundNum, examResult = [], PassScore } = this.props
-    let failedExams
-    if (!Array.isArray(examResult)) {
-      failedExams = [examResult]
-    } else {
-      failedExams = examResult.filter((item) => !item.examResults[0].isPass)
-    }
     return (
       <div className="makeup-exam-print">
         <div className="makeup-exam-print__header">
@@ -27,7 +21,7 @@ class MakeupExamCertif extends React.Component {
             content={() => this.myRef.current}
           />
         </div>
-        {failedExams.map((item) => {
+        {examResult.map((item) => {
           const [year, month, day] = getDate()
           const { studentInfo, examResults } = item
           const { items, levelName, examinerName, isEnable } = examResults[0]
