@@ -12,15 +12,13 @@ class MakeupExamCertif extends React.Component {
   }
 
   render() {
-    const { roundNum, examResult, PassScore } = this.props
-    const { studentInfo, examResults } = examResult
-    const studentResult = examResults[0]
-    const { items, levelName, examinerName, isEnable } = studentResult
-
-    const date = new Date()
-    const month = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)
-    const day = (date.getDate() < 10 ? '0' : '') + date.getDate()
-
+    const { roundNum, examResult = [], PassScore } = this.props
+    let failedExams
+    if (!Array.isArray(examResult)) {
+      failedExams = [examResult]
+    } else {
+      failedExams = examResult.filter((item) => !item.examResults[0].isPass)
+    }
     return (
       <div className="makeup-exam-print">
         <div className="makeup-exam-print__header">
@@ -29,32 +27,41 @@ class MakeupExamCertif extends React.Component {
             content={() => this.myRef.current}
           />
         </div>
-        <div className="makeup-exam-print__content" ref={this.myRef}>
-          <div className="round-number">{addNumPrefix(Math.abs(roundNum))}</div>
-          <div className="current-year">{date.getFullYear()}</div>
-          <div className="current-month">{month}</div>
-          <div className="current-day">{day}</div>
-          <div className="student-name">{studentInfo.studentName}</div>
-          <div className="level-name">{levelName}</div>
-          <div className="examiner-name">{examinerName}</div>
-          <div className="school-name">{studentInfo.schoolName}</div>
-          <table className="makeup-items">
-            <tbody>
-              <ItemsRow
-                items={items}
-                indexs={[0, 1, 2, 3, 4]}
-                PassScore={PassScore}
-                isEnable={isEnable}
-              />
-              <ItemsRow
-                items={items}
-                indexs={[5, 6, 7, 8, 9]}
-                PassScore={PassScore}
-                isEnable={isEnable}
-              />
-            </tbody>
-          </table>
-        </div>
+        {failedExams.map((item) => {
+          const [year, month, day] = getDate()
+          const { studentInfo, examResults } = item
+          const { items, levelName, examinerName, isEnable } = examResults[0]
+          return (
+            <div className="makeup-exam-print__content" ref={this.myRef}>
+              <div className="round-number">
+                {addNumPrefix(Math.abs(roundNum))}
+              </div>
+              <div className="current-year">{year}</div>
+              <div className="current-month">{month}</div>
+              <div className="current-day">{day}</div>
+              <div className="student-name">{studentInfo.studentName}</div>
+              <div className="level-name">{levelName}</div>
+              <div className="examiner-name">{examinerName}</div>
+              <div className="school-name">{studentInfo.schoolName}</div>
+              <table className="makeup-items">
+                <tbody>
+                  <ItemsRow
+                    items={items}
+                    indexs={[0, 1, 2, 3, 4]}
+                    PassScore={PassScore}
+                    isEnable={isEnable}
+                  />
+                  <ItemsRow
+                    items={items}
+                    indexs={[5, 6, 7, 8, 9]}
+                    PassScore={PassScore}
+                    isEnable={isEnable}
+                  />
+                </tbody>
+              </table>
+            </div>
+          )
+        })}
       </div>
     )
   }
@@ -86,4 +93,11 @@ const CheckItem = ({ defaultChecked }) => {
       {checked && <Icon type="check" />}
     </div>
   )
+}
+
+const getDate = () => {
+  const date = new Date()
+  const month = (date.getMonth() + 1 < 10 ? '0' : '') + (date.getMonth() + 1)
+  const day = (date.getDate() < 10 ? '0' : '') + date.getDate()
+  return [date.getFullYear(), month, day]
 }
