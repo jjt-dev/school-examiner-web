@@ -141,7 +141,7 @@ class ReportVerticalWithRight extends React.Component {
                           考官评语
                         </div>
                         <div className="item-result__comments-item examiner-comment">
-                          {examResult?.commnent}
+                          {examResult?.comment}
                           <div className="examiner-comment__sign">
                             考官签字:
                             <div className="examiner-comment__sign-name">

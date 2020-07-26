@@ -70,7 +70,7 @@ export const getFinishExamPayload = (examRound, PassScore) => {
     examItems.forEach((item) => {
       const score = results[item.id]
       payload.push({
-        commnent: score < PassScore ? item.badComment : GoodComment,
+        comment: score < PassScore ? item.badComment : GoodComment,
         examItemId: item.id,
         isEnable,
         isStatisticalValue: false,
@@ -84,8 +84,7 @@ export const getFinishExamPayload = (examRound, PassScore) => {
 
     //添加统计项
     payload.push({
-      commnent:
-        totalScore < PassScore ? getComments(results, examItems) : GoodComment,
+      comment: getComments(results, examItems),
       examItemId: 0,
       isEnable,
       isPass: totalScore >= PassScore,
