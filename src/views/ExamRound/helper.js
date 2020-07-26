@@ -52,7 +52,7 @@ export const getComments = (results, examItems) => {
   let comments = []
   mappedResults
     .sort(compare)
-    .filter((item, index) => index <= 2)
+    .filter((item, index) => index < 2)
     .forEach((item) => {
       const examItem = examItems.find((i) => i.id === item.itemId)
       comments.push(examItem.badComment)
