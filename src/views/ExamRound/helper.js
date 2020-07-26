@@ -61,7 +61,6 @@ export const getComments = (results, examItems) => {
 }
 
 export const getFinishExamPayload = (examRound, PassScore) => {
-  const GoodComment = '动作标准，继续努力'
   const { studentList, examItems } = examRound
   const payload = []
   studentList.forEach((student) => {
@@ -70,7 +69,7 @@ export const getFinishExamPayload = (examRound, PassScore) => {
     examItems.forEach((item) => {
       const score = results[item.id]
       payload.push({
-        comment: score < PassScore ? item.badComment : GoodComment,
+        comment: item.badComment,
         examItemId: item.id,
         isEnable,
         isStatisticalValue: false,
