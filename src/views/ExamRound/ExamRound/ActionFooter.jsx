@@ -1,8 +1,10 @@
 import React from 'react'
-import { Button } from 'antd'
+import { Button, Modal } from 'antd'
 import * as examRoundAction from 'src/actions/examRound'
 import { useDispatch } from 'react-redux'
 import { RoundStatus, CertificateCategory } from 'src/utils/const'
+
+const { confirm } = Modal
 
 const ActionFooter = ({
   roundNum,
@@ -11,11 +13,22 @@ const ActionFooter = ({
   clearExamResult,
   handleSelectPrint,
   setClearMultSelect,
+  finishExam,
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
   const examPaused = headerInfo.examState === RoundStatus.pause.id
   const examIsOnGoing = headerInfo.examState === RoundStatus.ongoing.id
+
+  const confirmFinishExam = () => {
+    confirm({
+      title: '请问您确认要结束考试吗?',
+      onOk: () => finishExam(),
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
 
   // 有需要打印成绩单的学生
   const hasReport = examResult.some(
@@ -67,6 +80,13 @@ const ActionFooter = ({
             onClick={pauseExam}
           >
             暂停
+          </Button>
+          <Button
+            disabled={!examPaused && !examIsOnGoing}
+            type="danger"
+            onClick={confirmFinishExam}
+          >
+            结束考试
           </Button>
           <Button onClick={openNextGroupWindow}>投影</Button>
           <Button onClick={clearExamResult}>清空成绩</Button>

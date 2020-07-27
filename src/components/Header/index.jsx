@@ -1,16 +1,28 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { Divider } from 'antd'
+import { Divider, Modal } from 'antd'
 import { goToLogin } from 'src/utils/api'
 import logo from 'src/images/home_logo.png'
 import * as FA from 'react-fontawesome'
 import './index.less'
 import { local, EXAMINER_TOKEN } from 'src/utils/storage'
 
+const { confirm } = Modal
+
 const Header = ({ user, isLoginPage }) => {
   const signout = () => {
     local.removeItem(EXAMINER_TOKEN)
     goToLogin()
+  }
+
+  const confirmSignout = () => {
+    confirm({
+      title: '请问您确认要退出吗?',
+      onOk: () => signout(),
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
   }
 
   return (
@@ -29,7 +41,10 @@ const Header = ({ user, isLoginPage }) => {
               {user ? `欢迎, ${user.username}` : '欢迎'}
             </div>
             <Divider type="vertical" />
-            <div className="header-right__user-signout" onClick={signout}>
+            <div
+              className="header-right__user-signout"
+              onClick={confirmSignout}
+            >
               <FA name="power-off" />
               安全退出
             </div>

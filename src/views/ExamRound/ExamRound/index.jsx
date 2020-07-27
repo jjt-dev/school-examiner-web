@@ -148,6 +148,7 @@ const ExamRound = ({ match, history }) => {
                 clearExamResult={clearExamResult}
                 handleSelectPrint={handleSelectPrint}
                 setClearMultSelect={setClearMultSelect}
+                finishExam={finishExam}
               />
             </div>
           </div>
