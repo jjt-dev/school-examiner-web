@@ -9,10 +9,23 @@ const printBanner = async (title, color) => {
 printBanner(`Deploying ${process.env.NODE_ENV}`, 'yellow')
 
 const EnvDomain = {
-  test: { host: '182.61.139.115', user: 'yangsh', password: '2^Jw$#2Qb5' },
-  production: { host: '182.61.4.137', user: 'yangsh', password: 'b%RU470!' },
+  test: {
+    host: '182.61.139.115',
+    user: 'yangsh',
+    password: '2^Jw$#2Qb5',
+    short: 'test',
+  },
+  production: {
+    host: '182.61.4.137',
+    user: 'yangsh',
+    password: 'b%RU470!',
+    short: 'prod',
+  },
 }
-const { user, host, password } = EnvDomain[process.env.NODE_ENV]
+
+const env = EnvDomain[process.env.NODE_ENV]
+const { user, host, password, short } = env
+printBanner(`Deploying ${short}`, 'yellow')
 
 const config = {
   user,
@@ -28,8 +41,8 @@ const config = {
 
 ftpDeploy
   .deploy(config)
-  .then(() => printBanner(`Deploy ${process.env.NODE_ENV} Success`, 'green'))
+  .then(() => printBanner(`Deploy ${short} Success`, 'green'))
   .catch((err) => {
     console.log(err)
-    printBanner(`Deploy ${process.env.NODE_ENV} failed`, 'red')
+    printBanner(`Deploy ${short} failed`, 'red')
   })
