@@ -84,7 +84,7 @@ const ExamRound = ({ match, history }) => {
   }
 
   const finishExam = async () => {
-    const payload = getFinishExamPayload(examRound, PassScore)
+    const payload = getFinishExamPayload(examRound, PassScore, isGradeMode)
     const result = await api.post(`/exam/finishExam`, {
       executeId: examRound.executionInfo.executionId,
       result: payload,

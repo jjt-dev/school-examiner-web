@@ -60,14 +60,16 @@ export const getComments = (results, examItems) => {
   return comments.join(', ')
 }
 
-export const getFinishExamPayload = (examRound, PassScore) => {
-  const { studentList, examItems } = examRound
+export const getFinishExamPayload = (examRound, PassScore, isGradeMode) => {
+  const { studentList, examItems, grades } = examRound
   const payload = []
+  const scoreMode = isGradeMode ? 0 : 1
   studentList.forEach((student) => {
     const results = student.results || {}
     const isEnable = student.isEnable === 'false' ? false : true
     examItems.forEach((item) => {
       const score = results[item.id]
+      const grade = scoreToGrade(score, grades)
       payload.push({
         comment: item.badComment,
         examItemId: item.id,
@@ -75,6 +77,8 @@ export const getFinishExamPayload = (examRound, PassScore) => {
         isStatisticalValue: false,
         ratio: item.ratio,
         score,
+        scoreMode: scoreMode,
+        scoreLevel: grade.name,
         studentId: student.studentId,
       })
     })
@@ -90,6 +94,8 @@ export const getFinishExamPayload = (examRound, PassScore) => {
       isStatisticalValue: true,
       ratio: 1,
       score: totalScore,
+      scoreMode: scoreMode,
+      scoreLevel: scoreToGrade(totalScore, grades)?.name,
       studentId: student.studentId,
     })
   })

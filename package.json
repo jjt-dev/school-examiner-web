@@ -41,7 +41,7 @@
     "build:prod": "env-cmd -f .env.production react-app-rewired build",
     "deploy:test": "yarn build:test && cross-env NODE_ENV=test node ./deploy.js",
     "deploy:prod": "yarn build:prod && cross-env NODE_ENV=production node ./deploy.js",
-    "deploy":"yarn deploy:test && yarn deploy:prod"
+    "deploy": "yarn deploy:test && yarn deploy:prod"
   },
   "eslintConfig": {
     "extends": "react-app",

@@ -24,17 +24,18 @@ const buildItemView = (resultItems) => {
   const secondRowNameIndex = [5, 6, 7, 8, 9]
   const thirdRowNameIndex = [10, 11, 12, 13, 14]
   resultItems.forEach((item, index) => {
+    const prop = item.scoreMode === 1 ? 'scoreLevel' : 'score'
     if (firstRowNameIndex.includes(index)) {
       result[index] = item.itemName
-      result[index + rowNum] = item.score
+      result[index + rowNum] = item[prop]
     }
     if (secondRowNameIndex.includes(index)) {
       result[index + rowNum] = item.itemName
-      result[index + 2 * rowNum] = item.score
+      result[index + 2 * rowNum] = item[prop]
     }
     if (thirdRowNameIndex.includes(index)) {
       result[index + 2 * rowNum] = item.itemName
-      result[index + 3 * rowNum] = item.score
+      result[index + 3 * rowNum] = item[prop]
     }
   })
   return result
