@@ -10,6 +10,7 @@ import api from 'src/utils/api'
 import { getDomain, chineseDate } from 'src/utils/common'
 import ReactToPrint from 'react-to-print'
 import ResultItems from '../ResultItems'
+import { ExamResultMode } from 'src/utils/const'
 
 class ReportHoriz extends React.Component {
   constructor(props) {
@@ -115,7 +116,9 @@ class ReportHoriz extends React.Component {
                     </div>
                     <div className="basic-info__result-level">
                       <span className="result-level__grade">
-                        {examResult?.gradeName}
+                        {examResult?.scoreMode === ExamResultMode.score
+                          ? examResult?.score
+                          : examResult?.gradeName}
                       </span>
                       <span className="result-level__title">综合成绩</span>
                     </div>

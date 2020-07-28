@@ -13,6 +13,7 @@ import api from 'src/utils/api'
 import ResultItems from '../ResultItems'
 import ReactToPrint from 'react-to-print'
 import UplaodImg from 'src/components/UploadImg'
+import { ExamResultMode } from 'src/utils/const'
 
 class ReportVerticalWithRight extends React.Component {
   constructor(props) {
@@ -129,7 +130,9 @@ class ReportVerticalWithRight extends React.Component {
                     <div className="result-level">
                       <img src={certificateIc1} alt="" />
                       <span className="result-level__title">
-                        {examResult?.gradeName}
+                        {examResult?.scoreMode === ExamResultMode.score
+                          ? examResult?.score
+                          : examResult?.gradeName}
                       </span>
                       <img src={certificateIc2} alt="" />
                     </div>

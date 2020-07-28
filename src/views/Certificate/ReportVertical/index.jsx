@@ -12,6 +12,7 @@ import { getDomain, chineseDate } from 'src/utils/common'
 import api from 'src/utils/api'
 import ResultItems from '../ResultItems'
 import ReactToPrint from 'react-to-print'
+import { ExamResultMode } from 'src/utils/const'
 class ReportVertical extends React.Component {
   constructor(props) {
     super(props)
@@ -126,7 +127,9 @@ class ReportVertical extends React.Component {
                   <div className="result-level">
                     <img src={certificateIc1} alt="" />
                     <span className="result-level__title">
-                      {examResult?.gradeName}
+                      {examResult?.scoreMode === ExamResultMode.score
+                        ? examResult?.score
+                        : examResult?.gradeName}
                     </span>
                     <img src={certificateIc2} alt="" />
                   </div>
@@ -139,7 +142,7 @@ class ReportVertical extends React.Component {
                       </div>
                       <div className="item-result__comments-item examiner-comment">
                         {examResult?.comment}
-                        <div className="examiner-comment__sign">
+                        <div className="examiner- comment__sign">
                           考官签字:
                           <div className="examiner-comment__sign-name">
                             {examResult.examinerName}
