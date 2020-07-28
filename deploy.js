@@ -6,8 +6,6 @@ const printBanner = async (title, color) => {
   await showBanner(title, '', color)
 }
 
-printBanner(`Deploying ${process.env.NODE_ENV}`, 'yellow')
-
 const EnvDomain = {
   test: {
     host: '182.61.139.115',
