@@ -142,7 +142,7 @@ class ReportVertical extends React.Component {
                       </div>
                       <div className="item-result__comments-item examiner-comment">
                         {examResult?.comment}
-                        <div className="examiner- comment__sign">
+                        <div className="examiner-comment__sign">
                           考官签字:
                           <div className="examiner-comment__sign-name">
                             {examResult.examinerName}
