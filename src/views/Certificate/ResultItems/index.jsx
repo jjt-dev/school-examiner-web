@@ -37,7 +37,8 @@ const buildItemView = (resultItems) => {
   const result = {}
   const rowNum = 5
 
-  resultItems.forEach((item, index) => {
+  for (let index = 0; index < 30; index++) {
+    const item = resultItems[index] || {}
     const prop = item.scoreMode === 1 ? 'scoreLevel' : 'score'
     if (firstRowNameIndex.includes(index)) {
       result[index] = item.itemName
@@ -51,6 +52,6 @@ const buildItemView = (resultItems) => {
       result[index + 2 * rowNum] = item.itemName
       result[index + 3 * rowNum] = item[prop]
     }
-  })
+  }
   return result
 }
