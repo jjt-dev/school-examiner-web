@@ -1,11 +1,7 @@
 import React from 'react'
 import './index.less'
 import { Row, Col, Button, Switch } from 'antd'
-import {
-  BasicInfoPositions,
-  mapReportValue,
-  reorderBasicInfos,
-} from '../helper'
+import { BasicInfoPositions, mapReportValue } from '../helper'
 import certificateIc1 from 'src/images/certificate_ic1.png'
 import certificateIc2 from 'src/images/certificate_ic2.png'
 import { getDomain, chineseDate } from 'src/utils/common'
@@ -37,7 +33,7 @@ class ReportVerticalWithRight extends React.Component {
       this.setState({
         ...this.state,
         template: result,
-        basicInfos: reorderBasicInfos(JSON.parse(result.content).basicInfos),
+        basicInfos: JSON.parse(result.content).basicInfos,
       })
     }
     fetchData()

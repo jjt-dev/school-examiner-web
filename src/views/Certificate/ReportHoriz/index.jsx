@@ -1,11 +1,7 @@
 import React from 'react'
 import './index.less'
 import { Row, Col, Button, Switch } from 'antd'
-import {
-  BasicInfoPositions,
-  mapReportValue,
-  reorderBasicInfos,
-} from '../helper'
+import { BasicInfoPositions, mapReportValue } from '../helper'
 import api from 'src/utils/api'
 import { getDomain, chineseDate } from 'src/utils/common'
 import ReactToPrint from 'react-to-print'
@@ -33,7 +29,7 @@ class ReportHoriz extends React.Component {
       this.setState({
         ...this.state,
         template: result,
-        basicInfos: reorderBasicInfos(JSON.parse(result.content).basicInfos),
+        basicInfos: JSON.parse(result.content).basicInfos,
       })
     }
     fetchData()
@@ -69,6 +65,7 @@ class ReportHoriz extends React.Component {
             const { studentFaceUrl, schoolName } = studentInfo
             const examResult = examResults[0]
             const mappedValue = mapReportValue(studentInfo, examResult)
+            console.log('mappedValue', mappedValue)
             return (
               <div
                 key={index}
