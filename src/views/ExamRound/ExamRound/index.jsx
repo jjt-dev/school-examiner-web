@@ -32,6 +32,8 @@ const ExamRound = ({ match, history }) => {
   const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
   const examOngoing = examRound?.headerInfo.examState === RoundStatus.ongoing.id
   const PassScore = examRound ? getPassScore(examRound.grades) : 60
+  const examRoundLoaded =
+    examRound && examRound.headerInfo.roundNum === Number(roundNum)
 
   useEffect(() => {
     dispatch(appAction.getExamRoundList())
@@ -107,7 +109,7 @@ const ExamRound = ({ match, history }) => {
   return (
     <>
       <Prompt when={examOngoing} message={() => leaveMessage} />
-      {examRound && (
+      {examRoundLoaded && (
         <>
           <div className="fix-header">
             <div className="exam-round__header">
