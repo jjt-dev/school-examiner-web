@@ -94,7 +94,11 @@ const ResultWithSelect = ({
                     ) : (
                       <Select
                         disabled={examFinish}
-                        style={{ width: '100px', color: itemColor }}
+                        style={{
+                          width: '100px',
+                          color: itemColor,
+                          fontSize: itemColor ? '18px' : '14px',
+                        }}
                         defaultValue={scoreToGrade(result, grades).id}
                         onSelect={(gradeId) =>
                           updateResult(

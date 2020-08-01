@@ -23,7 +23,7 @@ const GradeEdit = ({ examFinish, defaultValue, changeScore, itemColor }) => {
   return (
     <div className="grade-score-edit">
       <InputNumber
-        style={{ color: itemColor }}
+        style={{ color: itemColor, fontSize: itemColor ? '18px' : '14px' }}
         disabled={examFinish}
         min={1}
         max={100}
