@@ -14,6 +14,7 @@ const ActionFooter = ({
   handleSelectPrint,
   setClearMultSelect,
   finishExam,
+  canPlay,
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
@@ -64,7 +65,7 @@ const ActionFooter = ({
 
   return (
     <div className="exam-round__header-actions">
-      {!examFinish ? (
+      {!examFinish && canPlay && (
         <>
           <Button
             disabled={examIsOnGoing}
@@ -92,7 +93,8 @@ const ActionFooter = ({
           <Button onClick={clearExamResult}>清空成绩</Button>
           <Button onClick={() => setClearMultSelect(true)}>清空多选</Button>
         </>
-      ) : (
+      )}
+      {examFinish && (
         <div>
           {hasReport && (
             <Button

@@ -143,17 +143,16 @@ const ExamRound = ({ match, history }) => {
                   </div>
                 )}
               </div>
-              {headerInfo.canPlay && (
-                <ActionFooter
-                  roundNum={roundNum}
-                  examRound={examRound}
-                  examFinish={examFinish}
-                  clearExamResult={clearExamResult}
-                  handleSelectPrint={handleSelectPrint}
-                  setClearMultSelect={setClearMultSelect}
-                  finishExam={finishExam}
-                />
-              )}
+              <ActionFooter
+                roundNum={roundNum}
+                examRound={examRound}
+                examFinish={examFinish}
+                clearExamResult={clearExamResult}
+                handleSelectPrint={handleSelectPrint}
+                setClearMultSelect={setClearMultSelect}
+                finishExam={finishExam}
+                canPlay={headerInfo.canPlay}
+              />
             </div>
           </div>
           <div className="page exam-round">
