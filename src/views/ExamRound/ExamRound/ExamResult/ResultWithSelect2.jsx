@@ -15,6 +15,7 @@ const ResultWithSelect2 = ({
   cells,
   setCells,
   examFinish,
+  getItemColor,
 }) => {
   const { studentList, examItems, grades } = examRound
   const resultColumns = getResultColumns(studentList)
@@ -72,8 +73,9 @@ const ResultWithSelect2 = ({
               if (!student || student.isEnable === 'false') {
                 return <td key={index} disabled />
               }
-
-              const results = student.results || {}
+              const { results = {}, updatedItems = {} } = student
+              const result = results[item.id]
+              const itemColor = getItemColor(updatedItems[item.id], result)
               return (
                 <td key={index}>
                   <div
@@ -82,8 +84,9 @@ const ResultWithSelect2 = ({
                   >
                     {isGradeMode ? (
                       <GradeEdit
+                        itemColor={itemColor}
                         examFinish={examFinish}
-                        defaultValue={results[item.id]}
+                        defaultValue={result}
                         changeScore={(score) =>
                           updateResult(student.studentId, item.id, score)
                         }
@@ -91,8 +94,8 @@ const ResultWithSelect2 = ({
                     ) : (
                       <Select
                         disabled={examFinish}
-                        style={{ width: '100px' }}
-                        defaultValue={scoreToGrade(results[item.id], grades).id}
+                        style={{ width: '100px', color: itemColor }}
+                        defaultValue={scoreToGrade(result, grades).id}
                         onSelect={(gradeId) =>
                           updateResult(
                             student.studentId,

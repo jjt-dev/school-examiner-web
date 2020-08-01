@@ -4,7 +4,7 @@ import { InputNumber, Menu, Dropdown, Button } from 'antd'
 // 不合格，合格，中等，良好，优秀
 const defaultGradeScores = [40, 60, 70, 80, 90]
 
-const GradeEdit = ({ examFinish, defaultValue, changeScore }) => {
+const GradeEdit = ({ examFinish, defaultValue, changeScore, itemColor }) => {
   const [value, setValue] = useState(defaultValue)
 
   const handleChange = (newValue) => {
@@ -23,6 +23,7 @@ const GradeEdit = ({ examFinish, defaultValue, changeScore }) => {
   return (
     <div className="grade-score-edit">
       <InputNumber
+        style={{ color: itemColor }}
         disabled={examFinish}
         min={1}
         max={100}

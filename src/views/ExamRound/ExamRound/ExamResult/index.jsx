@@ -5,7 +5,7 @@ import './index.less'
 import getContextMenu from './ContextMenu'
 import ResultWithSelect from './ResultWithSelect'
 import ResultWithSelect2 from './ResultWithSelect2'
-import { buildCellStates } from '../../helper'
+import { buildCellStates, scoreToGrade } from '../../helper'
 import { useEffect } from 'react'
 import Totals from './Totals'
 
@@ -64,6 +64,11 @@ const ExamResult = (props) => {
     resetCells()
   }
 
+  const getItemColor = (itemUpdated, score) => {
+    if (!itemUpdated) return null
+    return scoreToGrade(score, examRound.grades).bgColor
+  }
+
   return (
     <>
       <Dropdown
@@ -82,9 +87,19 @@ const ExamResult = (props) => {
       >
         <a className="ant-dropdown-link" onClick={(e) => e.preventDefault()}>
           {toggleResult ? (
-            <ResultWithSelect {...props} cells={cells} setCells={setCells} />
+            <ResultWithSelect
+              {...props}
+              cells={cells}
+              setCells={setCells}
+              getItemColor={getItemColor}
+            />
           ) : (
-            <ResultWithSelect2 {...props} cells={cells} setCells={setCells} />
+            <ResultWithSelect2
+              {...props}
+              cells={cells}
+              setCells={setCells}
+              getItemColor={getItemColor}
+            />
           )}
         </a>
       </Dropdown>

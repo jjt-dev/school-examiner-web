@@ -43,18 +43,25 @@ const examRound = handleActions(
       const index = studentList.findIndex(
         (stud) => stud.studentId === studentId
       )
-      const results = studentList[index].results || {}
+      const { results = {}, updatedItems = {} } = studentList[index]
       results[itemId] = value
-      return set(`examRound.studentList[${index}].results`, results, state)
+      updatedItems[itemId] = true
+      return flow(
+        set(`examRound.studentList[${index}].results`, results),
+        set(`examRound.studentList[${index}].updatedItems`, updatedItems)
+      )(state)
     },
     [UPDATE_RESULT_BATCH]: (state, { payload }) => {
       const { examItems } = state.examRound
       const studentList = deepClone(state.examRound.studentList)
       payload.forEach((item) => {
         const { studentIndex, itemIndex, score } = item
-        const results = studentList[studentIndex].results || {}
-        results[examItems[itemIndex].id] = score
+        const { results = {}, updatedItems = {} } = studentList[studentIndex]
+        const itemId = examItems[itemIndex].id
+        results[itemId] = score
+        updatedItems[itemId] = true
         studentList[studentIndex].results = results
+        studentList[studentIndex].updatedItems = updatedItems
       })
       return set(`examRound.studentList`, studentList, state)
     },
