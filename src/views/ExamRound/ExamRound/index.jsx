@@ -28,12 +28,12 @@ const ExamRound = ({ match, history }) => {
     (state) => state.app
   )
   const { examRound } = useSelector((state) => state.examRound)
+  const headerInfo = examRound?.headerInfo || {}
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
-  const examFinish = examRound?.headerInfo.examState === RoundStatus.finish.id
-  const examOngoing = examRound?.headerInfo.examState === RoundStatus.ongoing.id
+  const examFinish = headerInfo.examState === RoundStatus.finish.id
+  const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
   const PassScore = examRound ? getPassScore(examRound.grades) : 60
-  const examRoundLoaded =
-    examRound && examRound.headerInfo.roundNum === Number(roundNum)
+  const examRoundLoaded = examRound && headerInfo.roundNum === Number(roundNum)
 
   useEffect(() => {
     dispatch(appAction.getExamRoundList())
@@ -143,15 +143,17 @@ const ExamRound = ({ match, history }) => {
                   </div>
                 )}
               </div>
-              <ActionFooter
-                roundNum={roundNum}
-                examRound={examRound}
-                examFinish={examFinish}
-                clearExamResult={clearExamResult}
-                handleSelectPrint={handleSelectPrint}
-                setClearMultSelect={setClearMultSelect}
-                finishExam={finishExam}
-              />
+              {headerInfo.canPlay && (
+                <ActionFooter
+                  roundNum={roundNum}
+                  examRound={examRound}
+                  examFinish={examFinish}
+                  clearExamResult={clearExamResult}
+                  handleSelectPrint={handleSelectPrint}
+                  setClearMultSelect={setClearMultSelect}
+                  finishExam={finishExam}
+                />
+              )}
             </div>
           </div>
           <div className="page exam-round">

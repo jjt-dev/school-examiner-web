@@ -47,7 +47,7 @@ const Login = ({ history, location }) => {
 
   const title = hasExaminer
     ? '请选择账号登录进入考试'
-    : '未发现考试信息，请联系道馆管理员'
+    : '未设置考官，请联系道馆管理员'
 
   return (
     <div className="page examiner-list">
