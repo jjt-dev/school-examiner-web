@@ -11,6 +11,8 @@ export const GET_EXAMINER_LIST = 'GET_EXAMINER_LIST'
 export const GET_EXAM_ROUND_LIST = 'GET_EXAM_ROUND_LIST'
 export const GET_EXAM_MAKEUP_ROUND_LIST = 'GET_EXAM_MAKEUP_ROUND_LIST'
 
+export const UPDATE_PRINT_TAB_KEY = 'UPDATE_PRINT_TAB_KEY'
+
 // 显示/隐藏顶层loading bar
 export const showLoadingBar = createAction(APP_SHOW_LOADING)
 
@@ -35,4 +37,9 @@ export const getExamRoundList = createAction(GET_EXAM_ROUND_LIST, () =>
 export const getExamMakeupRoundList = createAction(
   GET_EXAM_MAKEUP_ROUND_LIST,
   () => api.get(`/exam/makeupRoundList`)
+)
+
+export const updatePrintTabKey = createAction(
+  UPDATE_PRINT_TAB_KEY,
+  (key) => key
 )

@@ -8,6 +8,7 @@ import {
   GET_EXAMINER_LIST,
   GET_EXAM_ROUND_LIST,
   GET_EXAM_MAKEUP_ROUND_LIST,
+  UPDATE_PRINT_TAB_KEY,
 } from 'src/actions/app'
 
 const initState = {
@@ -17,6 +18,7 @@ const initState = {
   examInfo: null,
   examRoundList: [],
   examMakeupRoundList: [],
+  printTabKey: '0',
 }
 
 const app = handleActions(
@@ -61,6 +63,12 @@ const app = handleActions(
       return {
         ...state,
         examMakeupRoundList: reorderRound(payload),
+      }
+    },
+    [UPDATE_PRINT_TAB_KEY]: (state, { payload }) => {
+      return {
+        ...state,
+        printTabKey: payload,
       }
     },
   },
