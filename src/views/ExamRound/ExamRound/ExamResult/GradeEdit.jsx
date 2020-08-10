@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { InputNumber, Menu, Dropdown, Button } from 'antd'
 
-// 不合格，合格，中等，良好，优秀
-const defaultGradeScores = [40, 60, 70, 80, 90]
-
-const GradeEdit = ({ examFinish, defaultValue, changeScore, itemColor }) => {
+const GradeEdit = ({
+  examFinish,
+  defaultValue,
+  changeScore,
+  itemColor,
+  grades,
+}) => {
   const [value, setValue] = useState(defaultValue)
 
   const handleChange = (newValue) => {
@@ -14,24 +17,27 @@ const GradeEdit = ({ examFinish, defaultValue, changeScore, itemColor }) => {
 
   const menu = (
     <Menu onClick={(item) => handleChange(Number(item.key))}>
-      {defaultGradeScores.map((grade) => (
-        <Menu.Item key={grade}>{grade}</Menu.Item>
-      ))}
+      {grades
+        .map((grade) => grade.endScore)
+        .map((grade) => (
+          <Menu.Item key={grade}>{grade}</Menu.Item>
+        ))}
     </Menu>
   )
 
   return (
     <div className="grade-score-edit">
       <InputNumber
-        style={{ color: itemColor, fontSize: itemColor ? '18px' : '14px' }}
+        style={{ fontSize: itemColor ? '18px' : '14px' }}
         disabled={examFinish}
         min={1}
         max={100}
         value={value}
         onChange={handleChange}
+        className={`grade-${itemColor}`}
       />
       <Dropdown overlay={menu}>
-        <Button>
+        <Button className={`grade-${itemColor}`}>
           <i className="fa fa-angle-down" aria-hidden="true"></i>
         </Button>
       </Dropdown>

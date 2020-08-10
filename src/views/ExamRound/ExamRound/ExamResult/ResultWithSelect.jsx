@@ -90,15 +90,16 @@ const ResultWithSelect = ({
                         changeScore={(score) =>
                           updateResult(student.studentId, item.id, score)
                         }
+                        grades={grades}
                       />
                     ) : (
                       <Select
                         disabled={examFinish}
                         style={{
                           width: '100px',
-                          color: itemColor,
                           fontSize: itemColor ? '18px' : '14px',
                         }}
+                        className={`grade-${itemColor}`}
                         defaultValue={scoreToGrade(result, grades).id}
                         onSelect={(gradeId) =>
                           updateResult(
