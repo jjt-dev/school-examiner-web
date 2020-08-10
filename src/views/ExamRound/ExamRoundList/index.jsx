@@ -1,6 +1,6 @@
 import React, { useCallback, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { Icon, Empty, Tooltip } from 'antd'
+import { Empty, Tooltip } from 'antd'
 import './index.less'
 import { findRoundStatus, getRoundTitle } from '../helper'
 import { useEffect } from 'react'
@@ -8,6 +8,7 @@ import * as appAction from 'src/actions/app'
 import MakeupsModal from './MakeupsModal'
 import api from 'src/utils/api'
 import set from 'lodash/fp/set'
+import { PlusOutlined } from '@ant-design/icons'
 
 const ExamRoundList = ({ history }) => {
   const dispatch = useDispatch()
@@ -108,7 +109,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
           >
             {item.canAdd && (
               <Tooltip title="添加考生到该场次">
-                <Icon type="plus" onClick={(e) => openMakeupsModal(e, item)} />
+                <PlusOutlined onClick={(e) => openMakeupsModal(e, item)} />
               </Tooltip>
             )}
             <div className="round-number">
@@ -116,7 +117,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
             </div>
             <div className="round-level">{item.levelName}</div>
             <div className="round-level">考生数: {item.studentCount}</div>
-            <Icon type={roundStatus.icon} />
+            {roundStatus.icon}
             <div className="round-title">{roundStatus.title}</div>
           </div>
         )

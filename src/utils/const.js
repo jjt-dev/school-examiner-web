@@ -1,3 +1,11 @@
+import React from 'react'
+import {
+  InfoCircleOutlined,
+  ClockCircleOutlined,
+  PauseCircleOutlined,
+  CheckCircleOutlined,
+} from '@ant-design/icons'
+
 /**
  * 分页默认配置
  */
@@ -48,16 +56,26 @@ export const RoundStatus = {
     id: 0,
     key: 'uninitiated',
     title: '考试未开始',
-    icon: 'info-circle',
+    icon: <InfoCircleOutlined />,
   },
   ongoing: {
     id: 10,
     key: 'ongoing',
     title: '考试进行中',
-    icon: 'clock-circle',
+    icon: <ClockCircleOutlined />,
   },
-  pause: { id: 11, key: 'pause', title: '考试暂停', icon: 'pause-circle' },
-  finish: { id: 20, key: 'finish', title: '考试结束', icon: 'check-circle' },
+  pause: {
+    id: 11,
+    key: 'pause',
+    title: '考试暂停',
+    icon: <PauseCircleOutlined />,
+  },
+  finish: {
+    id: 20,
+    key: 'finish',
+    title: '考试结束',
+    icon: <CheckCircleOutlined />,
+  },
 }
 
 export const StudentExamStatus = [

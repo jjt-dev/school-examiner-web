@@ -1,6 +1,7 @@
 import React from 'react'
-import { Upload, message, Button, Icon } from 'antd'
+import { Upload, message, Button } from 'antd'
 import { getApiRootImg } from 'src/utils/common'
+import { UploadOutlined } from '@ant-design/icons'
 
 const UplaodImg = ({ callback, showUploadList, btnSize }) => {
   const props = {
@@ -25,7 +26,7 @@ const UplaodImg = ({ callback, showUploadList, btnSize }) => {
       className="upload-img"
     >
       <Button size={btnSize ?? 'default'}>
-        <Icon type="upload" /> 上传图片
+        <UploadOutlined /> 上传图片
       </Button>
     </Upload>
   )

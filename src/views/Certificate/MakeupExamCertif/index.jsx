@@ -1,9 +1,10 @@
 import React from 'react'
 import './index.less'
-import { Button, Icon } from 'antd'
+import { Button } from 'antd'
 import ReactToPrint from 'react-to-print'
 import { addNumPrefix } from 'src/utils/common'
 import { useState } from 'react'
+import { CheckOutlined } from '@ant-design/icons'
 
 class MakeupExamCertif extends React.Component {
   constructor(props) {
@@ -84,7 +85,7 @@ const CheckItem = ({ defaultChecked }) => {
   const [checked, setChecked] = useState(defaultChecked)
   return (
     <div className="item-check" onClick={() => setChecked(!checked)}>
-      {checked && <Icon type="check" />}
+      {checked && <CheckOutlined />}
     </div>
   )
 }
