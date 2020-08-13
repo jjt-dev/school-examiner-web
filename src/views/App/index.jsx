@@ -10,6 +10,7 @@ import ErrorBoundary from 'src/components/ErrorBoundary'
 import JjtBreadcrumb from 'src/components/JjtBreadcrumb'
 import { matchPath } from 'react-router'
 import classnames from 'classnames'
+import ChromeCheck from './ChromeCheck'
 
 const App = () => {
   const history = useHistory()
@@ -51,6 +52,7 @@ const App = () => {
         </ErrorBoundary>
       </main>
       {loading && <Spin />}
+      <ChromeCheck />
     </div>
   )
 }
