@@ -58,7 +58,7 @@ export const getTotalScore = (student, examItems) => {
     const item = examItems.find((item) => item.id === Number(id))
     score += results[item.id] * item.ratio
   })
-  return score.toFixed(0)
+  return score.toFixed(2)
 }
 
 /**
