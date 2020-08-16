@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
 import { Modal, Button } from 'antd'
-import { getDomain } from 'src/utils/common'
+import { getDomain, isProdEnv } from 'src/utils/common'
 import './index.less'
 
 const ChromeCheck = () => {
   const isChrome =
     !!window.chrome && (!!window.chrome.webstore || !!window.chrome.runtime)
-  const [visible, setVisible] = useState(!isChrome)
+  const [visible, setVisible] = useState(!isChrome && isProdEnv)
 
   const downloadExamineeInfo = () => {
     window.open(`${getDomain()}/images/jjt/config/ChromeSetup.exe`, '_blank')

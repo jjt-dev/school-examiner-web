@@ -104,3 +104,5 @@ export const getByteLen = (val = '') => {
   }
   return len
 }
+
+export const isProdEnv = process.env.REACT_APP_IS_PRODUCTION === 'true'
