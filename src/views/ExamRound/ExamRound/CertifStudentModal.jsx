@@ -3,14 +3,15 @@ import { Modal, Avatar, Button } from 'antd'
 import { CertificateCategory } from 'src/utils/const'
 import { getDomain } from 'src/utils/common'
 import { useHistory } from 'react-router'
+import { getPassScore } from '../helper'
 
 const CertifStudentModal = ({
   setShowCertifStudentsModal,
   certificateCat,
   examRound,
-  PassScore,
 }) => {
   const history = useHistory()
+  const PassScore = getPassScore(examRound)
   const { studentList, examResult = [], headerInfo } = examRound
 
   const availableStudents = studentList.filter((student) => {

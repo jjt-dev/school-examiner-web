@@ -110,7 +110,9 @@ export const getRoundTitle = (roundNum) => {
   return addNumPrefix(roundNum)
 }
 
-export const getPassScore = (grades) => {
+export const getPassScore = (examRound) => {
+  if (!examRound) return 60
+  const { grades } = examRound
   let minEndScore
   grades.forEach((grade) => {
     if (!minEndScore || grade.endScore < minEndScore) {
@@ -118,4 +120,16 @@ export const getPassScore = (grades) => {
     }
   })
   return minEndScore + 1
+}
+
+export const buildResult = (examRound, isGradeMode) => {
+  const payload = getFinishExamPayload(
+    examRound,
+    getPassScore(examRound),
+    isGradeMode
+  )
+  return {
+    executeId: examRound.executionInfo.executionId,
+    result: payload,
+  }
 }

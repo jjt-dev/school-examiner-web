@@ -3,6 +3,7 @@ import { Button, Modal } from 'antd'
 import * as examRoundAction from 'src/actions/examRound'
 import { useDispatch } from 'react-redux'
 import { RoundStatus, CertificateCategory } from 'src/utils/const'
+import { buildResult } from '../helper'
 
 const { confirm } = Modal
 
@@ -15,6 +16,7 @@ const ActionFooter = ({
   setClearMultSelect,
   finishExam,
   canPlay,
+  isGradeMode,
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
@@ -49,7 +51,7 @@ const ActionFooter = ({
   }
 
   const pauseExam = () => {
-    dispatch(examRoundAction.pauseExam(executionInfo.executionId))
+    dispatch(examRoundAction.pauseExam(buildResult(examRound, isGradeMode)))
   }
 
   /**

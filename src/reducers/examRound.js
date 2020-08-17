@@ -101,10 +101,11 @@ export default examRound
 const initStudentResults = (examRound) => {
   let { studentList, examItems, grades, headerInfo, examResult } = examRound
   const isFinish = headerInfo.examState === RoundStatus.finish.id
+  const isPause = headerInfo.examState === RoundStatus.pause.id
   const goodGrade = grades.find((grade) => grade.name === '良好')
   studentList = studentList.map((student) => {
     let results = {}
-    if (isFinish) {
+    if (isPause || isFinish) {
       examResult
         .filter(
           (result) =>

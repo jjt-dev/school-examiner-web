@@ -48,8 +48,8 @@ export const startExam = createAction(START_EXAM, (roundNum) =>
   api.post(`/exam/startExam?roundNum=${roundNum}`)
 )
 
-export const pauseExam = createAction(PAUSE_EXAM, (executeId) =>
-  api.post(`/exam/pauseExam?executeId=${executeId}`)
+export const pauseExam = createAction(PAUSE_EXAM, (payload) =>
+  api.post(`/exam/pauseExam`, payload)
 )
 
 export const resumeExam = createAction(RESUME_EXAM, (executeId) =>

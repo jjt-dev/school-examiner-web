@@ -11,7 +11,7 @@ import { message } from 'antd'
 import { RoundStatus } from 'src/utils/const'
 import CertifStudentModal from './CertifStudentModal'
 import api from 'src/utils/api'
-import { getFinishExamPayload, getPassScore } from '../helper'
+import { buildResult } from '../helper'
 import * as appAction from 'src/actions/app'
 
 const ExamRound = ({ match, history }) => {
@@ -32,7 +32,6 @@ const ExamRound = ({ match, history }) => {
   const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
   const examFinish = headerInfo.examState === RoundStatus.finish.id
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
-  const PassScore = examRound ? getPassScore(examRound.grades) : 60
   const examRoundLoaded = examRound && headerInfo.roundNum === Number(roundNum)
 
   useEffect(() => {
@@ -86,11 +85,10 @@ const ExamRound = ({ match, history }) => {
   }
 
   const finishExam = async () => {
-    const payload = getFinishExamPayload(examRound, PassScore, isGradeMode)
-    const result = await api.post(`/exam/finishExam`, {
-      executeId: examRound.executionInfo.executionId,
-      result: payload,
-    })
+    const result = await api.post(
+      `/exam/finishExam`,
+      buildResult(examRound, isGradeMode)
+    )
     await dispatch(examRoundAction.finishExam(result))
     getExamRound()
     message.success('考试保存成功')
@@ -152,6 +150,7 @@ const ExamRound = ({ match, history }) => {
                 setClearMultSelect={setClearMultSelect}
                 finishExam={finishExam}
                 canPlay={headerInfo.canPlay}
+                isGradeMode={isGradeMode}
               />
             </div>
           </div>
@@ -173,7 +172,6 @@ const ExamRound = ({ match, history }) => {
                 setShowCertifStudentsModal={setShowCertifStudentsModal}
                 certificateCat={certificateCat}
                 examRound={examRound}
-                PassScore={PassScore}
               />
             )}
           </div>
