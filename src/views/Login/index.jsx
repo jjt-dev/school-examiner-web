@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import './index.less'
 import api from 'src/utils/api'
 import { local, EXAMINER_TOKEN, EXAM_CODE, session } from 'src/utils/storage'
@@ -8,9 +8,11 @@ import { parseSearches } from 'src/utils/common'
 import useDidMount from 'src/hooks/useDidMount'
 import JjtAvatar from 'src/components/JjtAvatar'
 import { message, Empty } from 'antd'
+import ConfirmModal from './ConfirmModal'
 
 const Login = ({ history, location }) => {
   const dispatch = useDispatch()
+  const [selectedExaminer, setSelectedExaminer] = useState()
   const { examinerList } = useSelector((state) => state.app)
   const hasExaminer = examinerList.length > 0
 
@@ -29,8 +31,16 @@ const Login = ({ history, location }) => {
     }
   })
 
-  const selectExaminer = async (examiner) => {
-    const { username } = examiner
+  const checkPhoneNumber = (value) => {
+    if (selectedExaminer.phone.endsWith(value)) {
+      selectExaminer()
+    } else {
+      message.error('输入的电话号码后四位不正确')
+    }
+  }
+
+  const selectExaminer = async () => {
+    const { username } = selectedExaminer
     try {
       const result = await api.post(
         `/common/login?username=${username}&examCode=${session.getItem(
@@ -58,7 +68,7 @@ const Login = ({ history, location }) => {
             <div
               key={item.id}
               className="examiner-list__content-grid"
-              onClick={() => selectExaminer(item)}
+              onClick={() => setSelectedExaminer(item)}
             >
               <JjtAvatar imageUrl={item.faceUrl} disabled={true} />
               <div className="examiner-list__content-grid-info">
@@ -70,6 +80,12 @@ const Login = ({ history, location }) => {
         </div>
       ) : (
         <Empty className="examiner-list__empty"></Empty>
+      )}
+      {selectedExaminer && (
+        <ConfirmModal
+          hide={() => setSelectedExaminer(false)}
+          checkPhoneNumber={checkPhoneNumber}
+        />
       )}
     </div>
   )
