@@ -85,6 +85,7 @@ const Login = ({ history, location }) => {
         <ConfirmModal
           hide={() => setSelectedExaminer(false)}
           checkPhoneNumber={checkPhoneNumber}
+          name={selectedExaminer.username}
         />
       )}
     </div>
