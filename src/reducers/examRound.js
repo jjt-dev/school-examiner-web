@@ -11,6 +11,7 @@ import {
   RESUME_EXAM,
   FINISH_EXAM,
   CLEAR_EXAM_RESULT,
+  CLEAR_EXAM,
 } from 'src/actions/examRound'
 import { deepClone, gradeToScore } from 'src/utils/common'
 import { RoundStatus } from 'src/utils/const'
@@ -83,6 +84,9 @@ const examRound = handleActions(
     },
     [FINISH_EXAM]: (state) => {
       return set(`examRound.headerInfo.examState`, RoundStatus.finish.id, state)
+    },
+    [CLEAR_EXAM]: (state) => {
+      return set(`examRound`, null, state)
     },
     [CLEAR_EXAM_RESULT]: (state) => {
       const newStudentList = state.examRound.studentList.map((student) => {

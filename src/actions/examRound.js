@@ -14,6 +14,7 @@ export const START_EXAM = 'START_EXAM'
 export const PAUSE_EXAM = 'PAUSE_EXAM'
 export const RESUME_EXAM = 'RESUME_EXAM'
 export const FINISH_EXAM = 'FINISH_EXAM'
+export const CLEAR_EXAM = 'CLEAR_EXAM'
 
 export const getExamRound = createAction(GET_EXAM_ROUND, (roundNum) =>
   api.get(`/exam/examDetail?roundNum=${roundNum}`)
@@ -57,3 +58,5 @@ export const resumeExam = createAction(RESUME_EXAM, (executeId) =>
 )
 
 export const finishExam = createAction(FINISH_EXAM, (params) => params)
+
+export const clearExam = createAction(CLEAR_EXAM)

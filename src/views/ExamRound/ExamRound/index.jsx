@@ -37,6 +37,7 @@ const ExamRound = ({ match, history }) => {
   useEffect(() => {
     dispatch(appAction.getExamRoundList())
     dispatch(appAction.getExamMakeupRoundList())
+    return () => dispatch(examRoundAction.clearExam())
   }, [dispatch])
 
   useEffect(() => {
