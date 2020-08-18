@@ -1,5 +1,6 @@
 import { RoundStatus } from 'src/utils/const'
 import { getTotalScore, addNumPrefix } from 'src/utils/common'
+import { session } from 'src/utils/storage'
 
 /**
  * 参数指标，状态是前两行。再加上考项的个数是总的行数rows
@@ -130,6 +131,7 @@ export const buildResult = (examRound, isGradeMode) => {
   )
   return {
     executeId: examRound.executionInfo.executionId,
+    restDuration: session.getItem('examDeadline'),
     result: payload,
   }
 }

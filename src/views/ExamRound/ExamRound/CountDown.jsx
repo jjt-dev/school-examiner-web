@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { findRoundStatus } from '../helper'
 import { RoundStatus } from 'src/utils/const'
+import { session } from 'src/utils/storage'
 
 const OneMinSeconds = 60
 
@@ -22,6 +23,7 @@ const CountDown = ({ examDuration, headerInfo, finishExam }) => {
   useEffect(() => {
     setMinutes(Math.floor(deadline / OneMinSeconds))
     setSeconds(deadline % OneMinSeconds)
+    session.setItem('examDeadline', deadline)
     if (deadline === 0) {
       finishExam()
     }
