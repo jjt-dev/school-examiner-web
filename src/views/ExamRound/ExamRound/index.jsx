@@ -12,7 +12,7 @@ import { RoundStatus } from 'src/utils/const'
 import CertifStudentModal from './CertifStudentModal'
 import api from 'src/utils/api'
 import { buildResult } from '../helper'
-import * as appAction from 'src/actions/app'
+import { getAllRounds } from 'src/actions/app'
 
 const ExamRound = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -35,8 +35,7 @@ const ExamRound = ({ match, history }) => {
   const examRoundLoaded = examRound && headerInfo.roundNum === Number(roundNum)
 
   useEffect(() => {
-    dispatch(appAction.getExamRoundList())
-    dispatch(appAction.getExamMakeupRoundList())
+    dispatch(getAllRounds())
     return () => dispatch(examRoundAction.clearExam())
   }, [dispatch])
 

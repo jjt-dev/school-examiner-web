@@ -8,6 +8,7 @@ export const APP_OAUTH_USER = 'APP_OAUTH_USER'
 
 export const GET_EXAM_INFO = 'GET_EXAM_INFO'
 export const GET_EXAMINER_LIST = 'GET_EXAMINER_LIST'
+export const GET_ALL_ROUNDS = 'GET_ALL_ROUNDS'
 export const GET_EXAM_ROUND_LIST = 'GET_EXAM_ROUND_LIST'
 export const GET_EXAM_MAKEUP_ROUND_LIST = 'GET_EXAM_MAKEUP_ROUND_LIST'
 
@@ -29,6 +30,15 @@ export const getExamInfo = createAction(GET_EXAM_INFO, () =>
 export const getExaminerList = createAction(GET_EXAMINER_LIST, (examCode) =>
   api.get(`/common/examiners?examCode=${examCode}`)
 )
+
+export const getAllRounds = createAction(GET_ALL_ROUNDS, async () => {
+  const rounds = await api.get(`/exam/roundList`)
+  const makeupRounds = await api.get(`/exam/makeupRoundList`)
+  return {
+    rounds,
+    makeupRounds,
+  }
+})
 
 export const getExamRoundList = createAction(GET_EXAM_ROUND_LIST, () =>
   api.get(`/exam/roundList`)

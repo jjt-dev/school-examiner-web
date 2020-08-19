@@ -9,6 +9,7 @@ import {
   GET_EXAM_ROUND_LIST,
   GET_EXAM_MAKEUP_ROUND_LIST,
   UPDATE_PRINT_TAB_KEY,
+  GET_ALL_ROUNDS,
 } from 'src/actions/app'
 
 const initState = {
@@ -51,6 +52,13 @@ const app = handleActions(
       return {
         ...state,
         examInfo: payload,
+      }
+    },
+    [GET_ALL_ROUNDS]: (state, { payload }) => {
+      return {
+        ...state,
+        examRoundList: reorderRound(payload.rounds),
+        examMakeupRoundList: reorderRound(payload.makeupRounds),
       }
     },
     [GET_EXAM_ROUND_LIST]: (state, { payload }) => {

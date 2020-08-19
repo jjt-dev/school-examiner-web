@@ -1,30 +1,19 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Empty, Tooltip } from 'antd'
 import './index.less'
 import { findRoundStatus, getRoundTitle } from '../helper'
-import { useEffect } from 'react'
-import * as appAction from 'src/actions/app'
 import MakeupsModal from './MakeupsModal'
 import api from 'src/utils/api'
 import set from 'lodash/fp/set'
 import { PlusOutlined } from '@ant-design/icons'
+import { getAllRounds } from 'src/actions/app'
 
 const ExamRoundList = ({ history }) => {
-  const dispatch = useDispatch()
   const { examInfo, examRoundList, examMakeupRoundList } = useSelector(
     (state) => state.app
   )
   const hasMakeups = examMakeupRoundList.length > 0
-
-  const getRoundList = useCallback(() => {
-    dispatch(appAction.getExamRoundList())
-    dispatch(appAction.getExamMakeupRoundList())
-  }, [dispatch])
-
-  useEffect(() => {
-    getRoundList()
-  }, [getRoundList])
 
   return (
     <div className="page exam-round-list">
@@ -32,11 +21,7 @@ const ExamRoundList = ({ history }) => {
         <span>{examInfo?.title}</span>
       </div>
       {examRoundList.length > 0 && (
-        <RoundList
-          roundList={examRoundList}
-          history={history}
-          getRoundList={getRoundList}
-        />
+        <RoundList roundList={examRoundList} history={history} />
       )}
       {hasMakeups && (
         <RoundList roundList={examMakeupRoundList} history={history} />
@@ -50,7 +35,8 @@ const ExamRoundList = ({ history }) => {
 
 export default ExamRoundList
 
-const RoundList = ({ roundList, history, getRoundList }) => {
+const RoundList = ({ roundList, history }) => {
+  const dispatch = useDispatch()
   const [showMakeupsModal, setShowMakeupsModal] = useState(false)
   const [selectedRound, setSelectedRound] = useState()
   const [makeupStudents, setMakeupStudents] = useState([])
@@ -76,7 +62,7 @@ const RoundList = ({ roundList, history, getRoundList }) => {
       (item) => item.studentGroupId === studentGroupId
     )
     setMakeupStudents(set(`[${studentIndex}].added`, true, makeupStudents))
-    getRoundList()
+    dispatch(getAllRounds())
   }
 
   const openMakeupsModal = (e, round) => {

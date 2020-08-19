@@ -33,6 +33,7 @@ const App = () => {
   useEffect(() => {
     if (!isLoginPage) {
       dispatch(appAction.getUserInfo())
+      dispatch(appAction.getAllRounds())
     }
   }, [dispatch, isLoginPage])
 

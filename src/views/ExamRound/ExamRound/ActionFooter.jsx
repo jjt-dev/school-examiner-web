@@ -4,7 +4,7 @@ import * as examRoundAction from 'src/actions/examRound'
 import { useDispatch } from 'react-redux'
 import { RoundStatus, CertificateCategory } from 'src/utils/const'
 import { buildResult } from '../helper'
-import * as appAction from 'src/actions/app'
+import { getAllRounds } from 'src/actions/app'
 
 const { confirm } = Modal
 
@@ -64,8 +64,7 @@ const ActionFooter = ({
         buildResult(examRoundRef.current, isGradeModeRef.current)
       )
     )
-    dispatch(appAction.getExamRoundList())
-    dispatch(appAction.getExamMakeupRoundList())
+    dispatch(getAllRounds())
   }
 
   useEffect(() => {
