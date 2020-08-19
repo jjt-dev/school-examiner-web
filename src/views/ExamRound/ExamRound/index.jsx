@@ -29,7 +29,7 @@ const ExamRound = ({ match, history }) => {
   )
   const { examRound } = useSelector((state) => state.examRound)
   const headerInfo = examRound?.headerInfo || {}
-  const leaveMessage = '离开该页面会导致正在进行中或暂停的考试数据丢失。'
+  const leaveMessage = '离开该页面当前考试将暂停。'
   const examFinish = headerInfo.examState === RoundStatus.finish.id
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
   const examRoundLoaded = examRound && headerInfo.roundNum === Number(roundNum)
@@ -39,13 +39,6 @@ const ExamRound = ({ match, history }) => {
     dispatch(appAction.getExamMakeupRoundList())
     return () => dispatch(examRoundAction.clearExam())
   }, [dispatch])
-
-  useEffect(() => {
-    if (examOngoing) {
-      window.onbeforeunload = () => leaveMessage
-    }
-    return () => (window.onbeforeunload = null)
-  }, [examOngoing])
 
   useEffect(() => {
     setToggleResult((pre) => !pre)

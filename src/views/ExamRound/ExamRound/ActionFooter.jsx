@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Button, Modal } from 'antd'
 import * as examRoundAction from 'src/actions/examRound'
 import { useDispatch } from 'react-redux'
 import { RoundStatus, CertificateCategory } from 'src/utils/const'
 import { buildResult } from '../helper'
+import * as appAction from 'src/actions/app'
 
 const { confirm } = Modal
 
@@ -20,8 +21,15 @@ const ActionFooter = ({
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
+  const examRoundRef = useRef(examRound)
+  const isGradeModeRef = useRef(isGradeMode)
   const examPaused = headerInfo.examState === RoundStatus.pause.id
   const examIsOnGoing = headerInfo.examState === RoundStatus.ongoing.id
+
+  useEffect(() => {
+    examRoundRef.current = examRound
+    isGradeModeRef.current = isGradeMode
+  }, [examRound, isGradeMode])
 
   const confirmFinishExam = () => {
     confirm({
@@ -50,9 +58,25 @@ const ActionFooter = ({
     }
   }
 
-  const pauseExam = () => {
-    dispatch(examRoundAction.pauseExam(buildResult(examRound, isGradeMode)))
+  const pauseExam = async () => {
+    await dispatch(
+      examRoundAction.pauseExam(
+        buildResult(examRoundRef.current, isGradeModeRef.current)
+      )
+    )
+    dispatch(appAction.getExamRoundList())
+    dispatch(appAction.getExamMakeupRoundList())
   }
+
+  useEffect(() => {
+    return () => {
+      const { headerInfo } = examRoundRef.current
+      if (headerInfo.examState === RoundStatus.ongoing.id) {
+        pauseExam()
+      }
+    }
+    // eslint-disable-next-line
+  }, [])
 
   /**
    * 这里投影的是下一场的
