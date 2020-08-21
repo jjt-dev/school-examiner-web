@@ -10,10 +10,15 @@ import { PlusOutlined } from '@ant-design/icons'
 import { getAllRounds } from 'src/actions/app'
 
 const ExamRoundList = ({ history }) => {
+  const dispatch = useDispatch()
   const { examInfo, examRoundList, examMakeupRoundList } = useSelector(
     (state) => state.app
   )
   const hasMakeups = examMakeupRoundList.length > 0
+
+  useEffect(() => {
+    dispatch(getAllRounds())
+  }, [dispatch])
 
   return (
     <div className="page exam-round-list">
