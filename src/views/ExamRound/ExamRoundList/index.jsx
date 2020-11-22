@@ -8,6 +8,7 @@ import api from 'src/utils/api'
 import set from 'lodash/fp/set'
 import { PlusOutlined } from '@ant-design/icons'
 import { getAllRounds } from 'src/actions/app'
+import Button from 'antd/es/button'
 
 const ExamRoundList = ({ history }) => {
   const dispatch = useDispatch()
@@ -90,6 +91,13 @@ const RoundList = ({ roundList, history }) => {
 
   return (
     <div className="exam-round-list__content">
+      <Button
+        onClick={() => history.push(`/resource-pool`)}
+        type="primary"
+        className="resource-pool-btn"
+      >
+        资源池
+      </Button>
       {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
         return (

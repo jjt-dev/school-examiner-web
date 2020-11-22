@@ -92,3 +92,18 @@ export const ExamResultMode = {
   score: 0,
   grade: 1,
 }
+
+export const ResourcePoolStatus = {
+  waitForGroup: { id: 0, title: '已经创建，等待分组' },
+  grouped: { id: 1, title: '已经被分组' },
+  pass: { id: 2, title: '通过考试' },
+  failed: { id: 3, title: '未通过考试' },
+  absence: { id: 4, title: '缺考' },
+}
+
+export const ResourcePoolSource = {
+  signAfterExamStart: { id: 0, title: '临时报名' },
+  lateArrive: { id: 1, title: '迟到' },
+  failed: { id: 2, title: '正常考试未通过' },
+  makeupFailed: { id: 3, title: '补考考试未通过' },
+}

@@ -1,7 +1,12 @@
-import * as queryString from 'query-string'
+import { Modal, Tooltip, message } from 'antd'
 import moment from 'moment'
-import { Tooltip } from 'antd'
+import * as queryString from 'query-string'
 import React from 'react'
+
+import { ResourcePoolSource, ResourcePoolStatus } from './const'
+import api from './api'
+
+const { confirm } = Modal
 
 export const parseSearches = (location) => {
   return queryString.parse(location.search)
@@ -106,3 +111,87 @@ export const getByteLen = (val = '') => {
 }
 
 export const isProdEnv = process.env.REACT_APP_IS_PRODUCTION === 'true'
+
+export const findResPoolStatus = (statusId) => {
+  return Object.values(ResourcePoolStatus).find(
+    (status) => status.id === statusId
+  )
+}
+
+export const findResPoolSource = (sourceId) => {
+  return Object.values(ResourcePoolSource).find(
+    (status) => status.id === sourceId
+  )
+}
+
+export const buildParameters = (path, parameters) => {
+  path += '?'
+  Object.keys(parameters).forEach((key) => {
+    if (isNotEmpty(parameters[key])) {
+      path += `&${key}=${encodeURIComponent(parameters[key])}`
+    }
+  })
+  return path
+}
+
+export const isNotEmpty = (value) => {
+  if (value === null || value === undefined) return false
+  if (Array.isArray(value)) {
+    return value.length > 0
+  }
+  if (value === 0) return true
+  if (typeof value === 'boolean' || typeof value === 'number') return true
+  if (value instanceof Object) return value
+
+  return value.trim() !== ''
+}
+
+export const confirmUpdate = ({
+  status,
+  title,
+  titleValue,
+  path,
+  callback,
+  contentTitle,
+}) => {
+  confirm({
+    title: `请问您确认要${status}该${title}吗?`,
+    content: `${contentTitle ?? title}名: ${titleValue}`,
+    okText: '确定',
+    cancelText: '取消',
+    onOk: async () => {
+      await api.post(path)
+      message.success(`${title}${status}成功`)
+      callback && callback()
+    },
+    onCancel() {
+      console.log('Cancel')
+    },
+  })
+}
+
+export const tableOrder = {
+  title: '序号',
+  key: 'index',
+  render: (text, record, index) => `${index + 1}`,
+}
+
+export const getRow = (title, name, width) => ({
+  title,
+  dataIndex: name,
+  key: name,
+  width,
+})
+
+export const getDateRow = (title, name) => ({
+  title,
+  dataIndex: name,
+  key: name,
+  render: (text, record) => <span>{formatTime(record[name])}</span>,
+})
+
+export const getCustomRow = (title, getValue, width) => ({
+  title,
+  width,
+  render: (text, record) => <span>{getValue(record)}</span>,
+})

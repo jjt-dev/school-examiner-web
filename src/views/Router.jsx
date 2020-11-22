@@ -6,6 +6,7 @@ import ExamRoundList from './ExamRound/ExamRoundList'
 import ExamRound from './ExamRound/ExamRound'
 import NextGroup from './NextGroup'
 import Certificate from './Certificate'
+import ResourcePool from './ResourcePool'
 
 export const routes = [
   { path: '/login', comp: Login },
@@ -39,6 +40,11 @@ export const routes = [
       params: ['roundNum'],
       breadcrumbs: ['证书打印'],
     },
+  },
+  {
+    path: '/resource-pool',
+    comp: ResourcePool,
+    back: { path: '/exam-rounds', breadcrumbs: ['考试分组列表', '资源池'] },
   },
 ]
 
