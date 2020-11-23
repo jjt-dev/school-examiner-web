@@ -63,7 +63,6 @@ const RoundList = ({ roundList, history }) => {
     await api.get(`/exam/addUnexamStudentToRound`, {
       studentGroupId,
       toRoundNum: selectedRoundForAdd.roundNum,
-      toRoundNum: selectedRound.roundNum,
       makeupId: student.id,
     })
     const studentIndex = makeupStudents.findIndex(
@@ -110,11 +109,11 @@ const RoundList = ({ roundList, history }) => {
             onClick={() => goToRound(item.roundNum)}
           >
             <Tooltip title="查看该场次考生">
-              <EditOutlined onClick={(e) => openModal(e, item)} />
+              <EditOutlined onClick={(e) => openModal(e, item, 'remove')} />
             </Tooltip>
             {item.canAdd && (
               <Tooltip title="添加考生到该场次">
-                <PlusOutlined onClick={(e) => openModal(e, item)} />
+                <PlusOutlined onClick={(e) => openModal(e, item, 'add')} />
               </Tooltip>
             )}
             <div className="round-number">

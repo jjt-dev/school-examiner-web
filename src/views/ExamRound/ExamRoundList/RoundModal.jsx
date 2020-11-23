@@ -1,16 +1,33 @@
-import { Avatar, Button, Modal, Table } from 'antd'
+import { Avatar, Button, Modal, Table, message } from 'antd'
 import React from 'react'
 import useFetch from 'src/hooks/useFetch'
-import { getDomain, getRow, tableOrder } from 'src/utils/common'
+import { getDomain, getRow, tableOrder, getCustomRow } from 'src/utils/common'
+import api from 'src/utils/api'
+
+const { confirm } = Modal
 
 const RoundModal = ({ hideModal, roundNum }) => {
-  const [students = []] = useFetch(
+  const [students = [], fetchStudents] = useFetch(
     `/exam/examGroupStudents?roundNum=${roundNum}`
   )
 
+  const removeStudent = (studentId) => {
+    confirm({
+      title: '请问您确认要把该考生从该场次移出吗?',
+      onOk: async () => {
+        await api.post(
+          `/exam/removeStudentFromExamGroup?roundNum=${roundNum}&studentId=${studentId}`
+        )
+        message.success('成功移出考生')
+        fetchStudents()
+      },
+    })
+  }
+
   return (
     <Modal
-      title={`选择要添加到本场考试的考生`}
+      width={800}
+      title="考生列表"
       visible={true}
       onCancel={hideModal}
       footer={[
@@ -20,10 +37,10 @@ const RoundModal = ({ hideModal, roundNum }) => {
       ]}
     >
       <Table
-        columns={getColumns()}
+        columns={getColumns(removeStudent)}
         dataSource={students}
         rowKey="studentId"
-        size="middle"
+        size="small"
         bordered={true}
       />
     </Modal>
@@ -32,27 +49,19 @@ const RoundModal = ({ hideModal, roundNum }) => {
 
 export default RoundModal
 
-const getColumns = (addMakeupStudToRound) => [
+const getColumns = (removeStudent) => [
   tableOrder,
   getRow('姓名', 'studentName'),
-  {
-    title: '照片',
-    render: (text, record) => (
-      <Avatar size={50} src={`${getDomain()}${record.faceUrl}`} />
-    ),
-  },
+  getRow('身份证号', 'cardId'),
+  getCustomRow('头像', (record) => (
+    <Avatar size={30} src={`${getDomain()}${record.faceUrl}`} />
+  )),
   {
     title: '操作',
     render: (text, record) => {
-      if (record.added) {
-        return <span>已添加</span>
-      }
       return (
-        <Button
-          type="primary"
-          onClick={() => addMakeupStudToRound(record.studentGroupId)}
-        >
-          添加
+        <Button type="primary" onClick={() => removeStudent(record.studentId)}>
+          移出考生
         </Button>
       )
     },
