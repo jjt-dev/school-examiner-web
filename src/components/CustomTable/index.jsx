@@ -1,6 +1,6 @@
 import React from 'react'
 import { Table } from 'antd'
-import useTableFetch from 'src/hooks/useTableFetch'
+import useTableSearch from 'src/hooks/useTableFetch'
 
 const CustomTable = ({
   pagination,
@@ -57,7 +57,7 @@ const CustomTable = ({
   )
 }
 
-CustomTable.useTableFetch = useTableFetch
+CustomTable.useTableFetch = useTableSearch
 
 export default CustomTable
 

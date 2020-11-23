@@ -1,8 +1,13 @@
+import { Avatar, Button, Modal, Table } from 'antd'
 import React from 'react'
-import { Modal, Avatar, Button, Table } from 'antd'
-import { getDomain } from 'src/utils/common'
+import useFetch from 'src/hooks/useFetch'
+import { getDomain, getRow, tableOrder } from 'src/utils/common'
 
-const MakeupsModal = ({ hideModal, makeupStudents, addMakeupStudToRound }) => {
+const RoundModal = ({ hideModal, roundNum }) => {
+  const [students = []] = useFetch(
+    `/exam/examGroupStudents?roundNum=${roundNum}`
+  )
+
   return (
     <Modal
       title={`选择要添加到本场考试的考生`}
@@ -15,8 +20,8 @@ const MakeupsModal = ({ hideModal, makeupStudents, addMakeupStudToRound }) => {
       ]}
     >
       <Table
-        columns={getColumns(addMakeupStudToRound)}
-        dataSource={makeupStudents}
+        columns={getColumns()}
+        dataSource={students}
         rowKey="studentId"
         size="middle"
         bordered={true}
@@ -25,19 +30,11 @@ const MakeupsModal = ({ hideModal, makeupStudents, addMakeupStudToRound }) => {
   )
 }
 
-export default MakeupsModal
+export default RoundModal
 
 const getColumns = (addMakeupStudToRound) => [
-  {
-    title: '序号',
-    key: 'index',
-    render: (text, record, index) => `${index + 1}`,
-  },
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-  },
+  tableOrder,
+  getRow('姓名', 'studentName'),
   {
     title: '照片',
     render: (text, record) => (
