@@ -1,6 +1,13 @@
 import React from 'react'
 import { Modal, Avatar, Button, Table } from 'antd'
-import { getDomain } from 'src/utils/common'
+import {
+  getDomain,
+  getRow,
+  tableOrder,
+  getCustomRow,
+  findResPoolStatus,
+  findResPoolSource,
+} from 'src/utils/common'
 
 const MakeupsModal = ({
   hideMakeupsModal,
@@ -9,6 +16,7 @@ const MakeupsModal = ({
 }) => {
   return (
     <Modal
+      width={1000}
       title={`选择要添加到本场考试的考生`}
       visible={true}
       onCancel={hideMakeupsModal}
@@ -21,8 +29,8 @@ const MakeupsModal = ({
       <Table
         columns={getColumns(addMakeupStudToRound)}
         dataSource={makeupStudents}
-        rowKey="studentId"
-        size="middle"
+        size="small"
+        rowKey="id"
         bordered={true}
       />
     </Modal>
@@ -32,22 +40,21 @@ const MakeupsModal = ({
 export default MakeupsModal
 
 const getColumns = (addMakeupStudToRound) => [
-  {
-    title: '序号',
-    key: 'index',
-    render: (text, record, index) => `${index + 1}`,
-  },
-  {
-    title: '姓名',
-    dataIndex: 'name',
-    key: 'name',
-  },
-  {
-    title: '照片',
-    render: (text, record) => (
-      <Avatar size={50} src={`${getDomain()}${record.faceUrl}`} />
-    ),
-  },
+  tableOrder,
+  getRow('姓名', 'studentName'),
+  getRow('身份证号', 'cardId'),
+  getCustomRow('头像', (record) => (
+    <Avatar size={30} src={`${getDomain()}${record.faceUrl}`} />
+  )),
+  getRow('报考等级', 'levelName'),
+  getCustomRow(
+    '当前状态',
+    (record) => findResPoolStatus(record.currState).title
+  ),
+  getCustomRow(
+    '来源方式',
+    (record) => findResPoolSource(record.createWay).title
+  ),
   {
     title: '操作',
     render: (text, record) => {
@@ -56,8 +63,9 @@ const getColumns = (addMakeupStudToRound) => [
       }
       return (
         <Button
+          size="small"
           type="primary"
-          onClick={() => addMakeupStudToRound(record.studentGroupId)}
+          onClick={() => addMakeupStudToRound(record)}
         >
           添加
         </Button>

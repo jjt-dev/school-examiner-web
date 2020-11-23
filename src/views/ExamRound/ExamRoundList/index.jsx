@@ -49,20 +49,20 @@ const RoundList = ({ roundList, history }) => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const result = await api.get(
-        `/exam/getUnexamStudent?roundNum=${selectedRound.roundNum}`
-      )
-      setMakeupStudents(result)
+      const result = await api.get(`/exam/examMakeUpPage?page=1&rows=100000`)
+      setMakeupStudents(result.data)
     }
     if (selectedRound) {
       fetchData()
     }
   }, [selectedRound])
 
-  const addMakeupStudToRound = async (studentGroupId) => {
+  const addMakeupStudToRound = async (student) => {
+    const { studentGroupId } = student
     await api.get(`/exam/addUnexamStudentToRound`, {
       studentGroupId,
       toRoundNum: selectedRound.roundNum,
+      makeupId: student.id,
     })
     const studentIndex = makeupStudents.findIndex(
       (item) => item.studentGroupId === studentGroupId
