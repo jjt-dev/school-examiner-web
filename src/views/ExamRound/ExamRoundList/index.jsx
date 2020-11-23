@@ -6,9 +6,10 @@ import { findRoundStatus, getRoundTitle } from '../helper'
 import MakeupsModal from './MakeupsModal'
 import api from 'src/utils/api'
 import set from 'lodash/fp/set'
-import { PlusOutlined } from '@ant-design/icons'
+import { EditOutlined, PlusOutlined } from '@ant-design/icons'
 import { getAllRounds } from 'src/actions/app'
 import Button from 'antd/es/button'
+import RoundModal from './RoundModal'
 
 const ExamRoundList = ({ history }) => {
   const dispatch = useDispatch()
@@ -43,8 +44,8 @@ export default ExamRoundList
 
 const RoundList = ({ roundList, history }) => {
   const dispatch = useDispatch()
-  const [showMakeupsModal, setShowMakeupsModal] = useState(false)
-  const [selectedRound, setSelectedRound] = useState()
+  const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
+  const [selectedRoundForRemove, setSelectedRoundForRemove] = useState()
   const [makeupStudents, setMakeupStudents] = useState([])
 
   useEffect(() => {
@@ -52,15 +53,16 @@ const RoundList = ({ roundList, history }) => {
       const result = await api.get(`/exam/examMakeUpPage?page=1&rows=100000`)
       setMakeupStudents(result.data)
     }
-    if (selectedRound) {
+    if (selectedRoundForAdd) {
       fetchData()
     }
-  }, [selectedRound])
+  }, [selectedRoundForAdd])
 
   const addMakeupStudToRound = async (student) => {
     const { studentGroupId } = student
     await api.get(`/exam/addUnexamStudentToRound`, {
       studentGroupId,
+      toRoundNum: selectedRoundForAdd.roundNum,
       toRoundNum: selectedRound.roundNum,
       makeupId: student.id,
     })
@@ -71,20 +73,21 @@ const RoundList = ({ roundList, history }) => {
     dispatch(getAllRounds())
   }
 
-  const openMakeupsModal = (e, round) => {
+  const openModal = (e, round, type) => {
     e.preventDefault()
     e.stopPropagation()
-    setSelectedRound(round)
-    setShowMakeupsModal(true)
+    type === 'add'
+      ? setSelectedRoundForAdd(round)
+      : setSelectedRoundForRemove(round)
   }
 
-  const hideMakeupsModal = () => {
-    setSelectedRound()
-    setShowMakeupsModal(false)
+  const hideModal = () => {
+    setSelectedRoundForAdd()
+    setSelectedRoundForRemove()
   }
 
   const goToRound = (roundNum) => {
-    if (!showMakeupsModal) {
+    if (!selectedRoundForAdd && !selectedRoundForRemove) {
       history.push(`/exam-round/${roundNum}`)
     }
   }
@@ -106,9 +109,12 @@ const RoundList = ({ roundList, history }) => {
             className={`exam-round-list__content-grid round-status--${roundStatus.key}`}
             onClick={() => goToRound(item.roundNum)}
           >
+            <Tooltip title="查看该场次考生">
+              <EditOutlined onClick={(e) => openModal(e, item)} />
+            </Tooltip>
             {item.canAdd && (
               <Tooltip title="添加考生到该场次">
-                <PlusOutlined onClick={(e) => openMakeupsModal(e, item)} />
+                <PlusOutlined onClick={(e) => openModal(e, item)} />
               </Tooltip>
             )}
             <div className="round-number">
@@ -121,11 +127,17 @@ const RoundList = ({ roundList, history }) => {
           </div>
         )
       })}
-      {showMakeupsModal && (
+      {selectedRoundForAdd && (
         <MakeupsModal
           makeupStudents={makeupStudents}
-          hideMakeupsModal={hideMakeupsModal}
+          hideModal={hideModal}
           addMakeupStudToRound={addMakeupStudToRound}
+        />
+      )}
+      {selectedRoundForRemove && (
+        <RoundModal
+          hideModal={hideModal}
+          roundNum={selectedRoundForRemove.roundNum}
         />
       )}
     </div>

@@ -6,7 +6,7 @@ import { session } from 'src/utils/storage'
 
 const defaultPageSizeOptions = ['10', '20', '30', '50', '100']
 
-const useTableFetch = (defaultPath = null, options = {}) => {
+const useTableSearch = (defaultPath = null, options = {}) => {
   const { defaultValue = [], ...defaultSearch } = options
   const storageId = buildParameters(defaultPath, defaultSearch)
   const [path, setPath] = useState(defaultPath)
@@ -211,7 +211,7 @@ const useTableFetch = (defaultPath = null, options = {}) => {
   }
 }
 
-export default useTableFetch
+export default useTableSearch
 
 const getSavedPaginator = (storageId) => {
   const savedFilter = session.getItem(storageId)

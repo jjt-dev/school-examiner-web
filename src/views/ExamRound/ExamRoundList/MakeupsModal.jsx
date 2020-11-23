@@ -9,19 +9,15 @@ import {
   findResPoolSource,
 } from 'src/utils/common'
 
-const MakeupsModal = ({
-  hideMakeupsModal,
-  makeupStudents,
-  addMakeupStudToRound,
-}) => {
+const MakeupsModal = ({ hideModal, makeupStudents, addMakeupStudToRound }) => {
   return (
     <Modal
       width={1000}
       title={`选择要添加到本场考试的考生`}
       visible={true}
-      onCancel={hideMakeupsModal}
+      onCancel={hideModal}
       footer={[
-        <Button key="cancel" onClick={hideMakeupsModal}>
+        <Button key="cancel" onClick={hideModal}>
           取消
         </Button>,
       ]}
