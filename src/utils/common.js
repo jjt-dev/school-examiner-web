@@ -59,11 +59,10 @@ export const getTotalScore = (student, examItems) => {
   // 只有当每个考项有成绩的时候再计算总成绩
   if (itemIds.length < examItems.length) return null
   let score = 0
-  itemIds.forEach((id) => {
-    const item = examItems.find((item) => item.id === Number(id))
+  student.examItems.forEach((item) => {
     score += results[item.id] * item.ratio
   })
-  return score.toFixed(2)
+  return score.toFixed(0)
 }
 
 /**
