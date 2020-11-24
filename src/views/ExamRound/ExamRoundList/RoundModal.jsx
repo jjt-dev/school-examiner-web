@@ -11,12 +11,13 @@ const RoundModal = ({ hideModal, roundNum }) => {
     `/exam/examGroupStudents?roundNum=${roundNum}`
   )
 
-  const removeStudent = (studentId) => {
+  const removeStudent = (student) => {
+    const { studentId, levelId } = student
     confirm({
       title: '请问您确认要把该考生从该场次移出吗?',
       onOk: async () => {
         await api.post(
-          `/exam/removeStudentFromExamGroup?roundNum=${roundNum}&studentId=${studentId}`
+          `/exam/removeStudentFromExamGroup?roundNum=${roundNum}&studentId=${studentId}&levelId=${levelId}`
         )
         message.success('成功移出考生')
         fetchStudents()
@@ -56,11 +57,12 @@ const getColumns = (removeStudent) => [
   getCustomRow('头像', (record) => (
     <Avatar size={30} src={`${getDomain()}${record.faceUrl}`} />
   )),
+  getRow('报考等级', 'levelName'),
   {
     title: '操作',
     render: (text, record) => {
       return (
-        <Button type="primary" onClick={() => removeStudent(record.studentId)}>
+        <Button type="primary" onClick={() => removeStudent(record)}>
           移出考生
         </Button>
       )
