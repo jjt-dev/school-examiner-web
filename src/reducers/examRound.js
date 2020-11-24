@@ -40,9 +40,10 @@ const examRound = handleActions(
     },
     [UPDATE_RESULT]: (state, { payload }) => {
       const { studentList } = state.examRound
-      const { studentId, itemId, value } = payload
+      const { student, itemId, value } = payload
+      const { studentId, levelId } = student
       const index = studentList.findIndex(
-        (stud) => stud.studentId === studentId
+        (stud) => stud.studentId === studentId && stud.levelId === levelId
       )
       const { results = {}, updatedItems = {} } = studentList[index]
       results[itemId] = value

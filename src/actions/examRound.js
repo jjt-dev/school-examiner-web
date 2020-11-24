@@ -27,7 +27,7 @@ export const updateStudent = createAction(
 
 export const updateResult = createAction(
   UPDATE_RESULT,
-  (studentId, itemId, value) => ({ studentId, itemId, value })
+  (student, itemId, value) => ({ student, itemId, value })
 )
 
 export const updateResultBatch = createAction(

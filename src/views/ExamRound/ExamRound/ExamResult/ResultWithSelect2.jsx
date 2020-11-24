@@ -70,7 +70,10 @@ const ResultWithSelect2 = ({
             <td disabled>{item.name}</td>
             {resultColumns.map((index) => {
               const student = studentList[index]
-              if (!student || student.isEnable === 'false') {
+              const hasThisItem = student.examItems.some(
+                (studItem) => studItem.id === item.id
+              )
+              if (!student || student.isEnable === 'false' || !hasThisItem) {
                 return <td key={index} disabled />
               }
               const { results = {}, updatedItems = {} } = student
@@ -88,7 +91,7 @@ const ResultWithSelect2 = ({
                         examFinish={examFinish}
                         defaultValue={result}
                         changeScore={(score) =>
-                          updateResult(student.studentId, item.id, score)
+                          updateResult(student, item.id, score)
                         }
                         grades={grades}
                       />
@@ -103,7 +106,7 @@ const ResultWithSelect2 = ({
                         defaultValue={scoreToGrade(result, grades).id}
                         onSelect={(gradeId) =>
                           updateResult(
-                            student.studentId,
+                            student,
                             item.id,
                             gradeToScore(gradeId, grades)
                           )

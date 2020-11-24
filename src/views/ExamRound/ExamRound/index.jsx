@@ -64,8 +64,8 @@ const ExamRound = ({ match, history }) => {
     dispatch(examRoundAction.updateStudent(studentId, field, value))
   }
 
-  const updateResult = (studentId, itemId, score) => {
-    dispatch(examRoundAction.updateResult(studentId, itemId, score))
+  const updateResult = (student, itemId, score) => {
+    dispatch(examRoundAction.updateResult(student, itemId, score))
   }
 
   const updateResultBatch = (params) => {
