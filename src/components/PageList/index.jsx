@@ -19,6 +19,7 @@ const PageList = ({
   title: defaultTitle,
   customClass = '',
   defaultSearch = {},
+  showRowSelection = false,
 }) => {
   const {
     editPath,
@@ -84,6 +85,7 @@ const PageList = ({
         columns={columns(deleteEntity, updateEntityStatus)}
         rowKey={rowKey}
         size={size}
+        showRowSelection={showRowSelection}
       />
     </div>
   )
