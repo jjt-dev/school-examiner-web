@@ -112,7 +112,10 @@ const RoundList = ({ roundList, history, isMakeup }) => {
             onClick={() => goToRound(item.roundNum)}
           >
             <Tooltip title="查看该场次考生">
-              <EditOutlined onClick={(e) => openModal(e, item, 'remove')} />
+              <EditOutlined
+                onClick={(e) => openModal(e, item, 'remove')}
+                className={isMakeup ? 'makeup-remove-icon' : ''}
+              />
             </Tooltip>
             {item.canAdd && (
               <Tooltip title="添加考生到该场次">

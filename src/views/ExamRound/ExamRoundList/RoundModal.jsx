@@ -39,7 +39,7 @@ const RoundModal = ({ hideModal, roundNum }) => {
       <Table
         columns={getColumns(removeStudent)}
         dataSource={students}
-        rowKey="studentId"
+        rowKey={(record) => record.studentId + record.levelId}
         size="small"
         bordered={true}
       />
