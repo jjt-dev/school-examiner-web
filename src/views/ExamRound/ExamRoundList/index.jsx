@@ -1,14 +1,17 @@
-import React, { useState, useEffect } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
-import { Empty, Tooltip } from 'antd'
 import './index.less'
-import { findRoundStatus, getRoundTitle } from '../helper'
-import MakeupsModal from './MakeupsModal'
-import api from 'src/utils/api'
-import set from 'lodash/fp/set'
+
 import { EditOutlined, PlusOutlined } from '@ant-design/icons'
-import { getAllRounds } from 'src/actions/app'
+import { Empty, Tooltip } from 'antd'
 import Button from 'antd/es/button'
+import set from 'lodash/fp/set'
+import React, { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { getAllRounds } from 'src/actions/app'
+import api from 'src/utils/api'
+import { addNumPrefix } from 'src/utils/common'
+
+import { findRoundStatus } from '../helper'
+import MakeupsModal from './MakeupsModal'
 import RoundModal from './RoundModal'
 
 const ExamRoundList = ({ history }) => {
@@ -31,7 +34,7 @@ const ExamRoundList = ({ history }) => {
         <RoundList roundList={examRoundList} history={history} />
       )}
       {hasMakeups && (
-        <RoundList roundList={examMakeupRoundList} history={history} />
+        <RoundList roundList={examMakeupRoundList} history={history} isMakeup />
       )}
       {!examRoundList.length && !examMakeupRoundList.length && (
         <Empty className="exam-round-list__empty"></Empty>
@@ -42,7 +45,7 @@ const ExamRoundList = ({ history }) => {
 
 export default ExamRoundList
 
-const RoundList = ({ roundList, history }) => {
+const RoundList = ({ roundList, history, isMakeup }) => {
   const dispatch = useDispatch()
   const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
   const [selectedRoundForRemove, setSelectedRoundForRemove] = useState()
@@ -117,7 +120,9 @@ const RoundList = ({ roundList, history }) => {
               </Tooltip>
             )}
             <div className="round-number">
-              {getRoundTitle(item.roundNumOrder)}
+              {isMakeup
+                ? `${addNumPrefix(item.roundNumOrder)}-补考`
+                : addNumPrefix(item.roundNumOrder)}
             </div>
             <div className="round-level">{item.levelName}</div>
             <div className="round-level">考生数: {item.studentCount}</div>
