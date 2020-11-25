@@ -1,6 +1,12 @@
+import { EditOutlined } from '@ant-design/icons'
+import { Dropdown } from 'antd'
 import React from 'react'
-import { scoreToGrade, getResultColumns } from '../../helper'
+import { useDispatch } from 'react-redux'
+import * as examRoundAction from 'src/actions/examRound'
 import { getTotalScore } from 'src/utils/common'
+
+import { getResultColumns, scoreToGrade } from '../../helper'
+import getContextMenu from './ContextMenu'
 
 /**
  * 因为react-table-drag-select的更新有问题，导致综合统计不会更新，这里用Totals组件覆盖
@@ -8,6 +14,12 @@ import { getTotalScore } from 'src/utils/common'
  * @param {*} param0
  */
 const Totals = ({ studentList, examItems, grades, isGradeMode }) => {
+  const dispatch = useDispatch()
+
+  const updateTotalResult = (student) => (score) => {
+    dispatch(examRoundAction.updateTotalResult(student, score))
+  }
+
   return (
     <table className="exam-round__result-total">
       <tbody>
@@ -18,12 +30,30 @@ const Totals = ({ studentList, examItems, grades, isGradeMode }) => {
             if (!student || student.isEnable === 'false') {
               return <td key={index} />
             }
-            const totalScore = getTotalScore(student, examItems, grades)
+            const totalScore =
+              student.totalScore ?? getTotalScore(student, examItems, grades)
             return (
               <td key={index}>
-                {isGradeMode
-                  ? totalScore
-                  : scoreToGrade(totalScore, grades).name}
+                <Dropdown
+                  overlay={getContextMenu(
+                    grades,
+                    updateTotalResult(student),
+                    isGradeMode
+                  )}
+                  trigger={['click']}
+                >
+                  <a
+                    className="ant-dropdown-link"
+                    onClick={(e) => e.preventDefault()}
+                  >
+                    {isGradeMode
+                      ? totalScore
+                      : scoreToGrade(totalScore, grades).name}
+                    <span className="click">
+                      <EditOutlined />
+                    </span>
+                  </a>
+                </Dropdown>
               </td>
             )
           })}

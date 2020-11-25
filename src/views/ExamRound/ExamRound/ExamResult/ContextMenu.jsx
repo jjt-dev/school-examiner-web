@@ -4,7 +4,7 @@ import { gradeToScore } from 'src/utils/common'
 
 const { Search } = Input
 
-const getContextMenu = (grades, handleBatchScore, isGradeMode) => {
+const getContextMenu = (grades, handleChangeScore, isGradeMode) => {
   if (isGradeMode) {
     return (
       <Menu>
@@ -17,7 +17,7 @@ const getContextMenu = (grades, handleBatchScore, isGradeMode) => {
               min={1}
               max={100}
               size="small"
-              onSearch={(score) => handleBatchScore(score)}
+              onSearch={(score) => handleChangeScore(score)}
             />
           </div>
         </Menu.Item>
@@ -30,7 +30,7 @@ const getContextMenu = (grades, handleBatchScore, isGradeMode) => {
       {grades.map((grade) => (
         <Menu.Item
           key={grade.id}
-          onClick={() => handleBatchScore(gradeToScore(grade.id, grades))}
+          onClick={() => handleChangeScore(gradeToScore(grade.id, grades))}
         >
           {grade.name}
         </Menu.Item>

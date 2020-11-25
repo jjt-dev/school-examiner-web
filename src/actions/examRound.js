@@ -7,6 +7,7 @@ export const UPDATE_STUDENT = 'UPDATE_STUDENT'
 export const UPDATE_RESULT = 'UPDATE_RESULT'
 export const UPDATE_RESULT_BATCH = 'UPDATE_RESULT_BATCH'
 export const UPDATE_EXAM_STATUS = 'UPDATE_EXAM_STATUS'
+export const UPDATE_TOTAL_RESULT = 'UPDATE_TOTAL_RESULT'
 
 export const CLEAR_EXAM_RESULT = 'CLEAR_EXAM_RESULT'
 
@@ -28,6 +29,11 @@ export const updateStudent = createAction(
 export const updateResult = createAction(
   UPDATE_RESULT,
   (student, itemId, value) => ({ student, itemId, value })
+)
+
+export const updateTotalResult = createAction(
+  UPDATE_TOTAL_RESULT,
+  (student, value) => ({ student, value })
 )
 
 export const updateResultBatch = createAction(

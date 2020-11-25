@@ -5,6 +5,7 @@ import {
   GET_EXAM_ROUND,
   UPDATE_STUDENT,
   UPDATE_RESULT,
+  UPDATE_TOTAL_RESULT,
   UPDATE_RESULT_BATCH,
   START_EXAM,
   PAUSE_EXAM,
@@ -13,7 +14,7 @@ import {
   CLEAR_EXAM_RESULT,
   CLEAR_EXAM,
 } from 'src/actions/examRound'
-import { deepClone, gradeToScore } from 'src/utils/common'
+import { deepClone, getTotalScore, gradeToScore } from 'src/utils/common'
 import { RoundStatus } from 'src/utils/const'
 
 const initState = {
@@ -39,7 +40,7 @@ const examRound = handleActions(
       return set(`examRound.studentList[${index}][${field}]`, value, state)
     },
     [UPDATE_RESULT]: (state, { payload }) => {
-      const { studentList } = state.examRound
+      const { studentList, examItems } = state.examRound
       const { student, itemId, value } = payload
       const { studentId, levelId } = student
       const index = studentList.findIndex(
@@ -50,8 +51,21 @@ const examRound = handleActions(
       updatedItems[itemId] = true
       return flow(
         set(`examRound.studentList[${index}].results`, results),
-        set(`examRound.studentList[${index}].updatedItems`, updatedItems)
+        set(`examRound.studentList[${index}].updatedItems`, updatedItems),
+        set(
+          `examRound.studentList[${index}].totalScore`,
+          getTotalScore(student, examItems)
+        )
       )(state)
+    },
+    [UPDATE_TOTAL_RESULT]: (state, { payload }) => {
+      const { studentList } = state.examRound
+      const { student, value } = payload
+      const { studentId, levelId } = student
+      const index = studentList.findIndex(
+        (stud) => stud.studentId === studentId && stud.levelId === levelId
+      )
+      return set(`examRound.studentList[${index}].totalScore`, value, state)
     },
     [UPDATE_RESULT_BATCH]: (state, { payload }) => {
       const { examItems } = state.examRound
