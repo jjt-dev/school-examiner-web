@@ -68,7 +68,7 @@ export const getFinishExamPayload = (examRound, PassScore, isGradeMode) => {
   studentList.forEach((student) => {
     const results = student.results || {}
     const isEnable = student.isEnable === 'false' ? false : true
-    examItems.forEach((item) => {
+    student.examItems.forEach((item) => {
       const score = results[item.id]
       const grade = scoreToGrade(score, grades)
       payload.push({
@@ -81,6 +81,7 @@ export const getFinishExamPayload = (examRound, PassScore, isGradeMode) => {
         scoreMode: scoreMode,
         scoreLevel: grade.name,
         studentId: student.studentId,
+        levelId: student.levelId,
       })
     })
 
@@ -98,6 +99,7 @@ export const getFinishExamPayload = (examRound, PassScore, isGradeMode) => {
       scoreMode: scoreMode,
       scoreLevel: scoreToGrade(totalScore, grades)?.name,
       studentId: student.studentId,
+      levelId: student.levelId,
     })
   })
 
