@@ -13,7 +13,13 @@ import getContextMenu from './ContextMenu'
  *
  * @param {*} param0
  */
-const Totals = ({ studentList, examItems, grades, isGradeMode }) => {
+const Totals = ({
+  studentList,
+  examItems,
+  grades,
+  isGradeMode,
+  examFinish,
+}) => {
   const dispatch = useDispatch()
 
   const updateTotalResult = (student) => (score) => {
@@ -32,28 +38,33 @@ const Totals = ({ studentList, examItems, grades, isGradeMode }) => {
             }
             const totalScore =
               student.totalScore ?? getTotalScore(student, examItems, grades)
+            const result = isGradeMode
+              ? totalScore
+              : scoreToGrade(totalScore, grades).name
             return (
               <td key={index}>
-                <Dropdown
-                  overlay={getContextMenu(
-                    grades,
-                    updateTotalResult(student),
-                    isGradeMode
-                  )}
-                  trigger={['click']}
-                >
-                  <a
-                    className="ant-dropdown-link"
-                    onClick={(e) => e.preventDefault()}
+                {examFinish ? (
+                  result
+                ) : (
+                  <Dropdown
+                    overlay={getContextMenu(
+                      grades,
+                      updateTotalResult(student),
+                      isGradeMode
+                    )}
+                    trigger={['click']}
                   >
-                    {isGradeMode
-                      ? totalScore
-                      : scoreToGrade(totalScore, grades).name}
-                    <span className="click">
-                      <EditOutlined />
-                    </span>
-                  </a>
-                </Dropdown>
+                    <a
+                      className="ant-dropdown-link"
+                      onClick={(e) => e.preventDefault()}
+                    >
+                      <span className="click">
+                        {result}
+                        <EditOutlined />
+                      </span>
+                    </a>
+                  </Dropdown>
+                )}
               </td>
             )
           })}

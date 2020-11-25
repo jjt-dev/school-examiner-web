@@ -1,6 +1,23 @@
 .exam-round__result {
   position: relative;
 
+  &-student {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .name-and-level {
+      display: flex;
+      flex-direction: column;
+      line-height: 20px;
+
+      .level-name {
+        font-size: 14px !important;
+        font-weight: bold !important;
+      }
+    }
+  }
+
   .table-drag-select {
     border-collapse: collapse;
     border: 1px solid rgba(205, 213, 223, 1);

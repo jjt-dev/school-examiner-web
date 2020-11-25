@@ -30,8 +30,16 @@ const ResultWithSelect2 = ({
             if (!student) return <td key={index} disabled />
             return (
               <td key={index} disabled>
-                <Avatar size="large" src={`${getDomain()}${student.faceUrl}`} />
-                {getTooltipByLen(student.studentName, 8)}
+                <div className="exam-round__result-student">
+                  <Avatar
+                    size="large"
+                    src={`${getDomain()}${student.faceUrl}`}
+                  />
+                  <div className="name-and-level">
+                    <span>{getTooltipByLen(student.studentName, 8)}</span>
+                    <span className="level-name">{student.levelName}</span>
+                  </div>
+                </div>
               </td>
             )
           })}

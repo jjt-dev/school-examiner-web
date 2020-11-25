@@ -103,7 +103,11 @@ const ExamResult = (props) => {
           )}
         </a>
       </Dropdown>
-      <Totals {...examRound} isGradeMode={isGradeMode} />
+      <Totals
+        {...examRound}
+        isGradeMode={isGradeMode}
+        examFinish={examFinish}
+      />
     </>
   )
 }

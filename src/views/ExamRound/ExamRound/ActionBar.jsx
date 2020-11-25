@@ -40,13 +40,6 @@ const ActionBar = ({
         checked={isGradeMode}
         onChange={() => setIsGradeMode(!isGradeMode)}
       />
-      {!examFinish && (
-        <div className="exam-round__header-action-level">
-          <span>级别:</span>
-          {examRound.headerInfo.levelName}
-          {examRound.headerInfo.levelAlias}
-        </div>
-      )}
     </div>
   )
 }
