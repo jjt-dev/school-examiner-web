@@ -85,7 +85,7 @@ export const getFinishExamPayload = (examRound, PassScore, isGradeMode) => {
       })
     })
 
-    const totalScore = getTotalScore(student, examItems)
+    const totalScore = student.totalScore ?? getTotalScore(student, examItems)
 
     //添加统计项
     payload.push({
