@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className={classnames('app', { 'breadcrumb-active': hasBreadcrumb })}>
-      {/* <Header user={user} isLoginPage={isLoginPage} /> */}
+      <Header user={user} isLoginPage={isLoginPage} />
       <main>
         <ErrorBoundary>
           <JjtBreadcrumb activeRoute={activeRoute} history={history} />

@@ -7,7 +7,7 @@ import CountDown from './CountDown'
 import ExamResult from './ExamResult'
 import ActionFooter from './ActionFooter'
 import { Prompt } from 'react-router-dom'
-import { message } from 'antd'
+import { message, Tag } from 'antd'
 import { RoundStatus } from 'src/utils/const'
 import CertifStudentModal from './CertifStudentModal'
 import api from 'src/utils/api'
@@ -33,6 +33,9 @@ const ExamRound = ({ match, history }) => {
   const examFinish = headerInfo.examState === RoundStatus.finish.id
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
   const examRoundLoaded = examRound && headerInfo.roundNum === Number(roundNum)
+  const examLevels = Array.from(
+    new Set(examRound?.studentList.map((item) => item.levelName) || [])
+  )
 
   useEffect(() => {
     dispatch(getAllRounds())
@@ -129,8 +132,9 @@ const ExamRound = ({ match, history }) => {
                 {examFinish && (
                   <div className="exam-round__header-middle-level">
                     <span>级别:</span>
-                    {examRound.headerInfo.levelName}
-                    {examRound.headerInfo.levelAlias}
+                    {examLevels.map((item) => (
+                      <Tag key={item}>{item}</Tag>
+                    ))}
                   </div>
                 )}
               </div>

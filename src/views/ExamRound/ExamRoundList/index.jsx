@@ -105,6 +105,7 @@ const RoundList = ({ roundList, history, isMakeup }) => {
       </Button>
       {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
+        const isFinish = roundStatus.key === 'finish'
         return (
           <div
             key={item.roundNum}
@@ -123,10 +124,12 @@ const RoundList = ({ roundList, history, isMakeup }) => {
             </div>
             <div className="round-level">
               考生数: {item.studentCount}
-              <EditOutlined
-                onClick={(e) => openModal(e, item, 'remove')}
-                className="edit-student-icon"
-              />
+              {!isFinish && (
+                <EditOutlined
+                  onClick={(e) => openModal(e, item, 'remove')}
+                  className="edit-student-icon"
+                />
+              )}
             </div>
             {roundStatus.icon}
             <div className="round-title">{roundStatus.title}</div>
