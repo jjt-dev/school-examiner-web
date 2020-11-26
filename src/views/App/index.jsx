@@ -1,6 +1,6 @@
 import React, { useEffect, useMemo } from 'react'
 import { Spin } from 'antd'
-import Header from 'src/components/Header'
+import Header from 'src/views/App/Header'
 import { useSelector, useDispatch } from 'react-redux'
 import * as appAction from 'src/actions/app'
 import Router, { routes } from '../Router'
@@ -44,7 +44,7 @@ const App = () => {
 
   return (
     <div className={classnames('app', { 'breadcrumb-active': hasBreadcrumb })}>
-      <Header user={user} isLoginPage={isLoginPage} />
+      {/* <Header user={user} isLoginPage={isLoginPage} /> */}
       <main>
         <ErrorBoundary>
           <JjtBreadcrumb activeRoute={activeRoute} history={history} />

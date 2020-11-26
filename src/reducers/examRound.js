@@ -16,6 +16,8 @@ import {
 } from 'src/actions/examRound'
 import { deepClone, getTotalScore, gradeToScore } from 'src/utils/common'
 import { RoundStatus } from 'src/utils/const'
+import { message } from 'antd'
+import { goToLogin } from 'src/utils/api'
 
 const initState = {
   examRound: null,
@@ -120,6 +122,11 @@ export default examRound
 const initStudentResults = (examRound) => {
   let { studentList, examItems, grades, examResult } = examRound
   const goodGrade = grades.find((grade) => grade.name === '良好')
+  if (!goodGrade) {
+    message.error('学科考试等级需要配置默认的良好')
+    goToLogin()
+    return
+  }
   studentList = studentList.map((student) => {
     let results = {}
     if (examResult) {
