@@ -111,12 +111,6 @@ const RoundList = ({ roundList, history, isMakeup }) => {
             className={`exam-round-list__content-grid round-status--${roundStatus.key}`}
             onClick={() => goToRound(item.roundNum)}
           >
-            <Tooltip title="查看该场次考生">
-              <EditOutlined
-                onClick={(e) => openModal(e, item, 'remove')}
-                className={isMakeup ? 'makeup-remove-icon' : ''}
-              />
-            </Tooltip>
             {item.canAdd && (
               <Tooltip title="添加考生到该场次">
                 <PlusOutlined onClick={(e) => openModal(e, item, 'add')} />
@@ -127,8 +121,13 @@ const RoundList = ({ roundList, history, isMakeup }) => {
                 ? `${addNumPrefix(item.roundNumOrder)}-补考`
                 : addNumPrefix(item.roundNumOrder)}
             </div>
-            <div className="round-level">{item.levelName}</div>
-            <div className="round-level">考生数: {item.studentCount}</div>
+            <div className="round-level">
+              考生数: {item.studentCount}
+              <EditOutlined
+                onClick={(e) => openModal(e, item, 'remove')}
+                className="edit-student-icon"
+              />
+            </div>
             {roundStatus.icon}
             <div className="round-title">{roundStatus.title}</div>
           </div>
