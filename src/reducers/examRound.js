@@ -144,6 +144,7 @@ const initStudentResults = (examRound) => {
           result.studentId === student.studentId && result.isStatisticalValue
       )
       student.isEnable = statsValue.isEnable.toString()
+      student.totalScore = statsValue.score
     } else {
       //如果考试没有结束就默认给考试每一项设置'良好'的成绩
       examItems.forEach((item) => {

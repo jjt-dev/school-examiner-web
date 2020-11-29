@@ -37,7 +37,7 @@ const Totals = ({
               return <td key={index} />
             }
             const totalScore =
-              student.totalScore ?? getTotalScore(student, examItems, grades)
+              student.totalScore ?? getTotalScore(student, examItems)
             const result = isGradeMode
               ? totalScore
               : scoreToGrade(totalScore, grades).name
