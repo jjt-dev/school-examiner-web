@@ -129,7 +129,7 @@ const initStudentResults = (examRound) => {
   }
   studentList = studentList.map((student) => {
     let results = {}
-    if (examResult) {
+    if (examResult && examResult.length) {
       examResult
         .filter(
           (result) =>

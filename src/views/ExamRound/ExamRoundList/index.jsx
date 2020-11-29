@@ -62,15 +62,12 @@ const RoundList = ({ roundList, history, isMakeup }) => {
   }, [selectedRoundForAdd])
 
   const addMakeupStudToRound = async (student) => {
-    const { studentGroupId } = student
+    const { id } = student
     await api.get(`/exam/addUnexamStudentToRound`, {
-      studentGroupId,
       toRoundNum: selectedRoundForAdd.roundNum,
-      makeupId: student.id,
+      makeupId: id,
     })
-    const studentIndex = makeupStudents.findIndex(
-      (item) => item.studentGroupId === studentGroupId
-    )
+    const studentIndex = makeupStudents.findIndex((item) => item.id === id)
     setMakeupStudents(set(`[${studentIndex}].added`, true, makeupStudents))
     dispatch(getAllRounds())
   }
