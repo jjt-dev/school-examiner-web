@@ -37,6 +37,20 @@ const ResourcePool = () => {
     })
   }
 
+  const makeStudAbsent = () => {
+    confirm({
+      title: '请问您确认把选中的考生设置为缺考吗?',
+      onOk: async () => {
+        await api.get(
+          `/exam/studentAbsent?makeupIds=${selectedStudents.join(',')}`
+        )
+        message.success('考生设置为缺考成功')
+        tableList.fetchTable()
+        rowSelection.onChange([])
+      },
+    })
+  }
+
   return (
     <PageList
       columns={getColumns}
@@ -46,13 +60,19 @@ const ResourcePool = () => {
       showRowSelection
     >
       <div className="resource-pool-header">
-        <Button
-          type="primary"
-          disabled={!selectedStudents.length}
-          onClick={createGroup}
-        >
-          新增分组
-        </Button>
+        <div>
+          <Button
+            type="primary"
+            disabled={!selectedStudents.length}
+            onClick={createGroup}
+            className="create-group-btn"
+          >
+            新增分组
+          </Button>
+          <Button disabled={!selectedStudents.length} onClick={makeStudAbsent}>
+            缺考
+          </Button>
+        </div>
         <ListHeader
           {...tableList}
           showAdd={false}
