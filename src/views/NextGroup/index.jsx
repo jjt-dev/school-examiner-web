@@ -1,19 +1,20 @@
-import React, { useEffect, useState } from 'react'
 import './index.less'
+
 import { Avatar, Button } from 'antd'
-import { getDomain, addNumPrefix } from 'src/utils/common'
-import api from 'src/utils/api'
+import React, { useEffect } from 'react'
+import useFetch from 'src/hooks/useFetch'
+import { addNumPrefix, getDomain } from 'src/utils/common'
 
 const NextGroup = () => {
-  const [nextGroup, setNextGroup] = useState(null)
+  const [nextGroup, refetch] = useFetch(`/exam/nextRound`)
 
+  // 30秒间隔获取最新的下一轮次数据
   useEffect(() => {
-    const fetchData = async () => {
-      const result = await api.get(`/exam/nextRound`)
-      setNextGroup(result)
-    }
-    fetchData()
-  }, [setNextGroup])
+    let id = setInterval(() => {
+      refetch()
+    }, 30000)
+    return () => clearInterval(id)
+  }, [refetch])
 
   return (
     <div className="page next-group">
