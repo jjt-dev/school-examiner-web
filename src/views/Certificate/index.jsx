@@ -8,8 +8,8 @@ import useFetch from 'src/hooks/useFetch'
 
 const Certificate = ({ match, location }) => {
   const { roundNum, studentId } = match.params
-  const { type, PassScore } = parseSearches(location)
-  const [examResult] = useFetch(buildPath(roundNum, studentId))
+  const { type, PassScore, levelId } = parseSearches(location)
+  const [examResult] = useFetch(buildPath(roundNum, studentId, levelId))
 
   //这里的examResult如果是单个考生的成绩那就是object, 如果是批量打印那就是array
   let examResultArr = []
@@ -51,9 +51,9 @@ const Certificate = ({ match, location }) => {
 
 export default Certificate
 
-const buildPath = (roundNum, studentId) => {
+const buildPath = (roundNum, studentId, levelId) => {
   if (studentId) {
-    return `/exam/getStudentExamResult?roundNum=${roundNum}&studentId=${studentId}`
+    return `/exam/getStudentExamResult?roundNum=${roundNum}&studentId=${studentId}&levelId=${levelId}`
   }
   return `/exam/getStudentExamResults?roundNum=${roundNum}`
 }

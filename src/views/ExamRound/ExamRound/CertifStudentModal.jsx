@@ -47,20 +47,22 @@ const CertifStudentModal = ({
       ]}
     >
       <div className="print-students">
-        {availableStudents.map((student) => (
-          <div
-            key={student.studentId}
-            className="print-students-item"
-            onClick={() =>
-              history.push(
-                `/certificate/${headerInfo.roundNum}/${student.studentId}?type=${certificateCat.key}&PassScore=${PassScore}`
-              )
-            }
-          >
-            <Avatar size={70} src={`${getDomain()}${student.faceUrl}`} />
-            <span>{student.studentName}</span>
-          </div>
-        ))}
+        {availableStudents.map((student) => {
+          return (
+            <div
+              key={student.studentId}
+              className="print-students-item"
+              onClick={() =>
+                history.push(
+                  `/certificate/${headerInfo.roundNum}/${student.studentId}?type=${certificateCat.key}&PassScore=${PassScore}&levelId=${student.levelId}`
+                )
+              }
+            >
+              <Avatar size={70} src={`${getDomain()}${student.faceUrl}`} />
+              <span>{student.studentName}</span>
+            </div>
+          )
+        })}
       </div>
     </Modal>
   )
