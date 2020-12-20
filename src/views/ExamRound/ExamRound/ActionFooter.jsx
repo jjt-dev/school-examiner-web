@@ -6,6 +6,7 @@ import { RoundStatus, CertificateCategory } from 'src/utils/const'
 import { buildResult } from '../helper'
 import { getAllRounds } from 'src/actions/app'
 import useUnmount from 'src/hooks/useUnmount'
+import { ExclamationCircleOutlined } from '@ant-design/icons'
 
 const { confirm } = Modal
 
@@ -19,6 +20,7 @@ const ActionFooter = ({
   finishExam,
   canPlay,
   isGradeMode,
+  delExamResults,
 }) => {
   const dispatch = useDispatch()
   const { executionInfo, headerInfo, examResult = [] } = examRound
@@ -77,6 +79,19 @@ const ActionFooter = ({
     )
   }
 
+  const retakeExam = () => {
+    confirm({
+      title: '请问您确认要重新考试吗?',
+      content: '警告！当前考试成绩会被清零！',
+      icon: <ExclamationCircleOutlined />,
+      onOk: () => delExamResults(),
+      okType: 'danger',
+      onCancel() {
+        console.log('Cancel')
+      },
+    })
+  }
+
   return (
     <div className="exam-round__header-actions">
       {!examFinish && canPlay && (
@@ -122,6 +137,9 @@ const ActionFooter = ({
               打印补考单
             </Button>
           )}
+          <Button onClick={retakeExam} danger>
+            重新考试
+          </Button>
         </div>
       )}
     </div>

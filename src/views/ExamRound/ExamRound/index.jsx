@@ -100,6 +100,12 @@ const ExamRound = ({ match, history }) => {
     setCertificateCat(category)
   }
 
+  const delExamResults = async () => {
+    await api.post(`/exam/delExamResults?roundNum=${roundNum}`)
+    message.success('当前考试成绩成功清零')
+    getExamRound()
+  }
+
   return (
     <>
       <Prompt when={examOngoing} message={() => leaveMessage} />
@@ -148,6 +154,7 @@ const ExamRound = ({ match, history }) => {
                 finishExam={finishExam}
                 canPlay={headerInfo.canPlay}
                 isGradeMode={isGradeMode}
+                delExamResults={delExamResults}
               />
             </div>
           </div>
