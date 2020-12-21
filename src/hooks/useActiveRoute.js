@@ -11,7 +11,15 @@ const useActiveRoute = () => {
     )
   }, [location.pathname])
 
-  return activeRoute ?? {}
+  const isLoginPage = useMemo(() => location.pathname.startsWith('/login'), [
+    location,
+  ])
+  const isNextGroup = useMemo(
+    () => location.pathname.startsWith('/next-group'),
+    [location]
+  )
+
+  return { ...activeRoute, isLoginPage, isNextGroup } ?? {}
 }
 
 export default useActiveRoute
