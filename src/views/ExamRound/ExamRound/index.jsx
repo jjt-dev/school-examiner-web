@@ -1,18 +1,20 @@
-import React, { useEffect, useState, useCallback } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import './index.less'
+
+import { message, Tag } from 'antd'
+import React, { useCallback, useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { Prompt } from 'react-router-dom'
+import { getAllRounds } from 'src/actions/app'
 import * as examRoundAction from 'src/actions/examRound'
+import api from 'src/utils/api'
+import { examRoundBroadcast, RoundStatus } from 'src/utils/const'
+
+import { buildResult } from '../helper'
 import ActionBar from './ActionBar'
+import ActionFooter from './ActionFooter'
+import CertifStudentModal from './CertifStudentModal'
 import CountDown from './CountDown'
 import ExamResult from './ExamResult'
-import ActionFooter from './ActionFooter'
-import { Prompt } from 'react-router-dom'
-import { message, Tag } from 'antd'
-import { RoundStatus } from 'src/utils/const'
-import CertifStudentModal from './CertifStudentModal'
-import api from 'src/utils/api'
-import { buildResult } from '../helper'
-import { getAllRounds } from 'src/actions/app'
 
 const ExamRound = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -44,6 +46,7 @@ const ExamRound = ({ match, history }) => {
 
   useEffect(() => {
     setToggleResult((pre) => !pre)
+    examRoundBroadcast.postMessage(examRound)
   }, [examRound])
 
   const getExamRound = useCallback(() => {
