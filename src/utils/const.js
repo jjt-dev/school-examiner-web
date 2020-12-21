@@ -107,3 +107,5 @@ export const ResourcePoolSource = {
   failed: { id: 2, title: '正常考试未通过' },
   makeupFailed: { id: 3, title: '补考考试未通过' },
 }
+
+export const examRoundBroadcast = new BroadcastChannel('examRound')

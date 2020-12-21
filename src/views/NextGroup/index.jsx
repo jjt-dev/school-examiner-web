@@ -1,12 +1,21 @@
 import './index.less'
 
 import { Avatar, Button } from 'antd'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import useFetch from 'src/hooks/useFetch'
 import { addNumPrefix, getDomain } from 'src/utils/common'
+import { examRoundBroadcast } from 'src/utils/const'
 
 const NextGroup = () => {
+  const [examRound, setExamRound] = useState()
   const [nextGroup, refetch] = useFetch(`/exam/nextRound`)
+
+  useEffect(() => {
+    examRoundBroadcast.onmessage = function (ev) {
+      setExamRound(ev.data)
+    }
+    return () => examRoundBroadcast.close()
+  }, [])
 
   // 30秒间隔获取最新的下一轮次数据
   useEffect(() => {
