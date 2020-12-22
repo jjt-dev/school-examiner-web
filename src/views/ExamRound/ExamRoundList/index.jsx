@@ -5,25 +5,22 @@ import { Empty, Tooltip } from 'antd'
 import Button from 'antd/es/button'
 import set from 'lodash/fp/set'
 import React, { useEffect, useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux'
-import { getAllRounds } from 'src/actions/app'
+import { useSelector } from 'react-redux'
 import api from 'src/utils/api'
 import { addNumPrefix } from 'src/utils/common'
 
 import { findRoundStatus } from '../helper'
 import MakeupsModal from './MakeupsModal'
 import RoundModal from './RoundModal'
+import useFetch from 'src/hooks/useFetch'
 
 const ExamRoundList = ({ history }) => {
-  const dispatch = useDispatch()
-  const { examInfo, examRoundList, examMakeupRoundList } = useSelector(
-    (state) => state.app
+  const { examInfo } = useSelector((state) => state.app)
+  const [examRoundList = [], fetchRounds] = useFetch(`/exam/roundList`)
+  const [examMakeupRoundList = [], fetchMakeupRounds] = useFetch(
+    `/exam/makeupRoundList`
   )
   const hasMakeups = examMakeupRoundList.length > 0
-
-  useEffect(() => {
-    dispatch(getAllRounds())
-  }, [dispatch])
 
   return (
     <div className="page exam-round-list">
@@ -31,10 +28,21 @@ const ExamRoundList = ({ history }) => {
         <span>{examInfo?.title}</span>
       </div>
       {examRoundList.length > 0 && (
-        <RoundList roundList={examRoundList} history={history} />
+        <RoundList
+          roundList={examRoundList}
+          history={history}
+          fetchRounds={fetchRounds}
+          fetchMakeupRounds={fetchMakeupRounds}
+        />
       )}
       {hasMakeups && (
-        <RoundList roundList={examMakeupRoundList} history={history} isMakeup />
+        <RoundList
+          roundList={examMakeupRoundList}
+          history={history}
+          isMakeup
+          fetchRounds={fetchRounds}
+          fetchMakeupRounds={fetchMakeupRounds}
+        />
       )}
       {!examRoundList.length && !examMakeupRoundList.length && (
         <Empty className="exam-round-list__empty"></Empty>
@@ -45,8 +53,13 @@ const ExamRoundList = ({ history }) => {
 
 export default ExamRoundList
 
-const RoundList = ({ roundList, history, isMakeup }) => {
-  const dispatch = useDispatch()
+const RoundList = ({
+  roundList,
+  history,
+  isMakeup,
+  fetchRounds,
+  fetchMakeupRounds,
+}) => {
   const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
   const [selectedRoundForRemove, setSelectedRoundForRemove] = useState()
   const [makeupStudents, setMakeupStudents] = useState([])
@@ -69,7 +82,8 @@ const RoundList = ({ roundList, history, isMakeup }) => {
     })
     const studentIndex = makeupStudents.findIndex((item) => item.id === id)
     setMakeupStudents(set(`[${studentIndex}].added`, true, makeupStudents))
-    dispatch(getAllRounds())
+    fetchRounds()
+    fetchMakeupRounds()
   }
 
   const openModal = (e, round, type) => {
