@@ -21,6 +21,7 @@ const NextGroup = () => {
   const { studentList = [], headerInfo = {} } = examRound || {}
   const examFinish = headerInfo.examState === RoundStatus.finish.id
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
+  const examOnPause = headerInfo.examState === RoundStatus.pause.id
 
   console.log(666, examRound)
 
@@ -50,8 +51,12 @@ const NextGroup = () => {
           <img src={logo} alt={logo} />
           <span>场次{addRoundPrefix(headerInfo.roundNum)}</span>
         </div>
-        {examOngoing && <div>正在考试</div>}
-        {examFinish && <div>考试结束</div>}
+        <div className="exam-status">
+          {examOngoing && <div>正在考试</div>}
+          {examOnPause && <div>考试暂停</div>}
+          {examFinish && <div>考试结束</div>}
+        </div>
+        <div>{headerInfo.roomName}</div>
       </div>
       <div className="next-group-content">
         <div className="content-container left-content">
@@ -67,7 +72,9 @@ const NextGroup = () => {
             )
           })}
         </div>
-        <div className="middle-content"></div>
+        <div className="middle-content">
+          <span>{getLevelName(studentList)}</span>
+        </div>
         <div className="content-container right-content">
           {rightIndexs.map((index) => {
             const student = studentList[index]
@@ -144,4 +151,12 @@ const Footer = ({ grades, nextGroup = {} }) => {
       </div>
     </div>
   )
+}
+
+const getLevelName = (studentList) => {
+  const levelNames = studentList.map((item) => item.levelName)
+  if (levelNames.length === 1) {
+    return levelNames[0]
+  }
+  return '多个级别'
 }
