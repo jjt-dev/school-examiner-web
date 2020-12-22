@@ -109,3 +109,12 @@ export const ResourcePoolSource = {
 }
 
 export const examRoundBroadcast = new BroadcastChannel('examRound')
+
+export const gradeColorMap = {
+  unqualified: 'var(--grade-unqualified)',
+  qualified: 'var(--grade-qualified)',
+  medium: 'var(--grade-medium)',
+  good: 'var(--grade-good)',
+  excellent: 'var(--grade-excellent)',
+  supreme: 'var(--grade-supreme)',
+}

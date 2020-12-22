@@ -43,6 +43,13 @@ export const addNumPrefix = (value) => {
   return value
 }
 
+export const addRoundPrefix = (roundNum) => {
+  if (roundNum < 0) {
+    return `${addNumPrefix(roundNum)}-补考`
+  }
+  return addNumPrefix(roundNum)
+}
+
 export const deepClone = (obj) => {
   return JSON.parse(JSON.stringify(obj))
 }

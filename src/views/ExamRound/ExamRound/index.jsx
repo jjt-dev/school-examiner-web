@@ -15,6 +15,7 @@ import ActionFooter from './ActionFooter'
 import CertifStudentModal from './CertifStudentModal'
 import CountDown from './CountDown'
 import ExamResult from './ExamResult'
+import { local } from 'src/utils/storage'
 
 const ExamRound = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const ExamRound = ({ match, history }) => {
 
   useEffect(() => {
     setToggleResult((pre) => !pre)
+    local.setItem('examRound', examRound)
     examRoundBroadcast.postMessage(examRound)
   }, [examRound])
 

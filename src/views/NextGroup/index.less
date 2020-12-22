@@ -10,14 +10,23 @@
     background-color: #000000;
     display: flex;
     align-items: center;
+    justify-content: space-between;
     padding: 0 20px;
     margin: 0 -20px;
+    font-size: 30px;
+    color: #ffffff;
+    font-weight: bold;
+
+    img {
+      margin-bottom: 10px;
+      margin-right: 20px;
+    }
   }
 
   &-content {
     display: flex;
     align-items: center;
-    height: calc(100% - 80px);
+    height: calc(100% - 210px);
     width: 100%;
 
     .content-container {
@@ -48,6 +57,36 @@
       margin-bottom: 125px;
     }
   }
+
+  &-footer {
+    padding: 10px 20px;
+    height: 140px;
+    margin: 0 -40px;
+
+    .grade-list {
+      display: flex;
+      align-items: center;
+      background-color: black;
+      height: 50px;
+      padding: 0 20px;
+
+      & > span {
+        font-size: 20px;
+      }
+    }
+
+    .next-group-students {
+      padding: 0 20px;
+      display: flex;
+      align-items: center;
+      font-size: 40px;
+      font-weight: bold;
+      color: black;
+      height: 70px;
+      background-color: #ffffff;
+      animation: rotaryBlockFirst 20s linear infinite;
+    }
+  }
 }
 
 .student-result {
@@ -59,6 +98,7 @@
     color: #ffffff;
     margin-right: 20px;
     font-weight: bold;
+    width: 72px;
   }
 
   &-avatar {
