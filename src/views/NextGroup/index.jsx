@@ -114,7 +114,7 @@ const StudentResult = ({ index, student, grades, isMultipleLevel }) => {
       <div className="student-result-item">
         <span>
           {student.studentName}
-          {isMultipleLevel && ` (${student.levelName ?? ''})`}
+          {isMultipleLevel && student.levelName ? `(${student.levelName})` : ''}
         </span>
 
         {grade && (
