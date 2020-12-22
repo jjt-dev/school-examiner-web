@@ -25,8 +25,6 @@ const NextGroup = () => {
   const examUninitiated = headerInfo.examState === RoundStatus.uninitiated.id
   const { levelName, isMultipleLevel } = getLevelName(studentList)
 
-  console.log(555, examRound)
-
   useEffect(() => {
     setExamRound(local.getItem('examRound'))
   }, [])
@@ -71,6 +69,7 @@ const NextGroup = () => {
                 key={index}
                 index={index + 1}
                 grades={examRound?.grades}
+                isMultipleLevel={isMultipleLevel}
               />
             )
           })}
