@@ -23,8 +23,9 @@ const NextGroup = () => {
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
   const examOnPause = headerInfo.examState === RoundStatus.pause.id
   const examUninitiated = headerInfo.examState === RoundStatus.uninitiated.id
+  const { levelName, isMultipleLevel } = getLevelName(studentList)
 
-  console.log(666, examRound)
+  console.log(555, examRound)
 
   useEffect(() => {
     setExamRound(local.getItem('examRound'))
@@ -75,7 +76,7 @@ const NextGroup = () => {
           })}
         </div>
         <div className="middle-content">
-          <span>{getLevelName(studentList)}</span>
+          <span>{levelName}</span>
         </div>
         <div className="content-container right-content">
           {rightIndexs.map((index) => {
@@ -86,6 +87,7 @@ const NextGroup = () => {
                 key={index}
                 index={index + 1}
                 grades={examRound?.grades}
+                isMultipleLevel={isMultipleLevel}
               />
             )
           })}
@@ -98,7 +100,7 @@ const NextGroup = () => {
 
 export default NextGroup
 
-const StudentResult = ({ index, student, grades }) => {
+const StudentResult = ({ index, student, grades, isMultipleLevel }) => {
   let grade = null
   if (student.totalScore) {
     grade = scoreToGrade(student.totalScore, grades)
@@ -110,7 +112,11 @@ const StudentResult = ({ index, student, grades }) => {
         <Avatar size={90} src={`${getDomain()}${student.faceUrl}`} />
       </div>
       <div className="student-result-item">
-        <span>{student.studentName}</span>
+        <span>
+          {student.studentName}
+          {isMultipleLevel && ` (${student.levelName ?? ''})`}
+        </span>
+
         {grade && (
           <span style={{ color: gradeColorMap[grade.bgColor] }}>
             {grade.name}
@@ -156,9 +162,10 @@ const Footer = ({ grades, nextGroup = {} }) => {
 }
 
 const getLevelName = (studentList) => {
-  const levelNames = studentList.map((item) => item.levelName)
+  let levelNames = studentList.map((item) => item.levelName)
+  levelNames = [...new Set(levelNames)]
   if (levelNames.length === 1) {
-    return levelNames[0]
+    return { levelName: levelNames[0], isMultipleLevel: false }
   }
-  return '多个级别'
+  return { isMultipleLevel: true }
 }
