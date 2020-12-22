@@ -22,6 +22,7 @@ const NextGroup = () => {
   const examFinish = headerInfo.examState === RoundStatus.finish.id
   const examOngoing = headerInfo.examState === RoundStatus.ongoing.id
   const examOnPause = headerInfo.examState === RoundStatus.pause.id
+  const examUninitiated = headerInfo.examState === RoundStatus.uninitiated.id
 
   console.log(666, examRound)
 
@@ -52,6 +53,7 @@ const NextGroup = () => {
           <span>场次{addRoundPrefix(headerInfo.roundNum)}</span>
         </div>
         <div className="exam-status">
+          {examUninitiated && <div>考试未开始</div>}
           {examOngoing && <div>正在考试</div>}
           {examOnPause && <div>考试暂停</div>}
           {examFinish && <div>考试结束</div>}
