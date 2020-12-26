@@ -50,19 +50,6 @@ class ReportVertical extends React.Component {
       ? `url(${getDomain()}${this.state.template.bgUrl})`
       : ''
 
-    const items = [
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-      ...this.props.examResultContainer,
-    ]
-
     const printMap = {
       1: 1133,
       2: 1133.1,
@@ -91,7 +78,7 @@ class ReportVertical extends React.Component {
           />
         </div>
         <div className="report-vertical__content" ref={this.myRef}>
-          {items.map((item, index) => {
+          {this.props.examResultContainer.map((item, index) => {
             // 目前只能报考一个考试，所以直接取results第一个元素
             const { studentInfo, examResults } = item
             const { studentFaceUrl, schoolName } = studentInfo
@@ -103,7 +90,9 @@ class ReportVertical extends React.Component {
                 className="report-vertical__content-report"
                 style={{
                   backgroundImage: bgImageLink,
-                  height: `${printMap[items.length]}px`,
+                  height: `${
+                    printMap[this.props.examResultContainer.length]
+                  }px`,
                 }}
               >
                 <div className="report-vertical__content-report-edit">
