@@ -50,6 +50,32 @@ class ReportVertical extends React.Component {
       ? `url(${getDomain()}${this.state.template.bgUrl})`
       : ''
 
+    const items = [
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+      ...this.props.examResultContainer,
+    ]
+
+    const printMap = {
+      1: 1133,
+      2: 1133.1,
+      3: 1133.1,
+      4: 1133.1,
+      5: 1133.1,
+      6: 1133.05,
+      7: 1133.05,
+      8: 1133.05,
+      9: 1133.05,
+      10: 1133.05,
+    }
+
     return (
       <div className="report-vertical">
         <div className="report-header">
@@ -65,7 +91,7 @@ class ReportVertical extends React.Component {
           />
         </div>
         <div className="report-vertical__content" ref={this.myRef}>
-          {this.props.examResultContainer.map((item, index) => {
+          {items.map((item, index) => {
             // 目前只能报考一个考试，所以直接取results第一个元素
             const { studentInfo, examResults } = item
             const { studentFaceUrl, schoolName } = studentInfo
@@ -77,9 +103,7 @@ class ReportVertical extends React.Component {
                 className="report-vertical__content-report"
                 style={{
                   backgroundImage: bgImageLink,
-                  height: `${
-                    printMap[this.props.examResultContainer.length]
-                  }px`,
+                  height: `${printMap[items.length]}px`,
                 }}
               >
                 <div className="report-vertical__content-report-edit">
@@ -176,16 +200,3 @@ class ReportVertical extends React.Component {
 }
 
 export default ReportVertical
-
-const printMap = {
-  1: 1133,
-  2: 1135.2,
-  3: 1135.1,
-  4: 1135.1,
-  5: 1135.1,
-  6: 1135.06,
-  7: 1135.06,
-  8: 1135.06,
-  9: 1135.06,
-  10: 1135.06,
-}
