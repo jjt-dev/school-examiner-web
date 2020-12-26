@@ -75,7 +75,12 @@ class ReportVertical extends React.Component {
               <div
                 key={index}
                 className="report-vertical__content-report"
-                style={{ backgroundImage: bgImageLink }}
+                style={{
+                  backgroundImage: bgImageLink,
+                  height: `${
+                    printMap[this.props.examResultContainer.length]
+                  }px`,
+                }}
               >
                 <div className="report-vertical__content-report-edit">
                   <div className="basic-info">
@@ -171,3 +176,16 @@ class ReportVertical extends React.Component {
 }
 
 export default ReportVertical
+
+const printMap = {
+  1: 1133,
+  2: 1135.2,
+  3: 1135.1,
+  4: 1135.1,
+  5: 1135.1,
+  6: 1135.06,
+  7: 1135.06,
+  8: 1135.06,
+  9: 1135.06,
+  10: 1135.06,
+}
