@@ -32,7 +32,7 @@ const Login = ({ history, location }) => {
   })
 
   const checkPhoneNumber = (value) => {
-    if (selectedExaminer.phone.endsWith(value)) {
+    if (value.length > 0 && selectedExaminer.phone.endsWith(value)) {
       selectExaminer()
     } else {
       message.error('输入的电话号码后四位不正确')
