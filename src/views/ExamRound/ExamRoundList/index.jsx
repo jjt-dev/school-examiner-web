@@ -74,6 +74,11 @@ const RoundList = ({
     }
   }, [selectedRoundForAdd])
 
+  const getAllRounds = () => {
+    fetchRounds()
+    fetchMakeupRounds()
+  }
+
   const addMakeupStudToRound = async (student) => {
     const { id } = student
     await api.get(`/exam/addUnexamStudentToRound`, {
@@ -82,8 +87,7 @@ const RoundList = ({
     })
     const studentIndex = makeupStudents.findIndex((item) => item.id === id)
     setMakeupStudents(set(`[${studentIndex}].added`, true, makeupStudents))
-    fetchRounds()
-    fetchMakeupRounds()
+    getAllRounds()
   }
 
   const openModal = (e, round, type) => {
@@ -158,6 +162,7 @@ const RoundList = ({
         <RoundModal
           hideModal={hideModal}
           roundNum={selectedRoundForRemove.roundNum}
+          getAllRounds={getAllRounds}
         />
       )}
     </div>

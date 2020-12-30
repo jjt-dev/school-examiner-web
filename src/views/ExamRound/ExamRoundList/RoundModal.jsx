@@ -1,15 +1,12 @@
 import { Avatar, Button, message, Modal, Table } from 'antd'
 import React from 'react'
-import { useDispatch } from 'react-redux'
-import { getAllRounds } from 'src/actions/app'
 import useFetch from 'src/hooks/useFetch'
 import api from 'src/utils/api'
 import { getCustomRow, getDomain, getRow, tableOrder } from 'src/utils/common'
 
 const { confirm } = Modal
 
-const RoundModal = ({ hideModal, roundNum }) => {
-  const dispatch = useDispatch()
+const RoundModal = ({ hideModal, roundNum, getAllRounds }) => {
   const [students = [], fetchStudents] = useFetch(
     `/exam/examGroupStudents?roundNum=${roundNum}`
   )
@@ -24,7 +21,7 @@ const RoundModal = ({ hideModal, roundNum }) => {
         )
         message.success('成功移出考生')
         fetchStudents()
-        dispatch(getAllRounds())
+        getAllRounds()
       },
     })
   }
