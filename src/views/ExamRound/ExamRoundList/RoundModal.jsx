@@ -6,7 +6,7 @@ import { getCustomRow, getDomain, getRow, tableOrder } from 'src/utils/common'
 
 const { confirm } = Modal
 
-const RoundModal = ({ hideModal, roundNum, getAllRounds }) => {
+const RoundModal = ({ hideModal, roundNum, getAllRounds, fetchMakeupCount }) => {
   const [students = [], fetchStudents] = useFetch(
     `/exam/examGroupStudents?roundNum=${roundNum}`
   )
@@ -22,6 +22,7 @@ const RoundModal = ({ hideModal, roundNum, getAllRounds }) => {
         message.success('成功移出考生')
         fetchStudents()
         getAllRounds()
+        fetchMakeupCount()
       },
     })
   }

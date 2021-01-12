@@ -63,6 +63,7 @@ const RoundList = ({
   const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
   const [selectedRoundForRemove, setSelectedRoundForRemove] = useState()
   const [makeupStudents, setMakeupStudents] = useState([])
+  const [makeupCount, fetchMakeupCount] = useFetch(`/exam/examMakeUpCount`)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -88,6 +89,7 @@ const RoundList = ({
     const studentIndex = makeupStudents.findIndex((item) => item.id === id)
     setMakeupStudents(set(`[${studentIndex}].added`, true, makeupStudents))
     getAllRounds()
+    fetchMakeupCount()
   }
 
   const openModal = (e, round, type) => {
@@ -116,7 +118,7 @@ const RoundList = ({
         type="primary"
         className="resource-pool-btn"
       >
-        资源池
+        待考列表 ({makeupCount})
       </Button>
       {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
@@ -163,6 +165,7 @@ const RoundList = ({
           hideModal={hideModal}
           roundNum={selectedRoundForRemove.roundNum}
           getAllRounds={getAllRounds}
+          fetchMakeupCount={fetchMakeupCount}
         />
       )}
     </div>

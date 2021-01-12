@@ -44,7 +44,7 @@ export const routes = [
   {
     path: '/resource-pool',
     comp: ResourcePool,
-    back: { path: '/exam-rounds', breadcrumbs: ['考试分组列表', '资源池'] },
+    back: { path: '/exam-rounds', breadcrumbs: ['考试分组列表', '待考列表'] },
   },
 ]
 
