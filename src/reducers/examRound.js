@@ -80,6 +80,7 @@ const examRound = handleActions(
         updatedItems[itemId] = true
         studentList[studentIndex].results = results
         studentList[studentIndex].updatedItems = updatedItems
+        studentList[studentIndex].totalScore =  getTotalScore(studentList[studentIndex], examItems)
       })
       return set(`examRound.studentList`, studentList, state)
     },
