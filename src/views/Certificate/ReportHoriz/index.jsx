@@ -40,6 +40,19 @@ class ReportHoriz extends React.Component {
   }
 
   render() {
+    const printMap = {
+      1: 799.2,
+      2: 799.2,
+      3: 799.1,
+      4: 799.1,
+      5: 799.1,
+      6: 799.08,
+      7: 799.06,
+      8: 799.06,
+      9: 799.06,
+      10: 799.06,
+    }
+
     const bgImageLink = this.state.withBgImg
       ? `url(${getDomain()}${this.state.template.bgUrl})`
       : ''
@@ -70,7 +83,12 @@ class ReportHoriz extends React.Component {
               <div
                 key={index}
                 className="report-horiz__content-report"
-                style={{ backgroundImage: bgImageLink }}
+                style={{
+                  backgroundImage: bgImageLink,
+                  height: `${
+                    printMap[this.props.examResultContainer.length] ?? 799.06
+                  }px`,
+                }}
               >
                 <div className="report-horiz__content-report-edit">
                   <div className="basic-info">

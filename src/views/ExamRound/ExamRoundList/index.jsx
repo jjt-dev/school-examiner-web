@@ -20,6 +20,7 @@ const ExamRoundList = ({ history }) => {
   const [examMakeupRoundList = [], fetchMakeupRounds] = useFetch(
     `/exam/makeupRoundList`
   )
+  const [makeupCount, fetchMakeupCount] = useFetch(`/exam/examMakeUpCount`)
   const hasMakeups = examMakeupRoundList.length > 0
 
   return (
@@ -33,6 +34,8 @@ const ExamRoundList = ({ history }) => {
           history={history}
           fetchRounds={fetchRounds}
           fetchMakeupRounds={fetchMakeupRounds}
+          makeupCount={makeupCount}
+          fetchMakeupCount={fetchMakeupCount}
         />
       )}
       {hasMakeups && (
@@ -42,6 +45,8 @@ const ExamRoundList = ({ history }) => {
           isMakeup
           fetchRounds={fetchRounds}
           fetchMakeupRounds={fetchMakeupRounds}
+          makeupCount={makeupCount}
+          fetchMakeupCount={fetchMakeupCount}
         />
       )}
       {!examRoundList.length && !examMakeupRoundList.length && (
@@ -59,11 +64,12 @@ const RoundList = ({
   isMakeup,
   fetchRounds,
   fetchMakeupRounds,
+  makeupCount,
+  fetchMakeupCount,
 }) => {
   const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
   const [selectedRoundForRemove, setSelectedRoundForRemove] = useState()
   const [makeupStudents, setMakeupStudents] = useState([])
-  const [makeupCount, fetchMakeupCount] = useFetch(`/exam/examMakeUpCount`)
 
   useEffect(() => {
     const fetchData = async () => {

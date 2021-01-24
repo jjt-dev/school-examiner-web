@@ -91,7 +91,7 @@ class ReportVertical extends React.Component {
                 style={{
                   backgroundImage: bgImageLink,
                   height: `${
-                    printMap[this.props.examResultContainer.length]
+                    printMap[this.props.examResultContainer.length] ?? 1133.05
                   }px`,
                 }}
               >
