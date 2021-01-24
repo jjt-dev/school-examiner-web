@@ -132,9 +132,7 @@ const ExamRound = ({ match, history }) => {
                 />
               )}
               <div className="exam-round__header-middle">
-                {!examFinish && (
-                  <CountDown {...examRound} finishExam={finishExam} />
-                )}
+                {!examFinish && <CountDown {...examRound} />}
                 {examFinish && (
                   <div className="exam-round__header-middle-level">
                     考试结果

@@ -5,7 +5,7 @@ import { session } from 'src/utils/storage'
 
 const OneMinSeconds = 60
 
-const CountDown = ({ examDuration, headerInfo, finishExam }) => {
+const CountDown = ({ examDuration, headerInfo }) => {
   const [deadline, setDeadline] = useState(examDuration)
   const [minutes, setMinutes] = useState(examDuration / OneMinSeconds)
   const [seconds, setSeconds] = useState(0)
@@ -24,10 +24,6 @@ const CountDown = ({ examDuration, headerInfo, finishExam }) => {
     setMinutes(Math.floor(deadline / OneMinSeconds))
     setSeconds(deadline % OneMinSeconds)
     session.setItem('examDeadline', deadline)
-    if (deadline === 0) {
-      finishExam()
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [deadline])
 
   const formatTime = (time) => {
