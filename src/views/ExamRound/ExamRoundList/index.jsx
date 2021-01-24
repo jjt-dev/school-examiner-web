@@ -28,6 +28,11 @@ const ExamRoundList = ({ history }) => {
       <div className="exam-round-list__title">
         <span>{examInfo?.title}</span>
       </div>
+      <div className="resource-pool-btn">
+        <Button onClick={() => history.push(`/resource-pool`)} type="primary">
+          待考列表 ({makeupCount})
+        </Button>
+      </div>
       {examRoundList.length > 0 && (
         <RoundList
           roundList={examRoundList}
@@ -119,13 +124,6 @@ const RoundList = ({
 
   return (
     <div className="exam-round-list__content">
-      <Button
-        onClick={() => history.push(`/resource-pool`)}
-        type="primary"
-        className="resource-pool-btn"
-      >
-        待考列表 ({makeupCount})
-      </Button>
       {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
         const isFinish = roundStatus.key === 'finish'

@@ -54,7 +54,7 @@ const ResourcePool = () => {
   return (
     <PageList
       columns={getColumns}
-      title="待考列表"
+      title="待考考生"
       size="small"
       defaultTableList={tableList}
       showRowSelection
