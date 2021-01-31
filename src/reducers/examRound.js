@@ -42,7 +42,7 @@ const examRound = handleActions(
       return set(`examRound.studentList[${index}][${field}]`, value, state)
     },
     [UPDATE_RESULT]: (state, { payload }) => {
-      const { studentList, examItems } = state.examRound
+      const { studentList } = state.examRound
       const { student, itemId, value } = payload
       const { studentId, levelId } = student
       const index = studentList.findIndex(
@@ -56,7 +56,7 @@ const examRound = handleActions(
         set(`examRound.studentList[${index}].updatedItems`, updatedItems),
         set(
           `examRound.studentList[${index}].totalScore`,
-          getTotalScore(student, examItems)
+          getTotalScore(student)
         )
       )(state)
     },
@@ -80,7 +80,9 @@ const examRound = handleActions(
         updatedItems[itemId] = true
         studentList[studentIndex].results = results
         studentList[studentIndex].updatedItems = updatedItems
-        studentList[studentIndex].totalScore =  getTotalScore(studentList[studentIndex], examItems)
+        studentList[studentIndex].totalScore = getTotalScore(
+          studentList[studentIndex]
+        )
       })
       return set(`examRound.studentList`, studentList, state)
     },

@@ -60,11 +60,11 @@ export const deepClone = (obj) => {
  * @param {*} student
  * @param {*} examItems
  */
-export const getTotalScore = (student, examItems) => {
+export const getTotalScore = (student) => {
   const results = student.results || {}
   const itemIds = Object.keys(results)
   // 只有当每个考项有成绩的时候再计算总成绩
-  if (itemIds.length < examItems.length) return null
+  if (itemIds.length < student.examItems.length) return null
   let score = 0
   student.examItems.forEach((item) => {
     score += results[item.id] * item.ratio
