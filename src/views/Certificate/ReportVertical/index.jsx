@@ -172,6 +172,7 @@ class ReportVertical extends React.Component {
                         <div>
                           3.考试不合格的学员凭补考单进行补考 (限补考一次)
                         </div>
+                        <div>4.{this.props.gradeInfo}</div>
                       </div>
                     </div>
                   </div>

@@ -158,13 +158,12 @@ class ReportHoriz extends React.Component {
                     <div className="results__remark">
                       <div className="results__remark-title">备注:</div>
                       <div className="results__remark-content">
-                        <div>
-                          1.考官未打分的科目属于本级别规定不考科目;
-                          2.考试合格的学员凭此表领取证书和腰带
-                        </div>
+                        <div>1.考官未打分的科目属于本级别规定不考科目;</div>
+                        <div>2.考试合格的学员凭此表领取证书和腰带</div>
                         <div>
                           3.考试不合格的学员凭补考单进行补考 (限补考一次);
                         </div>
+                        <div>4.{this.props.gradeInfo}</div>
                       </div>
                     </div>
                   </div>
