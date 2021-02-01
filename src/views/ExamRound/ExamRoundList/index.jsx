@@ -39,7 +39,6 @@ const ExamRoundList = ({ history }) => {
           history={history}
           fetchRounds={fetchRounds}
           fetchMakeupRounds={fetchMakeupRounds}
-          makeupCount={makeupCount}
           fetchMakeupCount={fetchMakeupCount}
         />
       )}
@@ -50,7 +49,6 @@ const ExamRoundList = ({ history }) => {
           isMakeup
           fetchRounds={fetchRounds}
           fetchMakeupRounds={fetchMakeupRounds}
-          makeupCount={makeupCount}
           fetchMakeupCount={fetchMakeupCount}
         />
       )}
@@ -69,7 +67,6 @@ const RoundList = ({
   isMakeup,
   fetchRounds,
   fetchMakeupRounds,
-  makeupCount,
   fetchMakeupCount,
 }) => {
   const [selectedRoundForAdd, setSelectedRoundForAdd] = useState()
@@ -127,6 +124,7 @@ const RoundList = ({
       {roundList.map((item) => {
         const roundStatus = findRoundStatus(item.currState)
         const isFinish = roundStatus.key === 'finish'
+        const isPause = roundStatus.key === 'pause'
         return (
           <div
             key={item.roundNum}
@@ -145,7 +143,7 @@ const RoundList = ({
             </div>
             <div className="round-level">
               考生数: {item.studentCount}
-              {!isFinish && (
+              {!isFinish && !isPause && (
                 <EditOutlined
                   onClick={(e) => openModal(e, item, 'remove')}
                   className="edit-student-icon"
