@@ -10,7 +10,6 @@ const ActionBar = ({
   selectRound,
   isGradeMode,
   setIsGradeMode,
-  examRound,
   examFinish,
 }) => {
   const defaultValue = `${roundNum < 0 ? '补考-' : ''}${getRoundTitle(

@@ -1,7 +1,7 @@
 import './index.less'
 
 import { Avatar, Button, message, Modal } from 'antd'
-import React from 'react'
+import React, { useEffect } from 'react'
 import ListHeader from 'src/components/ListHeader'
 import PageList from 'src/components/PageList'
 import useTableSearch from 'src/hooks/useTableFetch'
@@ -15,13 +15,18 @@ import {
   tableOrder,
 } from 'src/utils/common'
 import api from 'src/utils/api'
+import { closeLoadingBar, showLoadingBar } from 'src/actions/app'
 
 const { confirm } = Modal
 
 const ResourcePool = () => {
   const tableList = useTableSearch(`/exam/examMakeUpPage`)
-  const { rowSelection } = tableList
+  const { rowSelection, loading } = tableList
   const selectedStudents = rowSelection.selectedRowKeys
+
+  useEffect(() => {
+    loading ? showLoadingBar() : closeLoadingBar()
+  }, [loading])
 
   const createGroup = () => {
     confirm({
