@@ -5,11 +5,15 @@ import { CertificateCategory } from './helper'
 import ReportPrint from './ReportPrint'
 import MakeupExamCertif from './MakeupExamCertif'
 import useFetch from 'src/hooks/useFetch'
+import { EXAM_CODE, session } from 'src/utils/storage'
 
 const Certificate = ({ match, location }) => {
   const { roundNum, studentId } = match.params
   const { type, PassScore, levelId } = parseSearches(location)
   const [examResult] = useFetch(buildPath(roundNum, studentId, levelId))
+  const [association = {}] = useFetch(
+    `/common/organizationDetail?examCode=${session.getItem(EXAM_CODE)}`
+  )
 
   //这里的examResult如果是单个考生的成绩那就是object, 如果是批量打印那就是array
   let examResultArr = []
@@ -35,7 +39,12 @@ const Certificate = ({ match, location }) => {
           <div className="certificate__title">
             {CertificateCategory[type].title}打印
           </div>
-          {type === 'report' && <ReportPrint examResult={examResultPassed} />}
+          {type === 'report' && (
+            <ReportPrint
+              examResult={examResultPassed}
+              assoLogo={association.logUrl}
+            />
+          )}
           {type === 'exam' && (
             <MakeupExamCertif
               examResult={examResultFailed}

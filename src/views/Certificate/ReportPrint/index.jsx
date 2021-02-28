@@ -9,7 +9,7 @@ import useFetch from 'src/hooks/useFetch'
 
 const { TabPane } = Tabs
 
-const ReportPrint = ({ examResult }) => {
+const ReportPrint = ({ examResult, assoLogo }) => {
   const dispatch = useDispatch()
   const [gradeInfo = ''] = useFetch(`/exam/gradeInfo`)
   const { printTabKey } = useSelector((state) => state.app)
@@ -24,16 +24,22 @@ const ReportPrint = ({ examResult }) => {
         <ReportVertical
           examResultContainer={examResult}
           gradeInfo={gradeInfo}
+          assoLogo={assoLogo}
         />
       </TabPane>
       <TabPane tab="竖版(自定义右半边)" key="1">
         <ReportVerticalWithRight
           examResultContainer={examResult}
           gradeInfo={gradeInfo}
+          assoLogo={assoLogo}
         />
       </TabPane>
       <TabPane tab="横板" key="2">
-        <ReportHoriz examResultContainer={examResult} gradeInfo={gradeInfo} />
+        <ReportHoriz
+          examResultContainer={examResult}
+          gradeInfo={gradeInfo}
+          assoLogo={assoLogo}
+        />
       </TabPane>
     </Tabs>
   )

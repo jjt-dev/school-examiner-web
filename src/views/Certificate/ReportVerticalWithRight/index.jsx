@@ -68,6 +68,12 @@ class ReportVerticalWithRight extends React.Component {
           />
         </div>
         <div className="report-vertical-right__content" ref={this.myRef}>
+          <div
+            className="report-vertical-right__content-logo"
+            style={{
+              backgroundImage: `url(${getDomain()}${this.props.assoLogo})`,
+            }}
+          ></div>
           {this.props.examResultContainer.map((item, index) => {
             // 目前只能报考一个考试，所以直接取results第一个元素
             const { studentInfo, examResults } = item
