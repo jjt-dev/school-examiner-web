@@ -78,12 +78,6 @@ class ReportVertical extends React.Component {
           />
         </div>
         <div className="report-vertical__content" ref={this.myRef}>
-          <div
-            className="report-vertical__content-logo"
-            style={{
-              backgroundImage: `url(${getDomain()}${this.props.assoLogo})`,
-            }}
-          ></div>
           {this.props.examResultContainer.map((item, index) => {
             // 目前只能报考一个考试，所以直接取results第一个元素
             const { studentInfo, examResults } = item
@@ -101,6 +95,14 @@ class ReportVertical extends React.Component {
                   }px`,
                 }}
               >
+                <div
+                  className="report-vertical__content-report-logo"
+                  style={{
+                    backgroundImage: `url(${getDomain()}${
+                      this.props.assoLogo
+                    })`,
+                  }}
+                ></div>
                 <div className="report-vertical__content-report-edit">
                   <div className="basic-info">
                     <div

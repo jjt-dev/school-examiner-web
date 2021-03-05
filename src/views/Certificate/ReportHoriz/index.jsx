@@ -72,12 +72,6 @@ class ReportHoriz extends React.Component {
           />
         </div>
         <div className="report-horiz__content" ref={this.myRef}>
-          <div
-            className="report-horiz__content-logo"
-            style={{
-              backgroundImage: `url(${getDomain()}${this.props.assoLogo})`,
-            }}
-          ></div>
           {this.props.examResultContainer.map((item, index) => {
             // 目前只能报考一个考试，所以直接取results第一个元素
             const { studentInfo, examResults } = item
@@ -96,6 +90,14 @@ class ReportHoriz extends React.Component {
                   }px`,
                 }}
               >
+                <div
+                  className="report-horiz__content-report-logo"
+                  style={{
+                    backgroundImage: `url(${getDomain()}${
+                      this.props.assoLogo
+                    })`,
+                  }}
+                ></div>
                 <div className="report-horiz__content-report-edit">
                   <div className="basic-info">
                     <div

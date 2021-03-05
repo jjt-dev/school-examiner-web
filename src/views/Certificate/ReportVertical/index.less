@@ -36,16 +36,6 @@
     display: flex;
     flex-direction: column;
 
-    &-logo {
-      position: absolute;
-      width: 760px;
-      height: 100px;
-      top: 135px;
-      margin-left: 20px;
-      background-repeat: no-repeat;
-      background-position: left;
-    }
-
     &-report {
       background-position: center;
       background-repeat: no-repeat;
@@ -53,6 +43,17 @@
       width: 800px;
       height: 1133px;
       padding-bottom: 3px;
+      position: relative;
+
+      &-logo {
+        position: absolute;
+        width: 760px;
+        height: 100px;
+        top: 100px;
+        margin-left: 20px;
+        background-repeat: no-repeat;
+        background-position: left;
+      }
 
       .ant-row {
         .ant-col {

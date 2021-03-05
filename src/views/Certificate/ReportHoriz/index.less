@@ -24,21 +24,22 @@
     display: flex;
     flex-direction: column;
 
-    &-logo {
-      position: absolute;
-      width: 760px;
-      height: 85px;
-      top: 108px;
-      margin-left: 20px;
-      background-repeat: no-repeat;
-      background-position: left;
-    }
-
     &-report {
       background-position: center;
       background-repeat: no-repeat;
       background-size: cover;
       width: 1133px;
+      position: relative;
+
+      &-logo {
+        position: absolute;
+        width: 760px;
+        height: 85px;
+        top: 75px;
+        margin-left: 20px;
+        background-repeat: no-repeat;
+        background-position: left;
+      }
 
       .ant-row {
         margin-top: 7px;
